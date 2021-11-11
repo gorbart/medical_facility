@@ -1,4 +1,5 @@
 from enum import IntEnum
+
 from app.models.base import Person
 
 class UserType(IntEnum):

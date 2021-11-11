@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Dict, List, Optional, Tuple
 
-from config import doctor_collection
+from app.dao.database import doctor_collection
 from app.dao.common import add_entity, delete_entity, get_entities, get_entity, update_entity
 
 

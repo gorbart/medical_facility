@@ -1,4 +1,4 @@
-from config import user_collection
+from app.dao.database import user_collection
 from app.dao.common import add_entity, delete_entity, get_entities, get_entity, update_entity
 
 async def get_users():
