@@ -5,7 +5,7 @@ from bson.objectid import ObjectId
 from app.models.base import DBModel, Person
 
 
-class Doctor(Person, DBModel):
+class Doctor(Person):
     schedule: List[Dict[Tuple[datetime, datetime], List[Tuple[datetime, datetime]]]]  
     scheduled_appointments: List[Tuple[datetime, datetime, Optional[str]]]
     specialities: List[dict]

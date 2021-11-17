@@ -33,7 +33,7 @@ class DBModel(BaseModel):
     
     
 
-class Person(BaseModel):
+class Person(DBModel):
     name: str
     surname: str
     email: Optional[str]
