@@ -11,4 +11,5 @@ class Patient(Person):
     
     class Config:
         arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str}
+        allow_population_by_field_name = True
+        json_encoders = {ObjectId: lambda v: str(v)}

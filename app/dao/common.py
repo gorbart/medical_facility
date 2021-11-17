@@ -4,7 +4,7 @@ from bson import ObjectId
 from motor.motor_asyncio import AsyncIOMotorCollection
 
 
-async def get_entities(collection: AsyncIOMotorCollection):
+async def get_entities(collection: AsyncIOMotorCollection) -> List[dict]:
     entities = [entity async for entity in collection.find()]
     return entities
 

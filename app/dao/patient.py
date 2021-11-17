@@ -1,7 +1,8 @@
+from typing import List
 from app.dao.database import patient_collection
 from app.dao.common import add_entity, delete_entity, get_entities, get_entity, update_entity
 
-async def get_patients():
+async def get_patients() -> List[dict]:
     return await get_entities(patient_collection)
 
 
