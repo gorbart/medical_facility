@@ -17,8 +17,9 @@ async def get_entity(collection: AsyncIOMotorCollection, entity_id: str):
 
 async def add_entity(collection: AsyncIOMotorCollection, entity_data: dict):
     entity = await collection.insert_one(entity_data)
+    added_entity = await collection.find_one({'_id': entity.inserted_id})
 
-    return entity
+    return added_entity
 
 
 async def update_entity(collection: AsyncIOMotorCollection, entity_data: dict, entity_id: str):
