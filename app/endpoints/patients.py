@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from starlette import status
-from starlette.responses import JSONResponse
+from starlette.responses import JSONResponse, Response
 from fastapi.encoders import jsonable_encoder
 from bson import json_util
 
@@ -34,12 +34,13 @@ async def get_patient_list() -> JSONResponse:
 
 @router.post('/', response_description='Add a patient')
 async def add_patient_data(patient:Patient) -> JSONResponse:
-    db_patient = await add_patient(patient.dict())
+    db_patient = await add_patient(patient.dict(by_alias=True))
     db_patient = json_util.dumps(db_patient)
     return JSONResponse(status_code=status.HTTP_201_CREATED, content=db_patient)
 
+
 @router.delete('/{patient_id}', response_description='Delete a patient from database')
-async def delete_patient_data(patient_id:str) -> JSONResponse:
+async def delete_patient_data(patient_id:str) -> Response:
     if await delete_patient(patient_id):
-        return JSONResponse(status_code=status.HTTP_204_NO_CONTENT)
+        return Response(status_code=status.HTTP_204_NO_CONTENT)
     raise HTTPException(status_code=404, detail=PATIENT_NOT_FOUND_MESSAGE.format(patient_id))
