@@ -1,6 +1,9 @@
 from app.dao.database import patient_collection
 from app.dao.common import add_entity, delete_entity, get_entities, get_entity, update_entity
 
+from datetime import datetime
+from typing import Dict, List, Optional, Tuple
+
 async def get_patients():
     return await get_entities(patient_collection)
 
@@ -19,7 +22,7 @@ async def add_patient(patient_data: dict):
 async def update_patient(patient_id: str, patient_data: dict):
     return await update_entity(patient_collection, patient_data, patient_id)
 
-async def add_medicine(patient_id: str, medicine_data: dict):
+async def add_medicine(patient_id: str, medicine_data: Dict[datetime, Tuple[str, datetime, datetime]]):
     patient = await get_patient(patient_id)
     patient.medicine_taken.append(medicine_data)
     return update_patient(patient_id, patient.dict())

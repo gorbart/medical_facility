@@ -15,7 +15,6 @@ router = APIRouter(
     tags=["patients"]
 )
 
-
 @router.get('/{patient_id}', response_description='Get a patient with given id')
 async def get_one_patient(patient_id: str) -> JSONResponse:
     patient = await get_patient(patient_id)
@@ -38,7 +37,6 @@ async def add_patient_data(patient:Patient) -> JSONResponse:
     db_patient = json_util.dumps(db_patient)
     return JSONResponse(status_code=status.HTTP_201_CREATED, content=db_patient)
 
-
 @router.put('/{patient_id}', response_description='Update a patient in database')
 async def update_patient_data(patient_id: str, received_patient_data:dict) -> JSONResponse:
     is_successful = await update_patient(patient_id, received_patient_data)
@@ -54,6 +52,7 @@ async def update_patient_data(patient_id: str, received_patient_data:dict) -> JS
             return JSONResponse(status_code=status.HTTP_200_OK, content=patient)
 
     raise HTTPException(status_code=404, detail=PATIENT_NOT_FOUND_MESSAGE.format(patient_id))
+
 
 
 @router.delete('/{patient_id}', response_description='Delete a patient from database')

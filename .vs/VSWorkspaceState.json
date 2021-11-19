@@ -6,6 +6,6 @@
     "\\app\\endpoints",
     "\\app\\models"
   ],
-  "SelectedNode": "\\app\\endpoints\\doctors.py",
+  "SelectedNode": "\\app\\dao\\patient.py",
   "PreviewInSolutionExplorer": false
 }

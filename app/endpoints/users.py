@@ -10,6 +10,7 @@ from app.dao.user import *
 
 USER_NOT_FOUND_MESSAGE = 'User with id {} not found'
 INCORRECT_LOGIN_DATA = 'Sorry, we can not find the acccount with entered login, or the password is incorrect'
+USER_NOT_CHANGED_MESSAGE = 'Unfortunatelly, user with id {} data did not change'
 
 router = APIRouter(
     prefix="/users",
@@ -54,7 +55,7 @@ async def update_user_data(user_id: str, received_user_data:dict) -> JSONRespons
     if user is not None:
         user = json_util.dumps(user)
         if not is_successful:
-            return JSONResponse(status_code=status.HTTP_202_ACCEPTED, content={'message': OBJECT_NOT_CHANGED_MESSAGE,
+            return JSONResponse(status_code=status.HTTP_202_ACCEPTED, content={'message': USER_NOT_CHANGED_MESSAGE.format(user_id),
                                                                                'object': user})
         else:
             return JSONResponse(status_code=status.HTTP_200_OK, content=user)
