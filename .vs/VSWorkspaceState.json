@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\app",
+    "\\app\\dao",
+    "\\app\\endpoints",
+    "\\app\\models"
+  ],
+  "SelectedNode": "\\app\\endpoints\\doctors.py",
+  "PreviewInSolutionExplorer": false
+}
