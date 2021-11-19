@@ -39,6 +39,23 @@ async def add_patient_data(patient:Patient) -> JSONResponse:
     return JSONResponse(status_code=status.HTTP_201_CREATED, content=db_patient)
 
 
+@router.put('/{patient_id}', response_description='Update a patient in database')
+async def update_patient_data(patient_id: str, received_patient_data:dict) -> JSONResponse:
+    is_successful = await update_patient(patient_id, received_patient_data)
+
+    patient = await get_patient(patient_id)
+
+    if patient is not None:
+        patient = json_util.dumps(patient)
+        if not is_successful:
+            return JSONResponse(status_code=status.HTTP_202_ACCEPTED, content={'message': OBJECT_NOT_CHANGED_MESSAGE,
+                                                                               'object': patient})
+        else:
+            return JSONResponse(status_code=status.HTTP_200_OK, content=patient)
+
+    raise HTTPException(status_code=404, detail=PATIENT_NOT_FOUND_MESSAGE.format(patient_id))
+
+
 @router.delete('/{patient_id}', response_description='Delete a patient from database')
 async def delete_patient_data(patient_id:str) -> Response:
     if await delete_patient(patient_id):

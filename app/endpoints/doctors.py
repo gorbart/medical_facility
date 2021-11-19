@@ -28,4 +28,3 @@ async def get_doctor_list() -> JSONResponse:
     doctors = await get_doctors()
     doctors = json_util.dumps(doctors)
     return JSONResponse(status_code=status.HTTP_200_OK, content=doctors)
-
