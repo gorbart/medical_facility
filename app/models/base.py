@@ -21,19 +21,10 @@ class PyObjectId(ObjectId):
     @classmethod
     def __modify_schema__(cls, field_schema):
         field_schema.update(type='string')
+    
 
-
-class DBModel(BaseModel):
-    """
-    DBModel class has id attribute which is a common attribute for all models being saved into database. It's
-    automatically assigned to a model on its creation
-    """
-
+class Person(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias='_id')
-    
-    
-
-class Person(DBModel):
     name: str
     surname: str
     email: Optional[str]
