@@ -1,18 +1,26 @@
-from datetime import datetime
-from typing import List, Optional, Dict, Tuple
+from typing import List, TypedDict
 from bson.objectid import ObjectId
-from pydantic.main import BaseModel
+from datetime import datetime
 
 from app.models.base import Person
 
 
-class Patient(Person):
-    disease_history: List[dict]
+class Medicines(TypedDict):
+    name: str
+    until: datetime
 
-    #medicine_taken: List[dict]
-    medicine_taken: List[Dict[datetime, Tuple[str, datetime, datetime]]]
+
+class MedicinesTaken(TypedDict):
+    date: datetime
+    medicines: List[Medicines]
+
+
+class Patient(Person):
+    disease_history: List[dict] = []
+
+    medicine_taken: List[MedicinesTaken] = []
     
     class Config:
         arbitrary_types_allowed = True
         allow_population_by_field_name = True
-        json_encoders = {ObjectId: lambda v: str(v)}
+        json_encoders = {ObjectId: str}

@@ -1,5 +1,3 @@
-from typing import List
-
 from bson import ObjectId
 from motor.motor_asyncio import AsyncIOMotorCollection
 

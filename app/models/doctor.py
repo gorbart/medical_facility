@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import Dict, List, Optional, Tuple
 
 from bson.objectid import ObjectId
-from app.models.base import DBModel, Person
+from app.models.base import Person
 
 
 class Doctor(Person):

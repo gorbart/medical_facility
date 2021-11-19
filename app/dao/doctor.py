@@ -30,21 +30,23 @@ async def update_doctor(doctor_id: str, doctor_data: dict):
 
 
 async def update_doctor_schedule(
-    doctor_id: str, new_schedule: Dict[Tuple[datetime, datetime],
-                                       List[Tuple[datetime, datetime,
-                                                  Optional[str]]]]):
+        doctor_id: str, new_schedule: Dict[Tuple[datetime, datetime],
+                                           List[Tuple[datetime, datetime,
+                                                      Optional[str]]]]):
     doctor = await get_doctor(doctor_id)
     doctor.schedule.append(new_schedule)
     return update_doctor(doctor_id, doctor.dict())
 
+
 async def add_appointment(
-    doctor_id: str, appointment: Tuple[datetime, datetime]):
+        doctor_id: str, appointment: Tuple[datetime, datetime]):
     doctor = await get_doctor(doctor_id)
     doctor.scheduled_appointments.append(appointment)
     return update_doctor(doctor_id, doctor.dict())
 
+
 async def update_appointment(
-    doctor_id: str, appointment: Tuple[datetime, datetime], description: str):
+        doctor_id: str, appointment: Tuple[datetime, datetime], description: str):
     doctor = await get_doctor(doctor_id)
     doctor.scheduled_appointments.remove(appointment)
     doctor.scheduled_appointments.append((appointment[0], appointment[1], description))

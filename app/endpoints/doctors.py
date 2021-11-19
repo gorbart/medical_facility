@@ -14,6 +14,7 @@ router = APIRouter(
     tags=["doctors"]
 )
 
+
 @router.get('/{doctor_id}', response_description='Get a doctor with given id')
 async def get_one_doctor(doctor_id: str) -> JSONResponse:
     doctor = await get_doctor(doctor_id)

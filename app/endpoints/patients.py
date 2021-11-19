@@ -1,7 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from starlette import status
 from starlette.responses import JSONResponse, Response
-from fastapi.encoders import jsonable_encoder
 from bson import json_util
 
 from app.models.patient import Patient
@@ -9,11 +8,13 @@ from app.dao.patient import *
 
 
 PATIENT_NOT_FOUND_MESSAGE = 'Patient with id {} not found'
+OBJECT_NOT_CHANGED_MESSAGE = "Patient data couldn't be changed"
 
 router = APIRouter(
     prefix="/patients",
     tags=["patients"]
 )
+
 
 @router.get('/{patient_id}', response_description='Get a patient with given id')
 async def get_one_patient(patient_id: str) -> JSONResponse:
@@ -32,13 +33,14 @@ async def get_patient_list() -> JSONResponse:
 
 
 @router.post('/', response_description='Add a patient')
-async def add_patient_data(patient:Patient) -> JSONResponse:
+async def add_patient_data(patient: Patient) -> JSONResponse:
     db_patient = await add_patient(patient.dict(by_alias=True))
     db_patient = json_util.dumps(db_patient)
     return JSONResponse(status_code=status.HTTP_201_CREATED, content=db_patient)
 
+
 @router.put('/{patient_id}', response_description='Update a patient in database')
-async def update_patient_data(patient_id: str, received_patient_data:dict) -> JSONResponse:
+async def update_patient_data(patient_id: str, received_patient_data: dict) -> JSONResponse:
     is_successful = await update_patient(patient_id, received_patient_data)
 
     patient = await get_patient(patient_id)
@@ -54,9 +56,8 @@ async def update_patient_data(patient_id: str, received_patient_data:dict) -> JS
     raise HTTPException(status_code=404, detail=PATIENT_NOT_FOUND_MESSAGE.format(patient_id))
 
 
-
 @router.delete('/{patient_id}', response_description='Delete a patient from database')
-async def delete_patient_data(patient_id:str) -> Response:
+async def delete_patient_data(patient_id: str) -> Response:
     if await delete_patient(patient_id):
         return Response(status_code=status.HTTP_204_NO_CONTENT)
     raise HTTPException(status_code=404, detail=PATIENT_NOT_FOUND_MESSAGE.format(patient_id))
