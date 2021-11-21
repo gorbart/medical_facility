@@ -28,7 +28,7 @@ class Patient(Person):
 
 class UpdatePatient(UpdatePerson):
     """
-    Model for updating
+    Model for updating Patient data
     """
     disease_history: Optional[List[dict]]
 

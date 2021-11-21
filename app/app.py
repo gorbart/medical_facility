@@ -1,7 +1,46 @@
 from fastapi import FastAPI
 from app.endpoints import doctors, users, patients
 
-app = FastAPI()
+description = """
+Medical facility API helps managing medical facility.
+
+## Patients
+
+You can create, read, update and delete data about **Patients**
+
+## Doctors
+
+You can create, read, update and delete data about **Docotrs**
+
+You are able to:
+
+* Add doctors' schedule
+* Add scheduled appointments
+* Search doctors by specialty 
+
+"""
+
+tags_metadata = [
+    {
+        "name": "patients",
+        "description": "Operations with patients."
+    },
+    {
+        "name": "doctors",
+        "description": "Operations with doctors."
+    },
+    {
+        "name": "users",
+        "description": "Operations with users. Login logic is here too."
+    }
+]
+
+app = FastAPI(
+    title="Medical facility",
+    version="0.0.2",
+    description=description,
+    openapi_tags=tags_metadata
+)
 
 app.include_router(doctors.router)
 app.include_router(patients.router)
