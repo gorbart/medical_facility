@@ -1,11 +1,10 @@
+from bson import json_util
 from fastapi import APIRouter, HTTPException
 from starlette import status
 from starlette.responses import JSONResponse, Response
-from bson import json_util
 
-from app.models.patient import Patient, MedicinesTaken
 from app.dao.patient import *
-
+from app.models.patient import Patient, UpdatePatient
 
 PATIENT_NOT_FOUND_MESSAGE = 'Patient with id {} not found'
 OBJECT_NOT_CHANGED_MESSAGE = "Patient data couldn't be changed"
@@ -40,8 +39,8 @@ async def add_patient_data(patient: Patient) -> JSONResponse:
 
 
 @router.put('/{patient_id}', response_description='Update a patient in database')
-async def update_patient_data(patient_id: str, received_patient_data: dict) -> JSONResponse:
-    is_successful = await update_patient(patient_id, received_patient_data)
+async def update_patient_data(patient_id: str, received_patient_data: UpdatePatient) -> JSONResponse:
+    is_successful = await update_patient(patient_id, received_patient_data.dict(by_alias=True))
 
     patient = await get_patient(patient_id)
 
@@ -54,12 +53,15 @@ async def update_patient_data(patient_id: str, received_patient_data: dict) -> J
             return JSONResponse(status_code=status.HTTP_200_OK, content=patient)
 
     raise HTTPException(status_code=404, detail=PATIENT_NOT_FOUND_MESSAGE.format(patient_id))
+
 
 @router.put('/add_medicine/', response_description='Add a medicine')
-async def add_medicine(patient_id :str, medicine_data: MedicinesTaken) ->JSONResponse:
+async def add_medicine(patient_id: str, medicine_data: MedicinesTaken) -> JSONResponse:
     patient = await get_patient(patient_id)
-    patient['medicine_taken'].append(medicine_data) 
+    patient['medicine_taken'].append(medicine_data)
+
     is_successful = await update_patient(patient_id, patient)
+
     if patient is not None:
         patient = json_util.dumps(patient)
         if not is_successful:
@@ -67,14 +69,17 @@ async def add_medicine(patient_id :str, medicine_data: MedicinesTaken) ->JSONRes
                                                                                'object': patient})
         else:
             return JSONResponse(status_code=status.HTTP_200_OK, content=patient)
+
     raise HTTPException(status_code=404, detail=PATIENT_NOT_FOUND_MESSAGE.format(patient_id))
 
+
 @router.put('/add_disease/', response_description='Add a disease')
-async def add_disease(patient_id :str, disease_data: dict) ->JSONResponse:
+async def add_disease(patient_id: str, disease_data: dict) -> JSONResponse:
     patient = await get_patient(patient_id)
     patient['disease_history'].append(disease_data)
-    
+
     is_successful = await update_patient(patient_id, patient)
+
     if patient is not None:
         patient = json_util.dumps(patient)
         if not is_successful:
@@ -82,6 +87,7 @@ async def add_disease(patient_id :str, disease_data: dict) ->JSONResponse:
                                                                                'object': patient})
         else:
             return JSONResponse(status_code=status.HTTP_200_OK, content=patient)
+
     raise HTTPException(status_code=404, detail=PATIENT_NOT_FOUND_MESSAGE.format(patient_id))
 
 
@@ -89,6 +95,5 @@ async def add_disease(patient_id :str, disease_data: dict) ->JSONResponse:
 async def delete_patient_data(patient_id: str) -> Response:
     if await delete_patient(patient_id):
         return Response(status_code=status.HTTP_204_NO_CONTENT)
+
     raise HTTPException(status_code=404, detail=PATIENT_NOT_FOUND_MESSAGE.format(patient_id))
-
-

@@ -37,3 +37,10 @@ class Person(DBModel):
     surname: str
     email: Optional[str]
     phone_number: Optional[str]
+
+
+class UpdatePerson(BaseModel):
+    name: Optional[str]
+    surname: Optional[str]
+    email: Optional[str]
+    phone_number: Optional[str]
