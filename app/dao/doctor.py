@@ -9,10 +9,10 @@ async def get_doctors():
     return await get_entities(doctor_collection)
 
 
-async def get_doctors_by_speciality(speciality: str):
+async def get_doctors_by_specialty(specialty: str):
     doctors = [
         doctor for doctor in await doctor_collection.find(
-            {"specialities.name": speciality})
+            {"specialties": specialty}).to_list(100)
     ]
     return doctors
 
@@ -53,9 +53,9 @@ async def update_appointment(
     return update_doctor(doctor_id, doctor.dict())
 
 
-async def update_doctor_speciality(doctor_id: str, new_speciality: dict):
+async def update_doctor_specialty(doctor_id: str, new_specialty: dict):
     doctor = await get_doctor(doctor_id)
-    doctor.specialities.append(new_speciality)
+    doctor.specialties.append(new_specialty)
     return update_doctor(doctor_id, doctor.dict())
 
 

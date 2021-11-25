@@ -8,29 +8,26 @@ from app.models.doctor import Doctor, TimePeriod, Appointment, UpdateDoctor
 
 DOCTOR_NOT_FOUND_MESSAGE = 'Doctor with id {} not found'
 DOCTOR_NOT_CHANGED_MESSAGE = "Doctor data couldn't be changed"
-DOCTOR_WITH_THIS_SPECIALITY_NOT_FOUND_MESSAGE = 'Doctor with speciality: {} not found'
+DOCTOR_WITH_THIS_SPECIALTY_NOT_FOUND_MESSAGE = 'Doctor with specialty: {} not found'
 
 router = APIRouter(
     prefix="/doctors",
     tags=["doctors"]
 )
 
+@router.get('/by_specialty/', response_description='Get a doctor with given specialty')
+async def get_doctors_with_specialty(doctor_specialty: str) -> JSONResponse:
+    doctors = await get_doctors_by_specialty(doctor_specialty)
+    doctors = json_util.dumps(doctors)
+    return JSONResponse(status_code=status.HTTP_200_OK, content=doctors)
 
-@router.get('/{doctor_id}', response_description='Get a doctor with given id')
+@router.get('/one/{doctor_id}', response_description='Get a doctor with given id')
 async def get_one_doctor(doctor_id: str) -> JSONResponse:
     doctor = await get_doctor(doctor_id)
     doctor = json_util.dumps(doctor)
     if doctor is not None:
         return JSONResponse(status_code=status.HTTP_200_OK, content=doctor)
     raise HTTPException(status_code=404, detail=DOCTOR_NOT_FOUND_MESSAGE.format(doctor_id))
-
-
-@router.get('/by_speciality/', response_description='Get a doctor with given speciality')
-async def get_doctors_with_speciality(doctor_speciality: str) -> JSONResponse:
-    doctors = await get_doctors_by_speciality(doctor_speciality)
-    doctors = json_util.dumps(doctors)
-    return JSONResponse(status_code=status.HTTP_200_OK, content=doctors)
-
 
 @router.get('/', response_description='Get all doctors')
 async def get_doctor_list() -> JSONResponse:

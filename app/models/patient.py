@@ -1,6 +1,7 @@
-from typing import List, TypedDict, Optional
+from typing import List, Optional
 from bson.objectid import ObjectId
 from datetime import datetime
+from typing_extensions import TypedDict
 
 from app.models.base import Person, UpdatePerson
 
