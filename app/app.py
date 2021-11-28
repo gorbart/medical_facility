@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from app.endpoints import doctors, users, patients
+from fastapi.middleware.cors import CORSMiddleware
 
 description = """
 Medical facility API helps managing medical facility.
@@ -45,3 +46,5 @@ app = FastAPI(
 app.include_router(doctors.router)
 app.include_router(patients.router)
 app.include_router(users.router)
+# Allow cors so api can be used from browser
+app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_methods=['*'], allow_headers=['*'])
