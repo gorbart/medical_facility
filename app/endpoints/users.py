@@ -17,7 +17,7 @@ router = APIRouter(
 )
 
 
-@router.get('/{user_id}', response_description='Get a user with given id')
+@router.get('/', response_description='Get a user with given id')
 async def get_one_user(user_id: str) -> JSONResponse:
     user = await get_user(user_id)
     user_json = json_util.dumps(user)
@@ -50,7 +50,7 @@ async def add_user_data(user: User) -> JSONResponse:
     return JSONResponse(status_code=status.HTTP_201_CREATED, content=db_user)
 
 
-@router.put('/{user_id}', response_description='Update a user in database')
+@router.put('/', response_description='Update a user in database')
 async def update_user_data(user_id: str, received_user_data: dict) -> JSONResponse:
     is_successful = await update_user(user_id, received_user_data)
 
@@ -68,7 +68,7 @@ async def update_user_data(user_id: str, received_user_data: dict) -> JSONRespon
     raise HTTPException(status_code=404, detail=USER_NOT_FOUND_MESSAGE.format(user_id))
 
 
-@router.delete('/{user_id}', response_description='Delete a user from database')
+@router.delete('/', response_description='Delete a user from database')
 async def delete_user_data(user_id: str) -> Response:
     if await delete_user(user_id):
         return Response(status_code=status.HTTP_204_NO_CONTENT)

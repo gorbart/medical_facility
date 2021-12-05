@@ -1,0 +1,1331 @@
+{
+	"info": {
+		"_postman_id": "82c99dfa-47e9-4605-99b2-c67c17a10e59",
+		"name": "medical_facility_test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "get_user_list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"List must have atleast one user\", function () {\r",
+									"    const responseJson = JSON.parse(pm.response.json());\r",
+									"    pm.expect(responseJson.length).to.greaterThan(0)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/users/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add_user_data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"     pm.response.to.have.status(\"Created\");\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Testing if body contains our object\" , function () {\r",
+									"    const responseJson = JSON.parse(pm.response.json());\r",
+									"    pm.expect(responseJson.name).to.eq(\"Jan\");\r",
+									"    pm.expect(responseJson.surname).to.eq(\"Nowak\");\r",
+									"    pm.expect(responseJson.login).to.eq(\"login\");\r",
+									"    pm.expect(responseJson.password).to.eq(\"pass1\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Testing if body doesn't have phone number\", function () {\r",
+									"    const responseJson = JSON.parse(pm.response.json());\r",
+									"    pm.expect(responseJson).to.not.have.all.keys('phone_number', 'email');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"name\": \"Jan\",\r\n        \"surname\": \"Nowak\",\r\n        \"login\": \"login\",\r\n        \"password\": \"pass1\",\r\n        \"user_type\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/users/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_one_user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Does user have expected keys\", function () {\r",
+									"    const responseJson = JSON.parse(pm.response.json());\r",
+									"    pm.expect(responseJson.surname).to.eq(\"Gadulska\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/users/?user_id=6196d110e9e0d1cb18a45f41",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"users",
+								""
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "6196d110e9e0d1cb18a45f41"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_one_user_wrong_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.notFound;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/users/6196d110e9e0d1cb18a45000",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"users",
+								"6196d110e9e0d1cb18a45000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "log_in",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Does user have expected id\", function () {\r",
+									"    const responseJson = JSON.parse(pm.response.json());\r",
+									"    pm.expect(responseJson.$oid).to.eq(\"6196d110e9e0d1cb18a45f41\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/users/login/?login=SuperGoska123&password=haslo123",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"users",
+								"login",
+								""
+							],
+							"query": [
+								{
+									"key": "login",
+									"value": "SuperGoska123"
+								},
+								{
+									"key": "password",
+									"value": "haslo123"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "log_in_wrong_login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.unauthorized;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Does response provide detail\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.have.all.keys(\"detail\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/users/login/?login=SuperGoska12&password=haslo123",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"users",
+								"login",
+								""
+							],
+							"query": [
+								{
+									"key": "login",
+									"value": "SuperGoska12"
+								},
+								{
+									"key": "password",
+									"value": "haslo123"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "log_in_wrong_pass",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.unauthorized;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Does response provide detail\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.have.all.keys(\"detail\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/users/login/?login=SuperGoska123&password=haslo12",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"users",
+								"login",
+								""
+							],
+							"query": [
+								{
+									"key": "login",
+									"value": "SuperGoska123"
+								},
+								{
+									"key": "password",
+									"value": "haslo12"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_user_data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Testing if body contains our object\" , function () {\r",
+									"    const responseJson = JSON.parse(pm.response.json());\r",
+									"    pm.expect(responseJson.name).to.eq(\"Jan\");\r",
+									"    pm.expect(responseJson.surname).to.eq(\"Nowak\");\r",
+									"    pm.expect(responseJson.login).to.eq(\"login\");\r",
+									"    pm.expect(responseJson.password).to.eq(\"pass1\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Testing if body doesn't have phone number\", function () {\r",
+									"    const responseJson = JSON.parse(pm.response.json());\r",
+									"    pm.expect(responseJson).to.not.have.all.keys('phone_number', 'email');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"name\": \"Jan\",\r\n        \"surname\": \"Nowak\",\r\n        \"login\": \"login\",\r\n        \"password\": \"pass1\",\r\n        \"user_type\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/users/?user_id=61abb7ddb32f1475c9340e70",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"users",
+								""
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "61abb7ddb32f1475c9340e70"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Doctor",
+			"item": [
+				{
+					"name": "get_doctor_list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"List must have atleast one doctor\", function () {\r",
+									"    const responseJson = JSON.parse(pm.response.json());\r",
+									"    pm.expect(responseJson.length).to.greaterThan(0)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/doctors/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"doctors",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add_doctor_data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"     pm.response.to.have.status(\"Created\");\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Testing if body contains our object\" , function () {\r",
+									"    const responseJson = JSON.parse(pm.response.json());\r",
+									"    pm.expect(responseJson.name).to.eq(\"Marian\");\r",
+									"    pm.expect(responseJson.surname).to.eq(\"Kowalski\");\r",
+									"    pm.expect(responseJson.email).to.eq(\"JanKK@wp.pl\");\r",
+									"    pm.expect(responseJson.phone_number).to.eq(\"111111111\");\r",
+									"    pm.expect(responseJson.scheduled_appointments.length).to.greaterThan(0);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Does schedule have expected keys\", function () {\r",
+									"    const responseJson = JSON.parse(pm.response.json());\r",
+									"    pm.expect(responseJson.schedule.length).to.greaterThan(0);\r",
+									"    pm.expect(responseJson.schedule[0]).to.have.any.keys('date', 'until', 'workingHours');\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Marian\",\r\n  \"surname\": \"Kowalski\",\r\n  \"email\": \"JanKK@wp.pl\",\r\n  \"phone_number\": \"111111111\",\r\n  \"schedule\": [\r\n    {\r\n      \"date\": \"2021-11-22T12:52:13.324Z\",\r\n      \"until\": \"2021-11-28T12:52:13.324Z\",\r\n      \"workingHours\": [\r\n        {\r\n          \"date\": \"2021-11-22T12:00:00.324Z\" ,\r\n          \"until\": \"2021-11-22T19:00:00.324Z\" \r\n        },\r\n        {\r\n          \"date\": \"2021-11-23T10:00:00.324Z\",\r\n          \"until\": \"2021-11-23T21:00:00.324Z\"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"scheduled_appointments\": [\r\n    {\r\n      \"date\": \"2021-09-22T12:00:00.325Z\",\r\n      \"until\": \"2021-10-22T13:00:00.325Z\",\r\n      \"description\": \"Wizyta\"\r\n    }\r\n  ],\r\n  \"specialties\": [\"Patolog\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/doctors/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"doctors",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_doctor_by_speciality",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"List must have atleast one doctor\", function () {\r",
+									"    const responseJson = JSON.parse(pm.response.json());\r",
+									"    pm.expect(responseJson.length).to.greaterThan(0)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/doctors/?doctor_specialty=Urolog",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"doctors",
+								""
+							],
+							"query": [
+								{
+									"key": "doctor_specialty",
+									"value": "Urolog"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_doctor_by_specialty_fail(cos nie dziala)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"List must be empty\", function () {\r",
+									"    const responseJson = JSON.parse(pm.response.json());\r",
+									"    pm.expect(responseJson.length).to.eq(0)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/doctors/?doctor_specialty=kamerzysta",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"doctors",
+								""
+							],
+							"query": [
+								{
+									"key": "doctor_specialty",
+									"value": "kamerzysta"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Patient",
+			"item": [
+				{
+					"name": "get_patient_list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"List must have atleast one patient\", function () {\r",
+									"    const responseJson = JSON.parse(pm.response.json());\r",
+									"    pm.expect(responseJson.length).to.greaterThan(0)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/patients/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"patients",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add_patient_data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"     pm.response.to.have.status(\"Created\");\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Testing if body contains our patient\" , function () {\r",
+									"    const responseJson = JSON.parse(pm.response.json());\r",
+									"    pm.expect(responseJson.name).to.eq(\"Anna\");\r",
+									"    pm.expect(responseJson.surname).to.eq(\"Walczyk\");\r",
+									"    pm.expect(responseJson.disease_history.length).to.greaterThan(0);\r",
+									"    pm.expect(responseJson.email).to.eq(\"ania@onet.pl\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Does disease have expected keys\", function () {\r",
+									"    const responseJson = JSON.parse(pm.response.json());\r",
+									"    pm.expect(responseJson.medicine_taken.length).to.greaterThan(0);\r",
+									"    pm.expect(responseJson).to.not.have.any.keys('phone');\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Anna\",\r\n  \"surname\": \"Walczyk\",\r\n  \"email\": \"ania@onet.pl\",\r\n  \"disease_history\": [\r\n    { \"date\": \"2021-11-20T22:36:11.232Z\",\r\n      \"disease\": [\"ospa\"] },\r\n    { \"date\": \"2021-11-20T22:36:11.232Z\",\r\n      \"disease\": [\"ospa\", \"katar\"] }\r\n  ],\r\n  \"medicine_taken\": [\r\n    {\r\n      \"date\": \"2021-11-20T22:52:34.066Z\",\r\n      \"medicines\": [\r\n        { \"name\": \"apap\", \"until\": \"2021-11-23T22:52:34.066Z\" },\r\n        { \"name\": \"Paracetamol\", \"until\": \"2021-11-22T22:52:34.066Z\" }\r\n      ]\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/patients/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"patients",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add_medicine",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check if patient has added medicine\", function () {\r",
+									"    const responseJson = JSON.parse(pm.response.json());\r",
+									"    const medicine = responseJson.medicine_taken;\r",
+									"    pm.expect(medicine[1].medicines[0].name).to.eq(\"Xenna\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\": \"2021-12-20T22:52:34.066Z\",\r\n    \"medicines\": [\r\n        {\r\n            \"name\": \"Xenna\",\r\n            \"until\": \"2021-12-27T22:52:34.066Z\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/patients/add_medicine/?patient_id=6197cbedf0fa3551f3f33b59",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"patients",
+								"add_medicine",
+								""
+							],
+							"query": [
+								{
+									"key": "patient_id",
+									"value": "6197cbedf0fa3551f3f33b59"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add_medicine_wrong_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\": \"2021-12-20T22:52:34.066Z\",\r\n    \"medicines\": [\r\n        {\r\n            \"name\": \"Xenna\",\r\n            \"until\": \"2021-12-27T22:52:34.066Z\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/patients/add_medicine/?patient_id=6197cbedf0fa3551f3f33000",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"patients",
+								"add_medicine",
+								""
+							],
+							"query": [
+								{
+									"key": "patient_id",
+									"value": "6197cbedf0fa3551f3f33000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add_medicine_wrong _structure",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"     pm.response.to.have.status(\"Unprocessable Entity\");\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\": \"2021-12-20T22:52:34.066Z\",\r\n    \"medicines\": {\r\n        \"name\": \"Xenna\",\r\n        \"until\": \"2021-12-27T22:52:34.066Z\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/patients/add_medicine/?patient_id=6197cbedf0fa3551f3f33b59",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"patients",
+								"add_medicine",
+								""
+							],
+							"query": [
+								{
+									"key": "patient_id",
+									"value": "6197cbedf0fa3551f3f33b59"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_patient_data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Testing if body contains our patient\" , function () {\r",
+									"    const responseJson = JSON.parse(pm.response.json());\r",
+									"    pm.expect(responseJson.name).to.eq(\"Anna\");\r",
+									"    pm.expect(responseJson.surname).to.eq(\"Wokulska\");\r",
+									"    pm.expect(responseJson.disease_history.length).to.greaterThan(0);\r",
+									"    pm.expect(responseJson.disease_history[1].disease[0]).to.eq(\"grypa\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Anna\",\r\n    \"surname\": \"Wokulska\",\r\n    \"email\": \"ania@onet.pl\",\r\n    \"disease_history\": [\r\n        {\r\n            \"date\": \"2021-11-20T22:36:11.232Z\",\r\n            \"disease\": [\r\n                \"ospa\"\r\n            ]\r\n        },\r\n        {\r\n            \"date\": \"2021-11-20T22:36:11.232Z\",\r\n            \"disease\": [\r\n                \"grypa\",\r\n                \"katar\"\r\n            ]\r\n        }\r\n    ],\r\n    \"medicine_taken\": [\r\n        {\r\n            \"date\": \"2021-11-20T22:52:34.066Z\",\r\n            \"medicines\": [\r\n                {\r\n                    \"name\": \"apap\",\r\n                    \"until\": \"2021-11-23T22:52:34.066Z\"\r\n                },\r\n                {\r\n                    \"name\": \"Paracetamol\",\r\n                    \"until\": \"2021-11-22T22:52:34.066Z\"\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/patients/?patient_id=6197cbedf0fa3551f3f33b59",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"patients",
+								""
+							],
+							"query": [
+								{
+									"key": "patient_id",
+									"value": "6197cbedf0fa3551f3f33b59"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_patient_data_wrong_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.notFound;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Testing wrong id\" , function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.detail).to.eq(\"Patient with id 6197cbedf0fa3551f3f33b00 not found\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Anna\",\r\n    \"surname\": \"Nowak\",\r\n    \"email\": \"KASDA@onet.pl\",\r\n    \"disease_history\": [\r\n        {\r\n            \"date\": \"2021-11-20T22:36:11.232Z\",\r\n            \"disease\": [\r\n                \"ospa\"\r\n            ]\r\n        },\r\n        {\r\n            \"date\": \"2021-11-20T22:36:11.232Z\",\r\n            \"disease\": [\r\n                \"ospa\",\r\n                \"katar\"\r\n            ]\r\n        }\r\n    ],\r\n    \"medicine_taken\": [\r\n        {\r\n            \"date\": \"2021-11-20T22:52:34.066Z\",\r\n            \"medicines\": [\r\n                {\r\n                    \"name\": \"apap\",\r\n                    \"until\": \"2021-11-23T22:52:34.066Z\"\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/patients/?patient_id=6197cbedf0fa3551f3f33b00",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"patients",
+								""
+							],
+							"query": [
+								{
+									"key": "patient_id",
+									"value": "6197cbedf0fa3551f3f33b00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add_disease",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Does disease have expected keys\", function () {\r",
+									"    const responseJson = JSON.parse(pm.response.json());\r",
+									"    pm.expect(responseJson.disease_history.length).to.greaterThan(0);\r",
+									"    pm.expect(responseJson.disease_history[2].disease[0]).to.eq(\"COVID-19\")\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"date\": \"2021-12-20T22:36:11.232Z\",\r\n      \"disease\": [\"COVID-19\"] }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/patients/add_disease/?patient_id=6197cbedf0fa3551f3f33b59",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"patients",
+								"add_disease",
+								""
+							],
+							"query": [
+								{
+									"key": "patient_id",
+									"value": "6197cbedf0fa3551f3f33b59"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add_disease_wrong_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.notFound;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"date\": \"2021-12-20T22:36:11.232Z\",\r\n      \"disease\": [\"COVID-19\"] }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/patients/add_disease/?patient_id=6197cbedf0fa3551f3f33000",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"patients",
+								"add_disease",
+								""
+							],
+							"query": [
+								{
+									"key": "patient_id",
+									"value": "6197cbedf0fa3551f3f33000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_one_patient_wrong_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.notFound;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/patients/?patient_id=61952fda1b48e127fc76b000",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"patients",
+								""
+							],
+							"query": [
+								{
+									"key": "patient_id",
+									"value": "61952fda1b48e127fc76b000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_one_patient",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Does response have expected keys\", function () {\r",
+									"    const responseJson = JSON.parse(pm.response.json());\r",
+									"    pm.expect(responseJson.name).to.eq(\"string\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/patients/61952fda1b48e127fc76b629?patient_id=61952fda1b48e127fc76b629",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"patients",
+								"61952fda1b48e127fc76b629"
+							],
+							"query": [
+								{
+									"key": "patient_id",
+									"value": "61952fda1b48e127fc76b629"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

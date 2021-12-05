@@ -15,7 +15,7 @@ router = APIRouter(
 )
 
 
-@router.get('/{patient_id}', response_description='Get a patient with given id')
+@router.get('/', response_description='Get a patient with given id')
 async def get_one_patient(patient_id: str) -> JSONResponse:
     patient = await get_patient(patient_id)
     patient_json = json_util.dumps(patient)
@@ -38,7 +38,7 @@ async def add_patient_data(patient: Patient) -> JSONResponse:
     return JSONResponse(status_code=status.HTTP_201_CREATED, content=db_patient)
 
 
-@router.put('/{patient_id}', response_description='Update a patient in database')
+@router.put('/', response_description='Update a patient in database')
 async def update_patient_data(patient_id: str, received_patient_data: UpdatePatient) -> JSONResponse:
     is_successful = await update_patient(patient_id, received_patient_data.dict(by_alias=True))
 
@@ -82,7 +82,7 @@ async def add_disease(patient_id: str, disease_data: dict) -> JSONResponse:
     patient = await get_patient(patient_id)
     
     if not patient:
-        return HTTPException(status_code=404, detail=PATIENT_NOT_FOUND_MESSAGE.format(patient_id))
+        raise HTTPException(status_code=404, detail=PATIENT_NOT_FOUND_MESSAGE.format(patient_id))
     
     patient['disease_history'].append(disease_data)
 
@@ -99,7 +99,7 @@ async def add_disease(patient_id: str, disease_data: dict) -> JSONResponse:
     raise HTTPException(status_code=404, detail=PATIENT_NOT_FOUND_MESSAGE.format(patient_id))
 
 
-@router.delete('/{patient_id}', response_description='Delete a patient from database')
+@router.delete('/', response_description='Delete a patient from database')
 async def delete_patient_data(patient_id: str) -> Response:
     if await delete_patient(patient_id):
         return Response(status_code=status.HTTP_204_NO_CONTENT)

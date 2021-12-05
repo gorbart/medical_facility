@@ -15,19 +15,22 @@ router = APIRouter(
     tags=["doctors"]
 )
 
+
 @router.get('/by_specialty/', response_description='Get a doctor with given specialty')
 async def get_doctors_with_specialty(doctor_specialty: str) -> JSONResponse:
     doctors = await get_doctors_by_specialty(doctor_specialty)
     doctors = json_util.dumps(doctors)
     return JSONResponse(status_code=status.HTTP_200_OK, content=doctors)
 
-@router.get('/one/{doctor_id}', response_description='Get a doctor with given id')
+
+@router.get('/one/', response_description='Get a doctor with given id')
 async def get_one_doctor(doctor_id: str) -> JSONResponse:
     doctor = await get_doctor(doctor_id)
     doctor_json = json_util.dumps(doctor)
     if doctor is not None:
         return JSONResponse(status_code=status.HTTP_200_OK, content=doctor_json)
     raise HTTPException(status_code=404, detail=DOCTOR_NOT_FOUND_MESSAGE.format(doctor_id))
+
 
 @router.get('/', response_description='Get all doctors')
 async def get_doctor_list() -> JSONResponse:
@@ -43,7 +46,7 @@ async def add_doctor_data(doctor: Doctor) -> JSONResponse:
     return JSONResponse(status_code=status.HTTP_201_CREATED, content=db_doctor)
 
 
-@router.put('/{doctor_id}', response_description='Update a doctor in database')
+@router.put('/', response_description='Update a doctor in database')
 async def update_doctor_data(doctor_id: str, received_doctor_data: UpdateDoctor) -> JSONResponse:
     is_successful = await update_doctor(doctor_id, received_doctor_data.dict(by_alias=True))
 
@@ -96,7 +99,7 @@ async def add_appointment(doctor_id: str, appointment: Appointment) -> JSONRespo
     raise HTTPException(status_code=404, detail=DOCTOR_NOT_FOUND_MESSAGE.format(doctor_id))
 
 
-@router.delete('/{doctor_id}', response_description='Delete a doctor from database')
+@router.delete('/', response_description='Delete a doctor from database')
 async def delete_doctor_data(doctor_id: str) -> Response:
     if await delete_doctor(doctor_id):
         return Response(status_code=status.HTTP_204_NO_CONTENT)
