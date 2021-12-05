@@ -20,9 +20,9 @@ router = APIRouter(
 @router.get('/{user_id}', response_description='Get a user with given id')
 async def get_one_user(user_id: str) -> JSONResponse:
     user = await get_user(user_id)
-    user = json_util.dumps(user)
+    user_json = json_util.dumps(user)
     if user is not None:
-        return JSONResponse(status_code=status.HTTP_200_OK, content=user)
+        return JSONResponse(status_code=status.HTTP_200_OK, content=user_json)
     raise HTTPException(status_code=404, detail=USER_NOT_FOUND_MESSAGE.format(user_id))
 
 

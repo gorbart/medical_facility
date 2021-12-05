@@ -24,9 +24,9 @@ async def get_doctors_with_specialty(doctor_specialty: str) -> JSONResponse:
 @router.get('/one/{doctor_id}', response_description='Get a doctor with given id')
 async def get_one_doctor(doctor_id: str) -> JSONResponse:
     doctor = await get_doctor(doctor_id)
-    doctor = json_util.dumps(doctor)
+    doctor_json = json_util.dumps(doctor)
     if doctor is not None:
-        return JSONResponse(status_code=status.HTTP_200_OK, content=doctor)
+        return JSONResponse(status_code=status.HTTP_200_OK, content=doctor_json)
     raise HTTPException(status_code=404, detail=DOCTOR_NOT_FOUND_MESSAGE.format(doctor_id))
 
 @router.get('/', response_description='Get all doctors')

@@ -18,9 +18,9 @@ router = APIRouter(
 @router.get('/{patient_id}', response_description='Get a patient with given id')
 async def get_one_patient(patient_id: str) -> JSONResponse:
     patient = await get_patient(patient_id)
-    patient = json_util.dumps(patient)
+    patient_json = json_util.dumps(patient)
     if patient is not None:
-        return JSONResponse(status_code=status.HTTP_200_OK, content=patient)
+        return JSONResponse(status_code=status.HTTP_200_OK, content=patient_json)
     raise HTTPException(status_code=404, detail=PATIENT_NOT_FOUND_MESSAGE.format(patient_id))
 
 
@@ -58,6 +58,10 @@ async def update_patient_data(patient_id: str, received_patient_data: UpdatePati
 @router.put('/add_medicine/', response_description='Add a medicine')
 async def add_medicine(patient_id: str, medicine_data: MedicinesTaken) -> JSONResponse:
     patient = await get_patient(patient_id)
+    
+    if not patient:
+        return HTTPException(status_code=404, detail=PATIENT_NOT_FOUND_MESSAGE.format(patient_id))
+    
     patient['medicine_taken'].append(medicine_data)
 
     is_successful = await update_patient(patient_id, patient)
@@ -76,6 +80,10 @@ async def add_medicine(patient_id: str, medicine_data: MedicinesTaken) -> JSONRe
 @router.put('/add_disease/', response_description='Add a disease')
 async def add_disease(patient_id: str, disease_data: dict) -> JSONResponse:
     patient = await get_patient(patient_id)
+    
+    if not patient:
+        return HTTPException(status_code=404, detail=PATIENT_NOT_FOUND_MESSAGE.format(patient_id))
+    
     patient['disease_history'].append(disease_data)
 
     is_successful = await update_patient(patient_id, patient)
