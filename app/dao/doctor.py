@@ -11,8 +11,8 @@ async def get_doctors():
 
 async def get_doctors_by_specialty(specialty: str):
     doctors = [
-        doctor for doctor in await doctor_collection.find(
-            {"specialties": specialty}).to_list(100)
+        doctor async for doctor in doctor_collection.find(
+            {"specialties":specialty})
     ]
     return doctors
 

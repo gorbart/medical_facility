@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "82c99dfa-47e9-4605-99b2-c67c17a10e59",
+		"_postman_id": "078d7a55-3bda-452a-b6b5-798fde7012d8",
 		"name": "medical_facility_test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -1168,11 +1168,11 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Status test\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.have.status(404);\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Response must be valid and have a body\", function () {\r",
-									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.have.status(\"Not Found\");\r",
 									"     pm.response.to.be.withBody;\r",
 									"     pm.response.to.be.json;\r",
 									"});\r",
@@ -1582,6 +1582,26 @@
 					"response": []
 				}
 			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	],
 	"variable": [

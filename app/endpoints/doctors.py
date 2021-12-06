@@ -16,7 +16,7 @@ router = APIRouter(
 )
 
 
-@router.get('/by_specialty/', response_description='Get a doctor with given specialty')
+@router.get('/by_specialty/', response_description='Get doctors with given specialty')
 async def get_doctors_with_specialty(doctor_specialty: str) -> JSONResponse:
     doctors = await get_doctors_by_specialty(doctor_specialty)
     doctors = json_util.dumps(doctors)

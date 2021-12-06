@@ -27,7 +27,7 @@ class TimePeriod(TypedDict):
 class Doctor(Person):
     schedule: List[TimePeriod] = []
     scheduled_appointments: List[Appointment] = []
-    specialities: List[str] = []
+    specialties: List[str] = []
 
     class Config:
         arbitrary_types_allowed = True
