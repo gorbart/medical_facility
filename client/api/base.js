@@ -1,5 +1,5 @@
 export function urlSearchParams(url = "", params = {}) {
-  var result = new URL(url);
+  const result = new URL(url);
   result.search = new URLSearchParams(params).toString();
 
   return result.toString();

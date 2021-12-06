@@ -1,4 +1,4 @@
-import { postData, deleteData, putData, urlSearchParams } from "./base";
+import { postData, deleteData, putData, urlSearchParams } from "./base.js";
 
 export class Patient {
   constructor(baseURL = "http://127.0.0.1:8000") {
@@ -16,7 +16,7 @@ export class Patient {
     return postData(this.baseURL, patient);
   }
   async get_one_patient(patient_id = "") {
-    const url = urlSearchParams(this.baseURL, { patient_id: patient_id });
+    const url = urlSearchParams(this.baseURL + "one", { patient_id: patient_id });
     const response = await fetch(url);
     return response.json();
   }
@@ -29,12 +29,12 @@ export class Patient {
     });
   }
   async add_disease(patient_id = "", disease_data = {}) {
-    putData(this.baseURL + "add_disease/", disease_data, {
+    return putData(this.baseURL + "add_disease/", disease_data, {
       patient_id: patient_id,
     });
   }
   async delete_patient_data(patient_id = "") {
-    deleteData(this.baseURL, { patient_id: patient_id });
+    return deleteData(this.baseURL, { patient_id: patient_id });
   }
 }
 
@@ -47,7 +47,7 @@ export class User {
     }
   }
   async get_one_user(user_id = "") {
-    const url = urlSearchParams(this.baseURL, { user_id: user_id });
+    const url = urlSearchParams(this.baseURL + "one", { user_id: user_id });
     const response = await fetch(url);
     return response.json();
   }
