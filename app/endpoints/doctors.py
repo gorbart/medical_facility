@@ -66,6 +66,10 @@ async def update_doctor_data(doctor_id: str, received_doctor_data: UpdateDoctor)
 @router.put('/add_time_period/', response_description='Add a time period')
 async def add__time_period(doctor_id: str, time_period: TimePeriod) -> JSONResponse:
     doctor = await get_doctor(doctor_id)
+
+    if not doctor:
+        raise HTTPException(status_code=404, detail=DOCTOR_NOT_FOUND_MESSAGE.format(doctor_id))
+
     doctor['schedule'].append(time_period)
 
     is_successful = await update_doctor(doctor_id, doctor)
@@ -84,6 +88,10 @@ async def add__time_period(doctor_id: str, time_period: TimePeriod) -> JSONRespo
 @router.put('/add_appointment/', response_description='Add an appointment')
 async def add_appointment(doctor_id: str, appointment: Appointment) -> JSONResponse:
     doctor = await get_doctor(doctor_id)
+
+    if not doctor:
+        raise HTTPException(status_code=404, detail=DOCTOR_NOT_FOUND_MESSAGE.format(doctor_id))
+
     doctor['scheduled_appointments'].append(appointment)
 
     is_successful = await update_doctor(doctor_id, doctor)

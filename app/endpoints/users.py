@@ -17,7 +17,7 @@ router = APIRouter(
 )
 
 
-@router.get('/', response_description='Get a user with given id')
+@router.get('/one', response_description='Get a user with given id')
 async def get_one_user(user_id: str) -> JSONResponse:
     user = await get_user(user_id)
     user_json = json_util.dumps(user)

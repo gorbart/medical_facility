@@ -38,17 +38,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/users/",
-							"protocol": "http",
+							"raw": "{{Base URL}}users/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{Base URL}}users"
 							],
-							"port": "8000",
 							"path": [
-								"users",
 								""
 							]
 						}
@@ -103,17 +97,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/users/",
-							"protocol": "http",
+							"raw": "{{Base URL}}users/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{Base URL}}users"
 							],
-							"port": "8000",
 							"path": [
-								"users",
 								""
 							]
 						}
@@ -150,18 +138,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/users/?user_id=6196d110e9e0d1cb18a45f41",
-							"protocol": "http",
+							"raw": "{{Base URL}}users/one?user_id=6196d110e9e0d1cb18a45f41",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{Base URL}}users"
 							],
-							"port": "8000",
 							"path": [
-								"users",
-								""
+								"one"
 							],
 							"query": [
 								{
@@ -199,18 +181,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/users/6196d110e9e0d1cb18a45000",
-							"protocol": "http",
+							"raw": "{{Base URL}}users/one6196d110e9e0d1cb18a45000",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{Base URL}}users"
 							],
-							"port": "8000",
 							"path": [
-								"users",
-								"6196d110e9e0d1cb18a45000"
+								"one6196d110e9e0d1cb18a45000"
 							]
 						}
 					},
@@ -246,17 +222,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/users/login/?login=SuperGoska123&password=haslo123",
-							"protocol": "http",
+							"raw": "{{Base URL}}users/login/?login=SuperGoska123&password=haslo123",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{Base URL}}users"
 							],
-							"port": "8000",
 							"path": [
-								"users",
 								"login",
 								""
 							],
@@ -304,17 +274,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/users/login/?login=SuperGoska12&password=haslo123",
-							"protocol": "http",
+							"raw": "{{Base URL}}users/login/?login=SuperGoska12&password=haslo123",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{Base URL}}users"
 							],
-							"port": "8000",
 							"path": [
-								"users",
 								"login",
 								""
 							],
@@ -362,17 +326,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/users/login/?login=SuperGoska123&password=haslo12",
-							"protocol": "http",
+							"raw": "{{Base URL}}users/login/?login=SuperGoska123&password=haslo12",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{Base URL}}users"
 							],
-							"port": "8000",
 							"path": [
-								"users",
 								"login",
 								""
 							],
@@ -438,17 +396,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/users/?user_id=61abb7ddb32f1475c9340e70",
-							"protocol": "http",
+							"raw": "{{Base URL}}users/?user_id=61abb7ddb32f1475c9340e70",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{Base URL}}users"
 							],
-							"port": "8000",
 							"path": [
-								"users",
 								""
 							],
 							"query": [
@@ -496,17 +448,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/doctors/",
-							"protocol": "http",
+							"raw": "{{Base URL}}doctors/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{Base URL}}doctors"
 							],
-							"port": "8000",
 							"path": [
-								"doctors",
 								""
 							]
 						}
@@ -562,17 +508,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/doctors/",
-							"protocol": "http",
+							"raw": "{{Base URL}}doctors/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{Base URL}}doctors"
 							],
-							"port": "8000",
 							"path": [
-								"doctors",
 								""
 							]
 						}
@@ -609,17 +549,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/doctors/?doctor_specialty=Urolog",
-							"protocol": "http",
+							"raw": "{{Base URL}}doctors/?doctor_specialty=Urolog",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{Base URL}}doctors"
 							],
-							"port": "8000",
 							"path": [
-								"doctors",
 								""
 							],
 							"query": [
@@ -633,7 +567,7 @@
 					"response": []
 				},
 				{
-					"name": "get_doctor_by_specialty_fail(cos nie dziala)",
+					"name": "get_doctor_by_specialty_fail",
 					"event": [
 						{
 							"listen": "test",
@@ -652,23 +586,411 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/doctors/?doctor_specialty=kamerzysta",
-							"protocol": "http",
+							"raw": "{{Base URL}}doctors/?doctor_specialty=kamerzysta",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{Base URL}}doctors"
 							],
-							"port": "8000",
 							"path": [
-								"doctors",
 								""
 							],
 							"query": [
 								{
 									"key": "doctor_specialty",
 									"value": "kamerzysta"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_one_doctor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Does doctor have expected keys\", function () {\r",
+									"    const responseJson = JSON.parse(pm.response.json());\r",
+									"    pm.expect(responseJson.surname).to.eq(\"Nowak\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Base URL}}doctors/one?doctor_id=619a3d57128becce8d399d10",
+							"host": [
+								"{{Base URL}}doctors"
+							],
+							"path": [
+								"one"
+							],
+							"query": [
+								{
+									"key": "doctor_id",
+									"value": "619a3d57128becce8d399d10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_one_doctor_wrong_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.notFound;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Base URL}}doctors/one?doctor_id=619a3d57128becce8d399000",
+							"host": [
+								"{{Base URL}}doctors"
+							],
+							"path": [
+								"one"
+							],
+							"query": [
+								{
+									"key": "doctor_id",
+									"value": "619a3d57128becce8d399000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_doctor_data",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Marcin\",\r\n  \"surname\": \"Nowak\",\r\n  \"email\": \"JanKK@wp.pl\",\r\n  \"phone_number\": \"123456789\",\r\n  \"schedule\": [\r\n    {\r\n      \"date\": \"2021-11-22T12:52:13.324Z\",\r\n      \"until\": \"2021-11-28T12:52:13.324Z\",\r\n      \"workingHours\": [\r\n        {\r\n          \"date\": \"2021-10-22T12:00:00.324Z\" ,\r\n          \"until\": \"2021-10-22T19:00:00.324Z\" \r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"scheduled_appointments\": [\r\n    {\r\n      \"date\": \"2021-09-22T12:00:00.325Z\",\r\n      \"until\": \"2021-09-22T13:00:00.325Z\",\r\n      \"description\": \"Wizyta\"\r\n    }\r\n  ],\r\n  \"specialties\": [\"Patolog\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Base URL}}doctors/?doctor_id=61ae557f63efb24038ebec8f",
+							"host": [
+								"{{Base URL}}doctors"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "doctor_id",
+									"value": "61ae557f63efb24038ebec8f"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_doctor_data_wrong_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.notFound;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Marcin\",\r\n  \"surname\": \"Nowak\",\r\n  \"email\": \"JanKK@wp.pl\",\r\n  \"phone_number\": \"123456789\",\r\n  \"schedule\": [\r\n    {\r\n      \"date\": \"2021-11-22T12:52:13.324Z\",\r\n      \"until\": \"2021-11-28T12:52:13.324Z\",\r\n      \"workingHours\": [\r\n        {\r\n          \"date\": \"2021-10-22T12:00:00.324Z\" ,\r\n          \"until\": \"2021-10-22T19:00:00.324Z\" \r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"scheduled_appointments\": [\r\n    {\r\n      \"date\": \"2021-09-22T12:00:00.325Z\",\r\n      \"until\": \"2021-09-22T13:00:00.325Z\",\r\n      \"description\": \"Wizyta\"\r\n    }\r\n  ],\r\n  \"specialties\": [\"Patolog\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Base URL}}doctors/?doctor_id=61ae557f63efb24038ebe000",
+							"host": [
+								"{{Base URL}}doctors"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "doctor_id",
+									"value": "61ae557f63efb24038ebe000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add_time_period",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Does schedule have added period\", function () {\r",
+									"    const responseJson = JSON.parse(pm.response.json());\r",
+									"    pm.expect(responseJson.schedule.length).to.greaterThan(0);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n      \"date\": \"2021-11-22T12:52:13.324Z\",\r\n      \"until\": \"2021-11-28T12:52:13.324Z\",\r\n      \"workingHours\": [\r\n        {\r\n          \"date\": \"2021-11-22T12:00:00.324Z\" ,\r\n          \"until\": \"2021-11-22T19:00:00.324Z\" \r\n        },\r\n        {\r\n          \"date\": \"2021-11-23T10:00:00.324Z\",\r\n          \"until\": \"2021-11-23T21:00:00.324Z\"\r\n        }\r\n      ]\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Base URL}}doctors/add_time_period/?doctor_id=61ae557f63efb24038ebec8f",
+							"host": [
+								"{{Base URL}}doctors"
+							],
+							"path": [
+								"add_time_period",
+								""
+							],
+							"query": [
+								{
+									"key": "doctor_id",
+									"value": "61ae557f63efb24038ebec8f"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add_appointment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Does scheduled appointments have added period\", function () {\r",
+									"    const responseJson = JSON.parse(pm.response.json());\r",
+									"    pm.expect(responseJson.scheduled_appointments.length).to.greaterThan(0);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\": \"2021-09-22T12:00:00.325Z\",\r\n    \"until\": \"2021-10-22T13:00:00.325Z\",\r\n    \"description\": \"Kolejna wizyta\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Base URL}}doctors/add_appointment/?doctor_id=61ae557f63efb24038ebec8f",
+							"host": [
+								"{{Base URL}}doctors"
+							],
+							"path": [
+								"add_appointment",
+								""
+							],
+							"query": [
+								{
+									"key": "doctor_id",
+									"value": "61ae557f63efb24038ebec8f"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add_appointment_wrong_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.notFound;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\": \"2021-09-22T12:00:00.325Z\",\r\n    \"until\": \"2021-10-22T13:00:00.325Z\",\r\n    \"description\": \"Kolejna wizyta\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Base URL}}doctors/add_appointment/?doctor_id=61ae557f63efb24038ebe000",
+							"host": [
+								"{{Base URL}}doctors"
+							],
+							"path": [
+								"add_appointment",
+								""
+							],
+							"query": [
+								{
+									"key": "doctor_id",
+									"value": "61ae557f63efb24038ebe000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add_time_period_wrong_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.notFound;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n      \"date\": \"2021-11-22T12:52:13.324Z\",\r\n      \"until\": \"2021-11-28T12:52:13.324Z\",\r\n      \"workingHours\": [\r\n        {\r\n          \"date\": \"2021-11-22T12:00:00.324Z\" ,\r\n          \"until\": \"2021-11-22T19:00:00.324Z\" \r\n        },\r\n        {\r\n          \"date\": \"2021-11-23T10:00:00.324Z\",\r\n          \"until\": \"2021-11-23T21:00:00.324Z\"\r\n        }\r\n      ]\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Base URL}}doctors/add_time_period/?doctor_id=61ae557f63efb24038ebe000",
+							"host": [
+								"{{Base URL}}doctors"
+							],
+							"path": [
+								"add_time_period",
+								""
+							],
+							"query": [
+								{
+									"key": "doctor_id",
+									"value": "61ae557f63efb24038ebe000"
 								}
 							]
 						}
@@ -710,17 +1032,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/patients/",
-							"protocol": "http",
+							"raw": "{{Base URL}}patients/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{Base URL}}patients"
 							],
-							"port": "8000",
 							"path": [
-								"patients",
 								""
 							]
 						}
@@ -775,17 +1091,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/patients/",
-							"protocol": "http",
+							"raw": "{{Base URL}}patients/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{Base URL}}patients"
 							],
-							"port": "8000",
 							"path": [
-								"patients",
 								""
 							]
 						}
@@ -832,17 +1142,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/patients/add_medicine/?patient_id=6197cbedf0fa3551f3f33b59",
-							"protocol": "http",
+							"raw": "{{Base URL}}patients/add_medicine/?patient_id=6197cbedf0fa3551f3f33b59",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{Base URL}}patients"
 							],
-							"port": "8000",
 							"path": [
-								"patients",
 								"add_medicine",
 								""
 							],
@@ -891,17 +1195,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/patients/add_medicine/?patient_id=6197cbedf0fa3551f3f33000",
-							"protocol": "http",
+							"raw": "{{Base URL}}patients/add_medicine/?patient_id=6197cbedf0fa3551f3f33000",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{Base URL}}patients"
 							],
-							"port": "8000",
 							"path": [
-								"patients",
 								"add_medicine",
 								""
 							],
@@ -950,17 +1248,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/patients/add_medicine/?patient_id=6197cbedf0fa3551f3f33b59",
-							"protocol": "http",
+							"raw": "{{Base URL}}patients/add_medicine/?patient_id=6197cbedf0fa3551f3f33b59",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{Base URL}}patients"
 							],
-							"port": "8000",
 							"path": [
-								"patients",
 								"add_medicine",
 								""
 							],
@@ -1016,17 +1308,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/patients/?patient_id=6197cbedf0fa3551f3f33b59",
-							"protocol": "http",
+							"raw": "{{Base URL}}patients/?patient_id=6197cbedf0fa3551f3f33b59",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{Base URL}}patients"
 							],
-							"port": "8000",
 							"path": [
-								"patients",
 								""
 							],
 							"query": [
@@ -1078,17 +1364,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/patients/?patient_id=6197cbedf0fa3551f3f33b00",
-							"protocol": "http",
+							"raw": "{{Base URL}}patients/?patient_id=6197cbedf0fa3551f3f33b00",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{Base URL}}patients"
 							],
-							"port": "8000",
 							"path": [
-								"patients",
 								""
 							],
 							"query": [
@@ -1141,17 +1421,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/patients/add_disease/?patient_id=6197cbedf0fa3551f3f33b59",
-							"protocol": "http",
+							"raw": "{{Base URL}}patients/add_disease/?patient_id=6197cbedf0fa3551f3f33b59",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{Base URL}}patients"
 							],
-							"port": "8000",
 							"path": [
-								"patients",
 								"add_disease",
 								""
 							],
@@ -1200,17 +1474,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/patients/add_disease/?patient_id=6197cbedf0fa3551f3f33000",
-							"protocol": "http",
+							"raw": "{{Base URL}}patients/add_disease/?patient_id=6197cbedf0fa3551f3f33000",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{Base URL}}patients"
 							],
-							"port": "8000",
 							"path": [
-								"patients",
 								"add_disease",
 								""
 							],
@@ -1249,18 +1517,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/patients/?patient_id=61952fda1b48e127fc76b000",
-							"protocol": "http",
+							"raw": "{{Base URL}}patients/one?patient_id=61952fda1b48e127fc76b000",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{Base URL}}patients"
 							],
-							"port": "8000",
 							"path": [
-								"patients",
-								""
+								"one"
 							],
 							"query": [
 								{
@@ -1302,18 +1564,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/patients/61952fda1b48e127fc76b629?patient_id=61952fda1b48e127fc76b629",
-							"protocol": "http",
+							"raw": "{{Base URL}}patients/one?patient_id=61952fda1b48e127fc76b629",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{Base URL}}patients"
 							],
-							"port": "8000",
 							"path": [
-								"patients",
-								"61952fda1b48e127fc76b629"
+								"one"
 							],
 							"query": [
 								{
@@ -1326,6 +1582,12 @@
 					"response": []
 				}
 			]
+		}
+	],
+	"variable": [
+		{
+			"key": "Base URL",
+			"value": "http://127.0.0.1:8000/"
 		}
 	]
 }
