@@ -1,8 +1,10 @@
+Wszystkie funkcje zwracają response.json() otrzymane z api więc wartość zwracana przez funkcje to gotowy do użycia obiekt JSON
+
 Można korzystać w ten sposób:
 ```javascript
 import { Patient, Doctor, User } from "./api/apiClient.js";
 //następnie
-var url = "http://127.0.0.1:8000";
+var url = "http://127.0.0.1:8000"; // <== domyślna wartość dla url
 var doctor = new Doctor(url);
 var patient = new Patient(url);
 var user = new User(url);
