@@ -1,4 +1,5 @@
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.future import select
 from app.dao.common import add_entity, delete_entity, get_entities, get_entity, update_entity
 from app.models.user import User
 
@@ -11,8 +12,14 @@ async def get_user(session: AsyncSession, user_id: str):
     return await get_entity(session, User, user_id)
 
 
-# async def get_user_by_login(login: str):
-#     return await user_collection.find_one({"login": login})
+async def get_user_by_login(session: AsyncSession, login: str):
+    stmt = select(User).filter(User.login == login)
+    
+    entity = session.execute(stmt)
+    
+    if entity:
+        return entity.scalar()
+    
 
 
 async def add_user(session: AsyncSession, user_data: dict):

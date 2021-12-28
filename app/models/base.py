@@ -32,6 +32,9 @@ class DBModel(SQLModel):
 
     id: int = Field(default=None, primary_key=True)
     
+    def as_dict(self):
+       return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+    
 
 class Person(SQLModel):
     name: str

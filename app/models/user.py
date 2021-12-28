@@ -1,5 +1,7 @@
 import enum
 from bson.objectid import ObjectId
+from sqlalchemy.sql.schema import UniqueConstraint
+from sqlalchemy.sql.sqltypes import VARCHAR
 from sqlmodel import Field, Column, Enum
 
 from app.models.base import DBModel, Person
@@ -12,7 +14,7 @@ class UserType(str, enum.Enum):
 
 
 class User(Person, DBModel, table=True):
-    login: str
+    login: str = Field(sa_column=Column("login", VARCHAR, unique=True))
     password: str
     user_type: UserType = Field(sa_column=Column(Enum(UserType)))
     

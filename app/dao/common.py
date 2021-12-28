@@ -2,6 +2,7 @@ from typing import Type
 from bson import ObjectId
 from sqlalchemy.future import select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import exc
 
 from app.models.base import DBModel
 
@@ -9,20 +10,36 @@ from app.models.base import DBModel
 
 
 async def get_entities(session: AsyncSession, model_cls: Type[DBModel]):
-    result = await session.execute(select(model_cls))
-    return result
+    stmt = select(model_cls)
+    
+    result = session.execute(stmt).scalars().all()
+    
+    return [model_cls(**(dict(entity))) for entity in result]
+    
+    
 
 
 async def get_entity(session: AsyncSession, model_cls: Type[DBModel], entity_id: str):
-    entity = await session.query(model_cls).filter(model_cls.id == entity_id).first()
+    stmt = select(model_cls).filter(model_cls.id == entity_id)
+    
+    entity = session.execute(stmt)
+    
     if entity:
-        return entity
+        return entity.scalar()
 
 
-async def add_entity(session: AsyncSession, entity_data: DBModel):
-    entity = await session.add(entity_data)
-    await session.commit()
-    await session.refresh(entity_data)
+async def add_entity(session: AsyncSession, model_cls: Type[DBModel], entity_data: DBModel):
+    
+    session.add(entity_data)
+    
+    try:
+        session.commit()
+    except exc.IntegrityError as e:
+        session.rollback()
+        return None
+
+    
+    session.refresh(entity_data)
 
     return entity_data
 
@@ -31,10 +48,19 @@ async def update_entity(session: AsyncSession, model_cls: Type[DBModel], entity_
     """Function returns False if request body is empty or entity with given id doesn't exist"""
     if len(entity_data) < 1:
         return None
-    entity = await session.query(model_cls).filter(model_cls.id == entity_id).first()
+    stmt = select(model_cls).filter(model_cls.id == entity_id)
+    
+    result = session.execute(stmt)
+    
+    entity = result.scalar()
+    
     if entity:
-        updated_entity = model_cls(id=entity.id, **entity_data)
+        for key in entity_data.keys():
+            setattr(entity, key,entity_data[key])
+                            
+        session.add(entity)
         session.commit()
+        return entity
 
     return None
 
