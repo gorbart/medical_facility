@@ -33,7 +33,7 @@ class DBModel(SQLModel):
     id: int = Field(default=None, primary_key=True)
     
 
-class Person(DBModel):
+class Person(SQLModel):
     name: str
     surname: str
     email: Optional[str]
