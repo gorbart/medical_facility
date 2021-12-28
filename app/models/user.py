@@ -1,14 +1,14 @@
-from enum import IntEnum
+from enum import Enum
 
 from bson.objectid import ObjectId
 
 from app.models.base import Person
 
 
-class UserType(IntEnum):
-    ADMIN = 0
-    MANAGER = 1
-    NURSE = 2
+class UserType(str, Enum):
+    ADMIN = "admin"
+    MANAGER = "manager"
+    NURSE = "nurse"
 
 
 class User(Person):
@@ -16,6 +16,6 @@ class User(Person):
     password: str
     user_type: UserType
     
-    class Config:
-        arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str}
+    # class Config:
+    #     arbitrary_types_allowed = True
+    #     json_encoders = {ObjectId: str}

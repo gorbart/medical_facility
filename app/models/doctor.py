@@ -1,37 +1,45 @@
 from datetime import datetime
+from enum import Enum
 from typing import List, Optional
-from typing_extensions import TypedDict
-
-from bson.objectid import ObjectId
-
-from app.models.base import Person, UpdatePerson
 
 
-class Appointment(TypedDict):
+from app.models.base import DBModel, Person, UpdatePerson
+
+
+class Appointment(DBModel, table=True):
     date: datetime
     until: datetime
     description: Optional[str]
 
 
-class WorkingHours(TypedDict):
+class WorkingHours(DBModel, table=True):
     date: datetime
     until: datetime
 
 
-class TimePeriod(TypedDict):
+class TimePeriod(DBModel, table=True):
     date: datetime
     until: datetime
     workingHours: List[WorkingHours]
+    
+class SpecialtyEnum(str, Enum):
+    GENERAL_PRACTITIONER = "general practitioner"
+    GYNECOLOGIST = "gynecologist"
+    SURGEON = "surgeon"
+    PEDIATRICIAN = "pediatrician"
+    DERMATOLOGIST = "dermatologist"
 
+class Specialty(DBModel, table=True):
+    name: SpecialtyEnum
 
-class Doctor(Person):
+class Doctor(Person, table=True):
     schedule: List[TimePeriod] = []
     scheduled_appointments: List[Appointment] = []
-    specialties: List[str] = []
+    specialties: List[Specialty] = []
 
-    class Config:
-        arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str}
+    # class Config:
+    #     arbitrary_types_allowed = True
+    #     json_encoders = {ObjectId: str}
 
 
 class UpdateDoctor(UpdatePerson):
@@ -40,9 +48,9 @@ class UpdateDoctor(UpdatePerson):
     """
     schedule: Optional[List[TimePeriod]]
     scheduled_appointments: Optional[List[Appointment]]
-    specialities: Optional[List[str]]
+    specialties: Optional[List[str]]
 
-    class Config:
-        arbitrary_types_allowed = True
-        allow_population_by_field_name = True
-        json_encoders = {ObjectId: str}
+    # class Config:
+    #     arbitrary_types_allowed = True
+    #     allow_population_by_field_name = True
+    #     json_encoders = {ObjectId: str}

@@ -3,28 +3,28 @@ from bson.objectid import ObjectId
 from datetime import datetime
 from typing_extensions import TypedDict
 
-from app.models.base import Person, UpdatePerson
+from app.models.base import DBModel, Person, UpdatePerson
 
 
-class Medicines(TypedDict):
+class Medicine(DBModel, table=True):
     name: str
     until: datetime
 
 
-class MedicinesTaken(TypedDict):
+class MedicinesTaken(DBModel, table=True):
     date: datetime
-    medicines: List[Medicines]
+    medicines: List[Medicine]
 
 
-class Patient(Person):
+class Patient(Person, table=True):
+    
     disease_history: List[dict] = []
-
     medicine_taken: List[MedicinesTaken] = []
     
-    class Config:
-        arbitrary_types_allowed = True
-        allow_population_by_field_name = True
-        json_encoders = {ObjectId: str}
+    # class Config:
+    #     arbitrary_types_allowed = True
+    #     allow_population_by_field_name = True
+    #     json_encoders = {ObjectId: str}
 
 
 class UpdatePatient(UpdatePerson):
@@ -35,7 +35,7 @@ class UpdatePatient(UpdatePerson):
 
     medicine_taken: Optional[List[MedicinesTaken]]
 
-    class Config:
-        arbitrary_types_allowed = True
-        allow_population_by_field_name = True
-        json_encoders = {ObjectId: str}
+    # class Config:
+    #     arbitrary_types_allowed = True
+    #     allow_population_by_field_name = True
+    #     json_encoders = {ObjectId: str}
