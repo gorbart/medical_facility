@@ -1,9 +1,10 @@
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.future import select
 from app.dao.common import add_entity, delete_entity, get_entities, get_entity, update_entity
 
 from datetime import datetime
 from typing import Dict, List, Optional, Tuple
-from app.models.patient import MedicinesTaken, Patient
+from app.models.patient import Disease, Medicine, MedicinesTaken, MedicinesTakenInCreate, Patient, UpdatePatient
 
 
 async def get_patients(session: AsyncSession):
@@ -14,28 +15,46 @@ async def get_patient(session: AsyncSession, patient_id: str):
     return await get_entity(session, Patient, patient_id)
 
 
-# async def get_patient_by_name_and_surname(name: str, surname: str):
-#     return await patient_collection.find_one({"name": name, "surname": surname})
+async def get_patient_by_name_and_surname(session: AsyncSession,name: str, surname: str):
+    stmt = select(Patient).filter(Patient.name == name).filter(Patient.surname == surname)
+    
+    entity = session.execute(stmt)
+    
+    if entity:
+        return entity.scalar()
 
 
 async def add_patient(session: AsyncSession,patient_data: dict):
-    return await add_entity(session, Patient, patient_data)
+    return await add_entity(session, Patient(**patient_data))
 
 
-async def update_patient(session: AsyncSession, patient_id: str, patient_data: dict):
-    return await update_entity(session, Patient, patient_data, patient_id)
+async def update_patient(session: AsyncSession, patient_id: str, patient_data: UpdatePatient):
+    return await update_entity(session, Patient, patient_data.dict(), patient_id)
 
-# async def add_medicine(patient_id: str, medicine_data: MedicinesTaken):
-#     patient = await get_patient(patient_id)
-#     patient.medicine_taken.append(medicine_data)
-#     return update_patient(patient_id, patient.dict())
+async def add_medicine_to_patient(session: AsyncSession,patient_id: str, medicine_data: MedicinesTakenInCreate):
+    
+    patient = await get_patient(session, patient_id)
+    
+    medicines_taken = await add_entity(session, MedicinesTaken, MedicinesTaken(**{"date": medicine_data.date, "patient_id": patient.id}))
+    
+    for medicine in medicine_data.medicines:
+        medicine["medicines_taken_id"] = medicines_taken.id
+        await add_entity(session, Medicine(**medicine))
+        
+    session.refresh(patient)
+    
+    return patient
 
 
-# async def add_disease(patient_id: str, disease_data: dict):
-#     patient = await get_patient(patient_id)
-#     patient.disease_history.append(disease_data)
-#     return update_patient(patient_id, patient.dict())
-
+async def add_disease_to_patient(session: AsyncSession, patient_id: str, disease_data: dict):
+    
+    patient = await get_patient(session, patient_id)
+    
+    disease_taken = await add_entity(session, Disease(patient_id=patient.id, **disease_data))
+    
+    session.refresh(patient)
+    
+    return patient
 
 async def delete_patient(session: AsyncSession, patient_id: str):
     return await delete_entity(session, patient_id)

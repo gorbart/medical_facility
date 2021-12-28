@@ -28,7 +28,7 @@ async def get_entity(session: AsyncSession, model_cls: Type[DBModel], entity_id:
         return entity.scalar()
 
 
-async def add_entity(session: AsyncSession, model_cls: Type[DBModel], entity_data: DBModel):
+async def add_entity(session: AsyncSession,entity_data: DBModel):
     
     session.add(entity_data)
     
@@ -46,8 +46,7 @@ async def add_entity(session: AsyncSession, model_cls: Type[DBModel], entity_dat
 
 async def update_entity(session: AsyncSession, model_cls: Type[DBModel], entity_data: dict, entity_id: str):
     """Function returns False if request body is empty or entity with given id doesn't exist"""
-    if len(entity_data) < 1:
-        return None
+   
     stmt = select(model_cls).filter(model_cls.id == entity_id)
     
     result = session.execute(stmt)

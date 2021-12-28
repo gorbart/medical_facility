@@ -54,17 +54,10 @@ async def add_user_data(user: User, session=Depends(get_session)) -> JSONRespons
 
 @router.put('/', response_description='Update a user in database')
 async def update_user_data(user_id: str, received_user_data: dict, session=Depends(get_session)) -> JSONResponse:
-    is_successful = await update_user(session, user_id,received_user_data)
-
-    user = await get_user(session, user_id)
+    user = await update_user(session, user_id,received_user_data)
 
     if user is not None:
-        if not is_successful:
-            return JSONResponse(status_code=status.HTTP_202_ACCEPTED,
-                                content={'message': USER_NOT_CHANGED_MESSAGE.format(user_id),
-                                         'object': user.as_dict()})
-        else:
-            return JSONResponse(status_code=status.HTTP_200_OK, content=user.as_dict())
+        return JSONResponse(status_code=status.HTTP_200_OK, content=user.as_dict())
 
     raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=USER_NOT_FOUND_MESSAGE.format(user_id))
 
