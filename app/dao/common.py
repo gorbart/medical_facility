@@ -1,42 +1,49 @@
+from typing import Type
 from bson import ObjectId
-from motor.motor_asyncio import AsyncIOMotorCollection
+from sqlalchemy.future import select
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.models.base import DBModel
+
+# from motor.motor_asyncio import AsyncIOMotorCollection
 
 
-async def get_entities(collection: AsyncIOMotorCollection):
-    entities = [entity async for entity in collection.find()]
-    return entities
+async def get_entities(session: AsyncSession, model_cls: Type[DBModel]):
+    result = await session.execute(select(model_cls))
+    return result
 
 
-async def get_entity(collection: AsyncIOMotorCollection, entity_id: str):
-    entity = await collection.find_one({'_id': ObjectId(entity_id)})
+async def get_entity(session: AsyncSession, model_cls: Type[DBModel], entity_id: str):
+    entity = await session.query(model_cls).filter(model_cls.id == entity_id).first()
     if entity:
         return entity
 
 
-async def add_entity(collection: AsyncIOMotorCollection, entity_data: dict):
-    entity = await collection.insert_one(entity_data)
-    added_entity = await collection.find_one({'_id': entity.inserted_id})
+async def add_entity(session: AsyncSession, entity_data: DBModel):
+    entity = await session.add(entity_data)
+    await session.commit()
+    await session.refresh(entity_data)
 
-    return added_entity
+    return entity_data
 
 
-async def update_entity(collection: AsyncIOMotorCollection, entity_data: dict, entity_id: str):
+async def update_entity(session: AsyncSession, model_cls: Type[DBModel], entity_data: dict, entity_id: str):
     """Function returns False if request body is empty or entity with given id doesn't exist"""
     if len(entity_data) < 1:
         return None
-    entity = await collection.find_one({"_id": ObjectId(entity_id)})
+    entity = await session.query(model_cls).filter(model_cls.id == entity_id).first()
     if entity:
-        updated_entity = await collection.update_one({"_id": ObjectId(entity_id)}, {"$set": entity_data})
+        updated_entity = model_cls(id=entity.id, **entity_data)
+        session.commit()
 
-        if updated_entity:
-            return updated_entity
     return None
 
 
-async def delete_entity(collection: AsyncIOMotorCollection, entity_id: str):
+async def delete_entity(session: AsyncSession, model_cls: Type[DBModel],entity_id: str):
     """Function returns False if entity with given id doesn't exist"""
-    entity = await collection.find_one({"_id": ObjectId(entity_id)})
+    entity = await session.query(model_cls).filter(model_cls.id == entity_id).first()
     if entity:
-        await collection.delete_one({"_id": ObjectId(entity_id)})
+        await session.delete(entity)
+        session.commit()
         return True
     return False
