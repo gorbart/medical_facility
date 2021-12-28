@@ -12,7 +12,27 @@ async def get_patients(session: AsyncSession):
 
 
 async def get_patient(session: AsyncSession, patient_id: str):
-    return await get_entity(session, Patient, patient_id)
+    patient = await get_entity(session, Patient, patient_id)
+    
+    return patient
+
+async def get_medicines(session: AsyncSession, patient_id: str):
+    
+    stmt = select(MedicinesTaken, Medicine).join(Medicine, MedicinesTaken.id == Medicine.medicines_taken_id).filter(MedicinesTaken.patient_id == patient_id)
+    
+    taken = session.execute(stmt)
+    
+    
+    
+    return taken
+
+async def get_diseases(session: AsyncSession, patient_id: str):
+    
+    stmt = select(Disease).where(Disease.patient_id == patient_id)
+    
+    diseases = session.execute(stmt)
+    
+    return diseases
 
 
 async def get_patient_by_name_and_surname(session: AsyncSession,name: str, surname: str):
@@ -35,7 +55,7 @@ async def add_medicine_to_patient(session: AsyncSession,patient_id: str, medicin
     
     patient = await get_patient(session, patient_id)
     
-    medicines_taken = await add_entity(session, MedicinesTaken, MedicinesTaken(**{"date": medicine_data.date, "patient_id": patient.id}))
+    medicines_taken = await add_entity(session, MedicinesTaken(**{"date": medicine_data.date, "patient_id": patient.id}))
     
     for medicine in medicine_data.medicines:
         medicine["medicines_taken_id"] = medicines_taken.id

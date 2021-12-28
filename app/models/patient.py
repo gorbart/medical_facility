@@ -1,6 +1,6 @@
 from typing import List, Optional
 from bson.objectid import ObjectId
-from datetime import datetime
+from datetime import date, datetime
 from typing_extensions import TypedDict
 from pydantic.main import BaseModel
 
@@ -15,12 +15,21 @@ class Medicine(DBModel, table=True):
 
     medicines_taken_id: int = Field(
         default=None, foreign_key="medicinestaken.id")
-
-
+   
+   
 class MedicinesTaken(DBModel, table=True):
     date: datetime
 
     patient_id: int = Field(default=None, foreign_key="patient.id")
+    
+class MedicinesTakenInResponse(BaseModel):
+    
+    id: int
+    date: datetime
+    medicines: List[Medicine]
+    
+    def to_dict(self):
+        return {"id": self.id, "date": str(self.date), "medicines": [medicine.as_dict() for medicine in self.medicines]}
 
 
 class MedicinesTakenInCreate(BaseModel):
@@ -44,10 +53,10 @@ class Patient(Person, DBModel, table=True):
     #     json_encoders = {ObjectId: str}
 
 
-class PatientResponse(Person):
+class PatientInResponse(Person):
 
     disease_history: List[dict] = []
-    medicine_taken: List[MedicinesTaken] = []
+    medicine_taken: List[dict] = []
 
     # class Config:
     #     arbitrary_types_allowed = True

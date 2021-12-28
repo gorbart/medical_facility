@@ -64,6 +64,6 @@ async def update_user_data(user_id: str, received_user_data: dict, session=Depen
 
 @router.delete('/', response_description='Delete a user from database')
 async def delete_user_data(user_id: str, session=Depends(get_session)) -> Response:
-    if await delete_user(user_id):
+    if await delete_user(session, user_id):
         return Response(status_code=status.HTTP_204_NO_CONTENT)
     raise HTTPException(status_code=404, detail=USER_NOT_FOUND_MESSAGE.format(user_id))
