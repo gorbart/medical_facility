@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\app",
+    "\\app\\dao",
+    "\\app\\endpoints",
+    "\\app\\models",
+    "\\client",
+    "\\client\\api"
+  ],
+  "SelectedNode": "\\app\\dao\\common.py",
+  "PreviewInSolutionExplorer": false
+}

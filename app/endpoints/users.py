@@ -39,7 +39,8 @@ async def log_in(login: str, password: str) -> JSONResponse:
     if user:
         if user['password'] == password:
             user_id = json_util.dumps(user['_id'])
-            return JSONResponse(status_code=status.HTTP_200_OK, content=user_id)
+            user_type = json_util.dumps(user['_user_type'])
+            return JSONResponse(status_code=status.HTTP_200_OK, content=(user_id, user_type))
     raise HTTPException(status_code=401, detail=INCORRECT_LOGIN_DATA)
 
 

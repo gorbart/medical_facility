@@ -9,28 +9,37 @@
   </head>
   <body>
 
-      <form action="index.html" class="login-form">
+
+      <form name="myForm" onsumbit class="login-form">
         <h1>Login</h1>
 
         <div class="txtb">
-          <input type="text">
+          <input name="login" type="text">
           <span data-placeholder="Username"></span>
         </div>
 
         <div class="txtb">
-          <input type="password">
+          <input name="password" type="password">
           <span data-placeholder="Password"></span>
         </div>
 
-        <input type="submit" class="logbtn" value="Login">
-
-
-
+        <input type="submit" class="logbtn" value="Login" onclick="authentication()">
       </form>
 
 
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-      <script src="./login.js"></script>
+      <script>
+        $(".txtb input").on("focus",function(){
+          $(this).addClass("focus");
+        });
+  
+        $(".txtb input").on("blur",function(){
+          if($(this).val() == "")
+          $(this).removeClass("focus");
+        });
+  
+        </script>
+      <script type="module" src="./login.js"></script>
 
   </body>
 </html>
