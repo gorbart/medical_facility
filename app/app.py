@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from app.dao.database import init_db
 from app.endpoints import doctors, users, patients
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -11,7 +12,7 @@ You can create, read, update and delete data about **Patients**
 
 ## Doctors
 
-You can create, read, update and delete data about **Docotrs**
+You can create, read, update and delete data about **Doctors**
 
 You are able to:
 
@@ -42,6 +43,10 @@ app = FastAPI(
     description=description,
     openapi_tags=tags_metadata
 )
+
+@app.on_event("startup")
+def on_startup():
+    init_db()
 
 app.include_router(doctors.router)
 app.include_router(patients.router)

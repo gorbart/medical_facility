@@ -1,21 +1,23 @@
-from enum import IntEnum
-
+import enum
 from bson.objectid import ObjectId
+from sqlalchemy.sql.schema import UniqueConstraint
+from sqlalchemy.sql.sqltypes import VARCHAR
+from sqlmodel import Field, Column, Enum
 
-from app.models.base import Person
-
-
-class UserType(IntEnum):
-    ADMIN = 0
-    MANAGER = 1
-    NURSE = 2
+from app.models.base import DBModel, Person
 
 
-class User(Person):
-    login: str
+class UserType(str, enum.Enum):
+    ADMIN = "admin"
+    MANAGER = "manager"
+    NURSE = "nurse"
+
+
+class User(Person, DBModel, table=True):
+    login: str = Field(sa_column=Column("login", VARCHAR, unique=True))
     password: str
-    user_type: UserType
+    user_type: UserType = Field(sa_column=Column(Enum(UserType)))
     
-    class Config:
-        arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str}
+    # class Config:
+    #     arbitrary_types_allowed = True
+    #     json_encoders = {ObjectId: str}

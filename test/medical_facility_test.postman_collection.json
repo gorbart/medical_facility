@@ -586,11 +586,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{Base URL}}doctors/?doctor_specialty=kamerzysta",
+							"raw": "{{Base URL}}doctors/by_specialty/?doctor_specialty=kamerzysta",
 							"host": [
 								"{{Base URL}}doctors"
 							],
 							"path": [
+								"by_specialty",
 								""
 							],
 							"query": [

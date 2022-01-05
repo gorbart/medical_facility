@@ -1,37 +1,69 @@
 from datetime import datetime
+from enum import Enum
 from typing import List, Optional
-from typing_extensions import TypedDict
 
-from bson.objectid import ObjectId
-
-from app.models.base import Person, UpdatePerson
+from sqlmodel import Field
+from sqlmodel.main import SQLModel
 
 
-class Appointment(TypedDict):
+from app.models.base import DBModel, Person, UpdatePerson
+
+
+class Appointment(DBModel, table=True):
     date: datetime
     until: datetime
     description: Optional[str]
+    doctor_id: int = Field(default=None, foreign_key="doctor.id")
 
 
-class WorkingHours(TypedDict):
+class WorkingHours(DBModel, table=True):
     date: datetime
     until: datetime
 
+    time_period_id: int = Field(default=None, foreign_key="timeperiod.id")
 
-class TimePeriod(TypedDict):
+
+class TimePeriod(DBModel, table=True):
     date: datetime
     until: datetime
-    workingHours: List[WorkingHours]
+
+    doctor_id: int = Field(default=None, foreign_key="doctor.id")
 
 
-class Doctor(Person):
+class SpecialtyEnum(str, Enum):
+    GENERAL_PRACTITIONER = "general practitioner"
+    GYNECOLOGIST = "gynecologist"
+    SURGEON = "surgeon"
+    PEDIATRICIAN = "pediatrician"
+    DERMATOLOGIST = "dermatologist"
+
+
+class Specialty(DBModel, table=True):
+    name: SpecialtyEnum
+    
+class DoctorSpecialtyLink(SQLModel, table=True):
+    
+    doctor_id: Optional[int] = Field(
+        default=None, foreign_key="doctor.id", primary_key=True
+    )
+    
+    specialty_id: Optional[int] = Field(
+        default=None, foreign_key="specialty.id", primary_key=True
+    )
+
+
+class Doctor(Person, DBModel, table=True):
+    pass
+
+    # class Config:
+    #     arbitrary_types_allowed = True
+    #     json_encoders = {ObjectId: str}
+
+
+class DoctorResponse(Person):
     schedule: List[TimePeriod] = []
     scheduled_appointments: List[Appointment] = []
-    specialties: List[str] = []
-
-    class Config:
-        arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str}
+    specialties: List[Specialty] = []
 
 
 class UpdateDoctor(UpdatePerson):
@@ -40,9 +72,9 @@ class UpdateDoctor(UpdatePerson):
     """
     schedule: Optional[List[TimePeriod]]
     scheduled_appointments: Optional[List[Appointment]]
-    specialities: Optional[List[str]]
+    specialties: Optional[List[str]]
 
-    class Config:
-        arbitrary_types_allowed = True
-        allow_population_by_field_name = True
-        json_encoders = {ObjectId: str}
+    # class Config:
+    #     arbitrary_types_allowed = True
+    #     allow_population_by_field_name = True
+    #     json_encoders = {ObjectId: str}
