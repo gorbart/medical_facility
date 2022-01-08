@@ -1,28 +1,46 @@
 from datetime import datetime
 from enum import Enum
 from typing import List, Optional
+from pydantic.main import BaseModel
 
 from sqlmodel import Field
-from sqlmodel.main import SQLModel
+from sqlmodel.main import Relationship, SQLModel
 
 
 from app.models.base import DBModel, Person, UpdatePerson
 
 
-class Appointment(DBModel, table=True):
+class AppointmentInCreate(BaseModel):
     date: datetime
     until: datetime
     description: Optional[str]
+    
+class Appointment(DBModel, AppointmentInCreate, table=True):
+    
     doctor_id: int = Field(default=None, foreign_key="doctor.id")
 
 
-class WorkingHours(DBModel, table=True):
+class WorkingHoursInCreate(BaseModel):
     date: datetime
     until: datetime
 
+class WorkingHours(DBModel, WorkingHoursInCreate, table=True):
+    
+
     time_period_id: int = Field(default=None, foreign_key="timeperiod.id")
 
-
+class TimePeriodInCreate(BaseModel):
+    date: datetime
+    until: datetime
+    
+    working_hours: List[WorkingHoursInCreate]
+    
+class TimePeriodInResponse(BaseModel):
+    date: datetime
+    until: datetime
+    
+    working_hours: Optional[List[WorkingHoursInCreate]]
+    
 class TimePeriod(DBModel, table=True):
     date: datetime
     until: datetime
@@ -31,16 +49,14 @@ class TimePeriod(DBModel, table=True):
 
 
 class SpecialtyEnum(str, Enum):
-    GENERAL_PRACTITIONER = "general practitioner"
+    GENERAL_PRACTITIONER = "general_practitioner"
     GYNECOLOGIST = "gynecologist"
     SURGEON = "surgeon"
     PEDIATRICIAN = "pediatrician"
     DERMATOLOGIST = "dermatologist"
 
 
-class Specialty(DBModel, table=True):
-    name: SpecialtyEnum
-    
+   
 class DoctorSpecialtyLink(SQLModel, table=True):
     
     doctor_id: Optional[int] = Field(
@@ -51,9 +67,14 @@ class DoctorSpecialtyLink(SQLModel, table=True):
         default=None, foreign_key="specialty.id", primary_key=True
     )
 
+class Specialty(DBModel, table=True):
+    name: SpecialtyEnum
+    doctors: List["Doctor"] = Relationship(back_populates="specialties", link_model=DoctorSpecialtyLink)
+ 
 
 class Doctor(Person, DBModel, table=True):
-    pass
+    specialties: List["Specialty"] = Relationship(back_populates="doctors", link_model=DoctorSpecialtyLink)
+
 
     # class Config:
     #     arbitrary_types_allowed = True
@@ -61,7 +82,7 @@ class Doctor(Person, DBModel, table=True):
 
 
 class DoctorResponse(Person):
-    schedule: List[TimePeriod] = []
+    schedule: List[TimePeriodInCreate] = []
     scheduled_appointments: List[Appointment] = []
     specialties: List[Specialty] = []
 
@@ -70,9 +91,7 @@ class UpdateDoctor(UpdatePerson):
     """
     Model for updating Doctor data
     """
-    schedule: Optional[List[TimePeriod]]
-    scheduled_appointments: Optional[List[Appointment]]
-    specialties: Optional[List[str]]
+    pass
 
     # class Config:
     #     arbitrary_types_allowed = True
