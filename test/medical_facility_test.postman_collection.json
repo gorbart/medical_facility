@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "078d7a55-3bda-452a-b6b5-798fde7012d8",
+		"_postman_id": "f62fd41c-10c1-4005-8347-e9780ff0ac48",
 		"name": "medical_facility_test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -89,7 +89,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"name\": \"Jan\",\r\n        \"surname\": \"Nowak\",\r\n        \"login\": \"login\",\r\n        \"password\": \"pass1\",\r\n        \"user_type\": 2\r\n}",
+							"raw": "{\r\n        \"name\": \"Jan\",\r\n        \"surname\": \"Nowak\",\r\n        \"login\": \"login\",\r\n        \"password\": \"pass1\",\r\n        \"user_type\": \"admin\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -138,7 +138,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{Base URL}}users/one?user_id=6196d110e9e0d1cb18a45f41",
+							"raw": "{{Base URL}}users/one?user_id=3",
 							"host": [
 								"{{Base URL}}users"
 							],
@@ -148,7 +148,7 @@
 							"query": [
 								{
 									"key": "user_id",
-									"value": "6196d110e9e0d1cb18a45f41"
+									"value": "3"
 								}
 							]
 						}
@@ -222,7 +222,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{Base URL}}users/login/?login=SuperGoska123&password=haslo123",
+							"raw": "{{Base URL}}users/login/?login=login&password=pass1",
 							"host": [
 								"{{Base URL}}users"
 							],
@@ -233,11 +233,11 @@
 							"query": [
 								{
 									"key": "login",
-									"value": "SuperGoska123"
+									"value": "login"
 								},
 								{
 									"key": "password",
-									"value": "haslo123"
+									"value": "pass1"
 								}
 							]
 						}
@@ -388,7 +388,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"name\": \"Jan\",\r\n        \"surname\": \"Nowak\",\r\n        \"login\": \"login\",\r\n        \"password\": \"pass1\",\r\n        \"user_type\": 2\r\n}",
+							"raw": "{\r\n        \"name\": \"Jan\",\r\n        \"surname\": \"Nowak\",\r\n        \"login\": \"login\",\r\n        \"password\": \"pass1\",\r\n        \"user_type\": \"nurse\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -396,7 +396,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{Base URL}}users/?user_id=61abb7ddb32f1475c9340e70",
+							"raw": "{{Base URL}}users/?user_id=1",
 							"host": [
 								"{{Base URL}}users"
 							],
@@ -406,7 +406,7 @@
 							"query": [
 								{
 									"key": "user_id",
-									"value": "61abb7ddb32f1475c9340e70"
+									"value": "1"
 								}
 							]
 						}
@@ -549,17 +549,18 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{Base URL}}doctors/?doctor_specialty=Urolog",
+							"raw": "{{Base URL}}doctors/by_specialty/?doctor_specialty=surgeon",
 							"host": [
 								"{{Base URL}}doctors"
 							],
 							"path": [
+								"by_specialty",
 								""
 							],
 							"query": [
 								{
 									"key": "doctor_specialty",
-									"value": "Urolog"
+									"value": "surgeon"
 								}
 							]
 						}
@@ -634,7 +635,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{Base URL}}doctors/one?doctor_id=619a3d57128becce8d399d10",
+							"raw": "{{Base URL}}doctors/one?doctor_id=1",
 							"host": [
 								"{{Base URL}}doctors"
 							],
@@ -644,7 +645,7 @@
 							"query": [
 								{
 									"key": "doctor_id",
-									"value": "619a3d57128becce8d399d10"
+									"value": "1"
 								}
 							]
 						}
@@ -677,7 +678,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{Base URL}}doctors/one?doctor_id=619a3d57128becce8d399000",
+							"raw": "{{Base URL}}doctors/one?doctor_id=666",
 							"host": [
 								"{{Base URL}}doctors"
 							],
@@ -687,7 +688,7 @@
 							"query": [
 								{
 									"key": "doctor_id",
-									"value": "619a3d57128becce8d399000"
+									"value": "666"
 								}
 							]
 						}
@@ -701,7 +702,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"Marcin\",\r\n  \"surname\": \"Nowak\",\r\n  \"email\": \"JanKK@wp.pl\",\r\n  \"phone_number\": \"123456789\",\r\n  \"schedule\": [\r\n    {\r\n      \"date\": \"2021-11-22T12:52:13.324Z\",\r\n      \"until\": \"2021-11-28T12:52:13.324Z\",\r\n      \"workingHours\": [\r\n        {\r\n          \"date\": \"2021-10-22T12:00:00.324Z\" ,\r\n          \"until\": \"2021-10-22T19:00:00.324Z\" \r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"scheduled_appointments\": [\r\n    {\r\n      \"date\": \"2021-09-22T12:00:00.325Z\",\r\n      \"until\": \"2021-09-22T13:00:00.325Z\",\r\n      \"description\": \"Wizyta\"\r\n    }\r\n  ],\r\n  \"specialties\": [\"Patolog\"]\r\n}",
+							"raw": "{\r\n  \"name\": \"Marcin\",\r\n  \"surname\": \"Nowak\",\r\n  \"email\": \"JanKK@wp.pl\",\r\n  \"phone_number\": \"123456789\"\r\n  \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -709,7 +710,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{Base URL}}doctors/?doctor_id=61ae557f63efb24038ebec8f",
+							"raw": "{{Base URL}}doctors/?doctor_id=1",
 							"host": [
 								"{{Base URL}}doctors"
 							],
@@ -719,7 +720,7 @@
 							"query": [
 								{
 									"key": "doctor_id",
-									"value": "61ae557f63efb24038ebec8f"
+									"value": "1"
 								}
 							]
 						}
@@ -809,7 +810,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n      \"date\": \"2021-11-22T12:52:13.324Z\",\r\n      \"until\": \"2021-11-28T12:52:13.324Z\",\r\n      \"workingHours\": [\r\n        {\r\n          \"date\": \"2021-11-22T12:00:00.324Z\" ,\r\n          \"until\": \"2021-11-22T19:00:00.324Z\" \r\n        },\r\n        {\r\n          \"date\": \"2021-11-23T10:00:00.324Z\",\r\n          \"until\": \"2021-11-23T21:00:00.324Z\"\r\n        }\r\n      ]\r\n    }",
+							"raw": "{\r\n      \"date\": \"2021-11-22T12:52:13.324Z\",\r\n      \"until\": \"2021-11-28T12:52:13.324Z\",\r\n      \"working_hours\": [\r\n        {\r\n          \"date\": \"2021-11-22T12:00:00.324Z\" ,\r\n          \"until\": \"2021-11-22T19:00:00.324Z\" \r\n        },\r\n        {\r\n          \"date\": \"2021-11-23T10:00:00.324Z\",\r\n          \"until\": \"2021-11-23T21:00:00.324Z\"\r\n        }\r\n      ]\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -817,7 +818,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{Base URL}}doctors/add_time_period/?doctor_id=61ae557f63efb24038ebec8f",
+							"raw": "{{Base URL}}doctors/add_time_period/?doctor_id=1",
 							"host": [
 								"{{Base URL}}doctors"
 							],
@@ -828,7 +829,7 @@
 							"query": [
 								{
 									"key": "doctor_id",
-									"value": "61ae557f63efb24038ebec8f"
+									"value": "1"
 								}
 							]
 						}
@@ -874,7 +875,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{Base URL}}doctors/add_appointment/?doctor_id=61ae557f63efb24038ebec8f",
+							"raw": "{{Base URL}}doctors/add_appointment/?doctor_id=1",
 							"host": [
 								"{{Base URL}}doctors"
 							],
@@ -885,7 +886,7 @@
 							"query": [
 								{
 									"key": "doctor_id",
-									"value": "61ae557f63efb24038ebec8f"
+									"value": "1"
 								}
 							]
 						}
@@ -927,7 +928,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{Base URL}}doctors/add_appointment/?doctor_id=61ae557f63efb24038ebe000",
+							"raw": "{{Base URL}}doctors/add_appointment/?doctor_id=20",
 							"host": [
 								"{{Base URL}}doctors"
 							],
@@ -938,7 +939,7 @@
 							"query": [
 								{
 									"key": "doctor_id",
-									"value": "61ae557f63efb24038ebe000"
+									"value": "20"
 								}
 							]
 						}
@@ -980,7 +981,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{Base URL}}doctors/add_time_period/?doctor_id=61ae557f63efb24038ebe000",
+							"raw": "{{Base URL}}doctors/add_time_period/?doctor_id=20",
 							"host": [
 								"{{Base URL}}doctors"
 							],
@@ -991,7 +992,35 @@
 							"query": [
 								{
 									"key": "doctor_id",
-									"value": "61ae557f63efb24038ebe000"
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add_doctor_specialty",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{Base URL}}doctors/specialty/?doctor_id=2&specialty=surgeon",
+							"host": [
+								"{{Base URL}}doctors"
+							],
+							"path": [
+								"specialty",
+								""
+							],
+							"query": [
+								{
+									"key": "doctor_id",
+									"value": "2"
+								},
+								{
+									"key": "specialty",
+									"value": "surgeon"
 								}
 							]
 						}
@@ -1084,7 +1113,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"Anna\",\r\n  \"surname\": \"Walczyk\",\r\n  \"email\": \"ania@onet.pl\",\r\n  \"disease_history\": [\r\n    { \"date\": \"2021-11-20T22:36:11.232Z\",\r\n      \"disease\": [\"ospa\"] },\r\n    { \"date\": \"2021-11-20T22:36:11.232Z\",\r\n      \"disease\": [\"ospa\", \"katar\"] }\r\n  ],\r\n  \"medicine_taken\": [\r\n    {\r\n      \"date\": \"2021-11-20T22:52:34.066Z\",\r\n      \"medicines\": [\r\n        { \"name\": \"apap\", \"until\": \"2021-11-23T22:52:34.066Z\" },\r\n        { \"name\": \"Paracetamol\", \"until\": \"2021-11-22T22:52:34.066Z\" }\r\n      ]\r\n    }\r\n  ]\r\n}\r\n",
+							"raw": "{\r\n  \"name\": \"Anna\",\r\n  \"surname\": \"Walczyk\",\r\n  \"email\": \"ania@onet.pl\"\r\n  \r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1135,7 +1164,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"date\": \"2021-12-20T22:52:34.066Z\",\r\n    \"medicines\": [\r\n        {\r\n            \"name\": \"Xenna\",\r\n            \"until\": \"2021-12-27T22:52:34.066Z\"\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"date\": \"2021-12-20T22:52:34.066Z\",\r\n    \"medicines\": [\r\n        {\r\n            \"name\": \"Xenna\",\r\n            \"until\": \"2021-12-27T22:52:34.066Z\"\r\n        },\r\n        {\r\n            \"name\": \"Comirnaty\",\r\n            \"until\": \"2021-12-27T22:52:34.066Z\"\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1143,7 +1172,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{Base URL}}patients/add_medicine/?patient_id=6197cbedf0fa3551f3f33b59",
+							"raw": "{{Base URL}}patients/add_medicine/?patient_id=1",
 							"host": [
 								"{{Base URL}}patients"
 							],
@@ -1154,7 +1183,7 @@
 							"query": [
 								{
 									"key": "patient_id",
-									"value": "6197cbedf0fa3551f3f33b59"
+									"value": "1"
 								}
 							]
 						}
@@ -1301,7 +1330,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Anna\",\r\n    \"surname\": \"Wokulska\",\r\n    \"email\": \"ania@onet.pl\",\r\n    \"disease_history\": [\r\n        {\r\n            \"date\": \"2021-11-20T22:36:11.232Z\",\r\n            \"disease\": [\r\n                \"ospa\"\r\n            ]\r\n        },\r\n        {\r\n            \"date\": \"2021-11-20T22:36:11.232Z\",\r\n            \"disease\": [\r\n                \"grypa\",\r\n                \"katar\"\r\n            ]\r\n        }\r\n    ],\r\n    \"medicine_taken\": [\r\n        {\r\n            \"date\": \"2021-11-20T22:52:34.066Z\",\r\n            \"medicines\": [\r\n                {\r\n                    \"name\": \"apap\",\r\n                    \"until\": \"2021-11-23T22:52:34.066Z\"\r\n                },\r\n                {\r\n                    \"name\": \"Paracetamol\",\r\n                    \"until\": \"2021-11-22T22:52:34.066Z\"\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"name\": \"Jo\",\r\n    \"surname\": \"Wokulska\",\r\n    \"email\": \"ania@onet.pl\"\r\n    \r\n    \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1309,7 +1338,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{Base URL}}patients/?patient_id=6197cbedf0fa3551f3f33b59",
+							"raw": "{{Base URL}}patients/?patient_id=1",
 							"host": [
 								"{{Base URL}}patients"
 							],
@@ -1319,7 +1348,7 @@
 							"query": [
 								{
 									"key": "patient_id",
-									"value": "6197cbedf0fa3551f3f33b59"
+									"value": "1"
 								}
 							]
 						}
@@ -1365,7 +1394,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{Base URL}}patients/?patient_id=6197cbedf0fa3551f3f33b00",
+							"raw": "{{Base URL}}patients/?patient_id=666",
 							"host": [
 								"{{Base URL}}patients"
 							],
@@ -1375,7 +1404,7 @@
 							"query": [
 								{
 									"key": "patient_id",
-									"value": "6197cbedf0fa3551f3f33b00"
+									"value": "666"
 								}
 							]
 						}
@@ -1414,7 +1443,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \"date\": \"2021-12-20T22:36:11.232Z\",\r\n      \"disease\": [\"COVID-19\"] }",
+							"raw": "{ \"date\": \"2021-12-20T22:36:11.232Z\",\r\n      \"name\": \"COVID-19\" }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1422,7 +1451,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{Base URL}}patients/add_disease/?patient_id=6197cbedf0fa3551f3f33b59",
+							"raw": "{{Base URL}}patients/add_disease/?patient_id=1",
 							"host": [
 								"{{Base URL}}patients"
 							],
@@ -1433,7 +1462,7 @@
 							"query": [
 								{
 									"key": "patient_id",
-									"value": "6197cbedf0fa3551f3f33b59"
+									"value": "1"
 								}
 							]
 						}
@@ -1475,7 +1504,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{Base URL}}patients/add_disease/?patient_id=6197cbedf0fa3551f3f33000",
+							"raw": "{{Base URL}}patients/add_disease/?patient_id=666",
 							"host": [
 								"{{Base URL}}patients"
 							],
@@ -1486,7 +1515,7 @@
 							"query": [
 								{
 									"key": "patient_id",
-									"value": "6197cbedf0fa3551f3f33000"
+									"value": "666"
 								}
 							]
 						}
@@ -1518,7 +1547,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{Base URL}}patients/one?patient_id=61952fda1b48e127fc76b000",
+							"raw": "{{Base URL}}patients/one?patient_id=666",
 							"host": [
 								"{{Base URL}}patients"
 							],
@@ -1528,7 +1557,7 @@
 							"query": [
 								{
 									"key": "patient_id",
-									"value": "61952fda1b48e127fc76b000"
+									"value": "666"
 								}
 							]
 						}
@@ -1565,7 +1594,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{Base URL}}patients/one?patient_id=61952fda1b48e127fc76b629",
+							"raw": "{{Base URL}}patients/one?patient_id=1",
 							"host": [
 								"{{Base URL}}patients"
 							],
@@ -1575,7 +1604,7 @@
 							"query": [
 								{
 									"key": "patient_id",
-									"value": "61952fda1b48e127fc76b629"
+									"value": "1"
 								}
 							]
 						}
