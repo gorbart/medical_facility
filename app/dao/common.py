@@ -35,6 +35,7 @@ async def add_entity(session: AsyncSession,entity_data: DBModel):
     try:
         session.commit()
     except exc.IntegrityError as e:
+        print(e)
         session.rollback()
         return None
 

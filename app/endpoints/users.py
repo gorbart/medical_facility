@@ -22,11 +22,11 @@ router = APIRouter(
 
 
 @router.get('/one', response_description='Get a user with given id')
-async def get_one_user(user_id: str, session=Depends(get_session)) -> JSONResponse:
-    user = await get_user(session, user_id)
+async def get_one_user(login: str, user_type: UserType, session=Depends(get_session)) -> JSONResponse:
+    user = await get_user_by_login_and_type(session, login, user_type)
     if user is not None:
         return JSONResponse(status_code=status.HTTP_200_OK, content=user.as_dict())
-    raise HTTPException(status_code=404, detail=USER_NOT_FOUND_MESSAGE.format(user_id))
+    raise HTTPException(status_code=404, detail=USER_NOT_FOUND_MESSAGE.format(login))
 
 
 @router.get('/', response_description='Get all users')
@@ -37,7 +37,7 @@ async def get_user_list(session=Depends(get_session)) -> JSONResponse:
 
 @router.get('/login/', response_description='log in')
 async def log_in(login: str, password: str, session=Depends(get_session)) -> JSONResponse:
-    user = await get_user_by_login(session, login)
+    user = await get_user_by_login_and_type(session, login)
     if user:
         if user.password == password:
             return JSONResponse(status_code=status.HTTP_200_OK, content=user.as_dict())

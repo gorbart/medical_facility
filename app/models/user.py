@@ -14,9 +14,10 @@ class UserType(str, enum.Enum):
 
 
 class User(Person, DBModel, table=True):
-    login: str = Field(sa_column=Column("login", VARCHAR, unique=True))
+    login: str = Field(sa_column=Column("login", VARCHAR, primary_key=True))
     password: str
-    user_type: UserType = Field(sa_column=Column(Enum(UserType)))
+    user_type: UserType = Field(sa_column=Column(Enum(UserType), primary_key=True))
+    id: int = None
     
     # class Config:
     #     arbitrary_types_allowed = True
