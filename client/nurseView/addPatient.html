@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles.css" type="text/css">
+    <title>addPatient</title>
+</head>
+<body>
+    <button onclick="window.location.href='nursePatientView.html'" id="returnButt" >Return</button>
+    <form id="patientForm" class="form" name="creatingForm" onsubmit="createPatient()">
+        <p type="*Name:"><input name="name" type="text" pattern="[a-z A-Z]*"  maxlength="30" placeholder="Enter patient name" required></p>
+        <p type="*Surname:"><input name="surname" type="text" pattern="[a-z A-Z]*" maxlength="30" placeholder="Enter patient surname" required></p>
+        <p type="Email:"><input name="email" type="email" placeholder="Enter patient email"></p>
+        <p type="Phone Number:"><input name="phone" type="tel" pattern="[0-9]{3}[0-9]{3}[0-9]{3}" placeholder="Enter phone number"></p>
+        
+        <button type="submit" class="addButton">Create</button>
+      </form>
+
+      
+    <script type="module" src="./addPatient.js"></script>
+</body>
+</html>

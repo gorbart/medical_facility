@@ -63,8 +63,8 @@ export class User {
     const response = await fetch(url);
     return response.json();
   }
-  async add_user_data(patient = {}) {
-    return postData(this.baseURL, patient);
+  async add_user_data(user = {}) {
+    return postData(this.baseURL, user);
   }
   async update_user_data(user_id = "", user = {}) {
     return putData(this.baseURL, user, { user_id: user_id });

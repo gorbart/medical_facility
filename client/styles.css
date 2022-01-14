@@ -8,7 +8,7 @@
   
   body{
     min-height: 100vh;
-    background-image: linear-gradient(120deg,#3498db,#8e44ad);
+    background-image: linear-gradient(to top, #accbee 0%, #e7f0fd 100%);;
   }
   
   .login-form{
@@ -76,7 +76,7 @@
     width: 100%;
     height: 50px;
     border: none;
-    background: linear-gradient(120deg,#3498db,#8e44ad,#3498db);
+    background: linear-gradient(to top, #accbee 0%, #e7f0fd 100%);;
     background-size: 200%;
     color: #fff;
     outline: none;
@@ -94,3 +94,346 @@
     font-size: 13px;
   }
   
+  table.blueTable {
+    margin-top: 30px;
+    margin-left: 10px;
+    border: 2px solid #1C6EA4;
+    background-color: #EEEEEE;
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+  }
+  table.blueTable td, table.blueTable th {
+    border: 2px solid #AAAAAA;
+    padding: 3px 2px;
+  }
+  table.blueTable tbody td {
+    font-size: 16px;
+  }
+  table.blueTable tr:nth-child(even) {
+    background: #D0E4F5;
+  }
+  table.blueTable thead {
+    background: #1C6EA4;
+    background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+    background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+    background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+    border-bottom: 2px solid #444444;
+    font-size: 19px;
+    font-weight: bold;
+    color: #FFFFFF;
+    border-left: 2px solid #D0E4F5;
+  }
+
+  table.blueTable thead th:first-child {
+    border-left: none;
+  }
+  
+  table.blueTable tfoot {
+    font-size: 14px;
+    font-weight: bold;
+    color: #FFFFFF;
+    background: #D0E4F5;
+    background: -moz-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+    background: -webkit-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+    background: linear-gradient(to bottom, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+    border-top: 2px solid #444444;
+  }
+  table.blueTable tfoot td {
+    font-size: 14px;
+  }
+  table.blueTable tfoot .links {
+    text-align: right;
+  }
+  table.blueTable tfoot .links a{
+    display: inline-block;
+    background: #1C6EA4;
+    color: #FFFFFF;
+    padding: 2px 8px;
+    border-radius: 5px;
+  }
+
+
+Button {
+  align-items: center;
+  appearance: none;
+  background-color: #3EB2FD;
+  background-image: linear-gradient(1deg, #4F58FD, #149BF3 99%);
+  background-size: calc(100% + 20px) calc(100% + 20px);
+  border-radius: 100px;
+  border-width: 0;
+  box-shadow: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: CircularStd,sans-serif;
+  font-size: 1rem;
+  height: auto;
+  justify-content: center;
+  line-height: 1.5;
+  padding: 6px 20px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color .2s,background-position .2s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: top;
+  white-space: nowrap;
+}
+.linkInTable{
+  font-size: 20px;
+}
+
+Button:active,
+Button:focus {
+  outline: none;
+}
+
+Button:hover {
+  background-position: -20px -20px;
+}
+
+.smallButt{
+  
+  padding: 1px 2px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+Button:focus:not(:active) {
+  box-shadow: rgba(40, 170, 255, 0.25) 0 0 0 .125em;
+}
+
+#addButt{
+  float: left;
+  margin: 20px;
+}
+#addButt2{
+  margin: 20px;
+  margin-bottom: 0px;
+}
+#addButt3{
+  float: right;
+  margin: 20px;
+}
+#managerForm{
+  height: 600px;
+}
+
+.form {
+  width: 340px;
+  height: 740px;
+  background: #e6e6e6;
+  border-radius: 8px;
+  box-shadow: 0 0 40px -10px #000;
+  margin: calc(50vh - 480px) auto;
+  padding: 20px 30px;
+  max-width: calc(100vw - 40px);
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+  position: relative;
+} 
+#diseaseForm{
+  height: 360px;
+  margin: calc(50vh - 300px) auto;
+}
+
+#medicineForm{
+  height: 420px;
+  margin: calc(50vh - 360px) auto;
+}
+
+#formPeriod{
+  height: 300px;
+}
+#forWorkingHours{
+  height: 380px;
+  margin: calc(50vh - 480px) auto;
+}
+
+
+h2 {
+  margin: 10px 0;
+  padding-bottom: 10px;
+  width: 180px;
+  color: #78788c;
+  border-bottom: 3px solid #78788c;
+}
+input {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  background: none;
+  outline: none;
+  resize: none;
+  border: 0;
+  font-family: "Montserrat", sans-serif;
+  transition: all 0.3s;
+  border-bottom: 2px solid #bebed2;
+}
+input:focus {
+  border-bottom: 2px solid #78788c;
+}
+p:before {
+  content: attr(type);
+  display: block;
+  margin: 28px 0 0;
+  font-size: 14px;
+  color: #5a5a5a;
+}
+.addButton {
+  float: right;
+  padding: 8px 12px;
+  margin: 8px 0 0;
+  font-family: "Montserrat", sans-serif;
+  border: 2px solid #78788c;
+  background: 0;
+  color: #5a5a6e;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+#returnButt{
+  margin-top: 30px;
+  margin-left: 30px;
+}
+button:hover {
+  background: #78788c;
+  color: #fff;
+}
+
+span {
+  margin: 0 5px 0 15px;
+}
+
+#selector {
+  position: relative;
+  float: left;
+  width: 260px;
+  min-height: 30px;
+  font-family: 'Roboto';
+  color: #777;
+  font-weight: 300;
+  background-color: #fff;
+  box-shadow: 1px 2px 10px -2px rgba(0,0,0,0.3);
+  border-radius: 3px;
+  transition: all 375ms ease-in-out;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  margin-left: 15px;
+
+}
+
+#detailPatientLink{
+  margin-left: 10px;
+}
+
+
+select {
+
+  /* styling */
+  background-color: white;
+  border: thin solid blue;
+  border-radius: 4px;
+  display: inline-block;
+  font: inherit;
+  line-height: 1.5em;
+  padding: 0.5em 3.5em 0.5em 1em;
+
+  /* reset */
+
+  margin: 0;      
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* arrows */
+
+select.classic {
+  float: right;
+  margin: 20px;
+  background-image:
+    linear-gradient(45deg, transparent 50%, blue 50%),
+    linear-gradient(135deg, blue 50%, transparent 50%),
+    linear-gradient(to right, skyblue, skyblue);
+  background-position:
+    calc(100% - 20px) calc(1em + 2px),
+    calc(100% - 15px) calc(1em + 2px),
+    100% 0;
+  background-size:
+    5px 5px,
+    5px 5px,
+    2.5em 2.5em;
+  background-repeat: no-repeat;
+}
+
+select.classic:focus {
+  background-image:
+    linear-gradient(45deg, white 50%, transparent 50%),
+    linear-gradient(135deg, transparent 50%, white 50%),
+    linear-gradient(to right, gray, gray);
+  background-position:
+    calc(100% - 15px) 1em,
+    calc(100% - 20px) 1em,
+    100% 0;
+  background-size:
+    5px 5px,
+    5px 5px,
+    2.5em 2.5em;
+  background-repeat: no-repeat;
+  border-color: grey;
+  outline: 0;
+}
+
+.createScheduleButt{
+  display: block;
+  margin: 0 auto;
+  width : 120px;
+}
+
+.tablesDiv{
+  margin-right: auto;
+  margin-left: auto;
+
+  overflow: hidden;
+  zoom: 1;
+}
+DIV.tablesDiv TABLE
+{
+    border-collapse: separate;
+}
+
+DIV.tablesDiv TABLE#table1
+{
+    float: left;
+    width: 45%;
+}
+
+DIV.tablesDiv TABLE#table2
+{
+    float: right;
+    width: 45%;
+}
+
+#buttonDiv{
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+}
+
+#returnButt2{
+  display: inline-block;
+}
+#addMedicine{
+  margin-left: 100px;
+  display: inline-block;
+}
+#addDisease{
+  margin-left: 100px;
+  display: inline-block;
+}

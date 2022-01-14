@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles.css" type="text/css">
+    <title>createSchedule</title>
+</head>
+<body>
+    <button onclick="window.location.href='nurse.html'" id="returnButt" >Return</button>
+
+    <div id="formPeriod" class="form" name="timePeriodForm">
+        <p type="*Time period from:"><input id="periodFrom" type="date" required></p>
+        <p type="*Time period until:"><input id="periodUntil" type="date" required></p>
+        <button id="buttPeriod" type="submit" class="addButton">Set</button>
+    </div>
+
+    <div id="forWorkingHours"class="form" name="workingHoursForm">
+        <p type="*Day:"><input id="day" type="date" required></p>
+        <p type="*Starts work at:"><input id="startWork" type="time" required></p>
+        <p type="*Ends work at:"><input id="endWork" type="time" required></p>
+        <button id="buttWH" type="submit" class="addButton">Set</button>
+    </div> 
+    <button id="buttCreate" class="createScheduleButt">Create</button> 
+    
+    <script type="module" src="./addSchedule.js"></script>
+</body>
+</html>

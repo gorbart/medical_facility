@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit doctor</title>
+    <link rel="stylesheet" href="../styles.css" type="text/css">
+</head>
+<body>
+    <button onclick="window.location.href='manager.html'" id="returnButt" >Return</button>
+    <p>Nie dziala edytowanie ale tylko dla specjalnosci. Tablica specjalnosci wyglada tak samo jak przy dodawaniu lekarza</p>
+    <form class="form" name="editForm" onsubmit="saveDoctorData()">
+        <p type="*Name:"><input id="idname" name="name" type="text" pattern="[a-z A-Z]*"  maxlength="30" placeholder="Enter doctor surname" required></p>
+        <p type="*Surname:"><input id="idsurname" name="surname" type="text" pattern="[a-z A-Z]*" maxlength="30" placeholder="Enter doctor surname" required></p>
+        <p type="Email:"><input id="idemail" name="email" type="email" placeholder="Enter doctor email"></p>
+        <p type="Phone Number:"><input id="idphone" name="phone" type="tel" pattern="[0-9]{3}[0-9]{3}[0-9]{3}" placeholder="Enter phone number"></p>
+        <p type="Add new specialities:"></p>
+        <select name="Specialities" id="selector" size="6" multiple>
+            <option value="Anastezjolog">Anastezjolog</option>
+            <option value="Chirurg">Chirurg</option>
+            <option value="Dentysta">Dentysta</option>
+            <option value="Ginekolog">Ginekolog</option>
+            <option value="Kardiolog">Kardiolog</option>
+            <option value="Okulista">Okulista</option>
+            <option value="Onkolog">Onkolog</option>
+            <option value="Patolog">Patolog</option>
+            <option value="Pediatra">Pediatra</option>
+            <option value="Psychiatra">Psychiatra</option>
+            <option value="Reumatolog">Reumatolog</option>
+            <option value="Urolog">Urolog</option>
+        </select>
+        <button type="submit" class="addButton">Save</button>
+      </form>
+
+      
+    <script type="module" src="./editDoctor.js"></script>
+</body>
+</html>

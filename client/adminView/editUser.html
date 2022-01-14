@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../styles.css" type="text/css">
+</head>
+<body>
+    <button onclick="window.location.href='admin.html'" id="returnButt" >Return</button>
+
+    <form class="form" name="editForm" onsubmit="saveUserData()">
+        <p type="*Name:"><input id="idname" name="name" type="text" pattern="[a-z A-Z]*"  maxlength="30" placeholder="Enter user name" required></p>
+        <p type="*Surname:"><input id="idsurname" name="surname" type="text" pattern="[a-z A-Z]*" maxlength="30" placeholder="Enter user surname" required></p>
+        <p type="Email:"><input id="idemail" name="email" type="email" placeholder="Enter user email"></p>
+        <p type="Phone Number:"><input id="idphone" name="phone" type="tel" pattern="[0-9]{3}[0-9]{3}[0-9]{3}" placeholder="Enter phone number"></p>
+        <p type="*Type:"></p>
+        <select name="type" id="selector">
+            <option value="0">Admin</option>
+            <option value="1">Manager</option>
+            <option value="2">Nurse</option>
+        </select>
+        <p type="*Login:"><input id="idlogin" name="login" maxlength="30" placeholder="Enter Login" required></p>
+        <p type="*Password:"><input id="idpassword" name="password" maxlength="30" placeholder="Enter password" required></p>
+        <button type="submit" class="addUserButton">Save</button>
+      </form>
+
+      
+    <script type="module" src="./editUser.js"></script>
+</body>
+</html>

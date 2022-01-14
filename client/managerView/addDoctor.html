@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles.css" type="text/css">
+    <title>addDoctor</title>
+</head>
+<body>
+    <button onclick="window.location.href='manager.html'" id="returnButt" >Return</button>
+    <p>Specialities pobiera tylko jedna wartosc, i nie chce mi zapisac doktora</p>
+    <form id="managerForm" class="form" name="creatingForm" onsubmit="createDoctor()">
+        <p type="*Name:"><input name="name" type="text" pattern="[a-z A-Z]*"  maxlength="30" placeholder="Enter doctor name" required></p>
+        <p type="*Surname:"><input name="surname" type="text" pattern="[a-z A-Z]*" maxlength="30" placeholder="Enter doctor surname" required></p>
+        <p type="Email:"><input name="email" type="email" placeholder="Enter doctor email"></p>
+        <p type="Phone Number:"><input name="phone" type="tel" pattern="[0-9]{3}[0-9]{3}[0-9]{3}" placeholder="Enter phone number"></p>
+        <p type="Specialisation (with multiple choice):"></p>
+        <select multiple name="specialities" id="selector">
+            <option value="Anastezjolog">Anastezjolog</option>
+            <option value="Chirurg">Chirurg</option>
+            <option value="Dentysta">Dentysta</option>
+            <option value="Ginekolog">Ginekolog</option>
+            <option value="Kardiolog">Kardiolog</option>
+            <option value="Okulista">Okulista</option>
+            <option value="Onkolog">Onkolog</option>
+            <option value="Patolog">Patolog</option>
+            <option value="Pediatra">Pediatra</option>
+            <option value="Psychiatra">Psychiatra</option>
+            <option value="Reumatolog">Reumatolog</option>
+            <option value="Urolog">Urolog</option>
+        </select>   
+        <button type="submit" class="addButton">Create</button>
+      </form>
+
+      
+    <script type="module" src="./addDoctor.js"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles.css" type="text/css">
+    <title>Patient details</title>
+</head>
+<body>
+    <div id="buttonDiv">
+        <button onclick="window.location.href='nursePatientView.html'" id="returnButt2" >Return</button>   
+        <button id="addDisease" class="butt" type="button" onclick="addDisease()">Add disease</button>
+        <button id="addMedicine" class="butt" type="button" onclick="addMedicine()">Add medicine taken</button>
+
+    </div>
+
+    <div class="tablesDiv">
+        <table id="table1" class = "blueTable">
+            <thead>
+                <tr>
+                    <td> Disease </td>
+                    <td> Date </td>
+                </tr>
+            </thead>
+            <tbody id = "diseaseTable">
+            </tbody>
+        </table>
+        <table id="table2" class = "blueTable">
+            <thead>
+                <tr>
+                    <td> Medicine </td>
+                    <td> From </td>
+                    <td> Until </td>
+                </tr>
+            </thead>
+            <tbody id = "medicneTable">
+            </tbody>
+        </table>
+    </div>
+
+    <script type="module" src="./detailsPatient.js"></script>
+</body>
+</html>

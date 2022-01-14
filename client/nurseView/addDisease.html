@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles.css" type="text/css">
+    <title>addDisease</title>
+</head>
+<body>
+    <button onclick="history.back()" id="returnButt" >Return</button>
+    <div id="diseaseForm" class="form" name="creatingForm">
+        <p type="*Date of diagnosis:"><input id="date" type="date" required></p>
+        <button id="buttDate" type="submit" class="addButton">Set</button>
+        <br><br>
+        <p type="*Disease:"><input id="disease" type="text" maxlength="30" placeholder="Enter disease" required></p>
+        <button id="buttDisease" type="submit" class="addButton">Set</button>
+      </div>
+    <button id="buttCreate" class="createScheduleButt">Create</button> 
+
+      
+    <script type="module" src="./addDisease.js"></script>
+</body>
+</html>

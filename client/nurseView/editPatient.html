@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit patient</title>
+    <link rel="stylesheet" href="../styles.css" type="text/css">
+</head>
+<body>
+    <button onclick="window.location.href='nursePatientView.html'" id="returnButt" >Return</button>
+    <form class="form" name="editForm" onsubmit="savePatientData()">
+        <p type="*Name:"><input id="idname" name="name" type="text" pattern="[a-z A-Z]*"  maxlength="30" placeholder="Enter patient surname" required></p>
+        <p type="*Surname:"><input id="idsurname" name="surname" type="text" pattern="[a-z A-Z]*" maxlength="30" placeholder="Enter patient surname" required></p>
+        <p type="Email:"><input id="idemail" name="email" type="email" placeholder="Enter patient email"></p>
+        <p type="Phone Number:"><input id="idphone" name="phone" type="tel" pattern="[0-9]{3}[0-9]{3}[0-9]{3}" placeholder="Enter phone number"></p>
+        <button type="submit" class="addButton">Save</button>
+      </form>
+
+      
+    <script type="module" src="./editPatient.js"></script>
+</body>
+</html>

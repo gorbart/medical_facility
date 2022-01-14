@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles.css" type="text/css">
+    <title>Nurse doctors view</title>
+</head>
+<body>
+    <p>Welcome nurse named: </p>
+    <p>delete appointments, wylogowanie</p>
+   
+    <select id="myFilter" class="classic" onchange="Filtr()">
+        <option value="All">Show All</option>
+        <option value="Anastezjolog">Anastezjolog</option>
+        <option value="Chirurg">Chirurg</option>
+        <option value="Dentysta">Dentysta</option>
+        <option value="Ginekolog">Ginekolog</option>
+        <option value="Kardiolog">Kardiolog</option>
+        <option value="Okulista">Okulista</option>
+        <option value="Onkolog">Onkolog</option>
+        <option value="Patolog">Patolog</option>
+        <option value="Pediatra">Pediatra</option>
+        <option value="Psychiatra">Psychiatra</option>
+        <option value="Reumatolog">Reumatolog</option>
+        <option value="Urolog">Urolog</option>
+    </select>  
+
+    <button id="addButt" class="butt" type="button" onclick="patientsView()">Show patients data</button>
+    <table class = "blueTable">
+        <thead>
+            <tr>
+                <td> Name </td>
+                <td> Surname </td>
+                <td> Email </td>
+                <td> Phone number </td>
+                <td> Specialities </td>
+                <td> Action </td>
+            </tr>
+        </thead>
+        <tbody id = "tableBody">
+        </tbody>
+    </table>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="module" src="./nurse.js"></script>
+</body>
+</html>

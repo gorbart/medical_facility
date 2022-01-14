@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles.css" type="text/css">
+    <title>Nurse patients view</title>
+</head>
+<body>
+    <p>Dorobic details pacjentach</p>
+    <p>dorobic wylogowywanie</p>
+
+    <button id="addButt2" class="butt" type="button" onclick="mainView()">Show doctors data</button>
+    <button id="addButt3" class="butt" type="button" onclick="addPatient()">AddPatient</button>
+    <table class = "blueTable">
+        <thead>
+            <tr>
+                <td> Name </td>
+                <td> Surname </td>
+                <td> Email </td>
+                <td> Phone number </td>
+                <td> Action </td>
+            </tr>
+        </thead>
+        <tbody id = "tableBody">
+        </tbody>
+    </table>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="module" src="./nursePatient.js"></script>
+</body>
+</html>

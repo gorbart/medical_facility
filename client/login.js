@@ -4,8 +4,9 @@ var url = "http://127.0.0.1:8000";
 var user = new User(url);
 
 function authorisation(response){
-  var id = response[0];
-  var type = response[1];
+  console.log(response);
+  var id = response['id'];
+  var type = response['user_type'];
   if (type == 0){
     location.href = "admin.html"
   }
@@ -13,26 +14,33 @@ function authorisation(response){
     location.href = "manager.html"
   }
   else if (type == 2){
-    location.href = "nurseDoctors.html"
+    location.href = "nurse.html"
   }
   else{
     alert('Entered login or password are incorrect');
   }
 }
 
-function authentication(){
+async function authentication(){
   const myForm = document.forms['myForm'];
   const login = myForm['login'].value;
   const password = myForm['password'].value;
-  console.log(login);
-  const login_return = user
-    .log_in(login, password)
-    .then((response) => {
-        authorisation(response);
+  user.log_in(login, password)
+    .then(response => {
+      return JSON.parse(response);
     })
+    .then((response) => {
+      authorisation(response);
+    })
+    
     .catch((err) => console.log(err));
 }
 
+
+
+
+window.authentication = authentication;
+      // authorisation(response);
 
 
 
