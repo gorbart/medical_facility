@@ -45,7 +45,7 @@ async def get_patient_by_name_and_surname(session: AsyncSession,name: str, surna
 
 
 async def add_patient(session: AsyncSession,patient_data: dict):
-    return await add_entity(session, Patient(**patient_data))
+    return await add_entity(session, patient_data)
 
 
 async def update_patient(session: AsyncSession, patient_id: str, patient_data: UpdatePatient):

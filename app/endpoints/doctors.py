@@ -31,7 +31,10 @@ async def get_doctors_with_specialty(doctor_specialty: str, session=Depends(get_
 async def get_one_doctor(doctor_id: str, session=Depends(get_session)) -> JSONResponse:
     doctor = await get_doctor(session, doctor_id)
     if doctor is not None:
-        return JSONResponse(status_code=status.HTTP_200_OK, content=doctor.as_dict())
+        schedule = await get_doctors_time_period(session, doctor_id)
+    
+        appointments = await get_doctors_appointments(session, doctor_id)
+        return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(DoctorResponse(**doctor.as_dict(), schedule=schedule, scheduled_appointments=appointments, specialties=doctor.specialties)))
     raise HTTPException(status_code=404, detail=DOCTOR_NOT_FOUND_MESSAGE.format(doctor_id))
 
 
@@ -42,15 +45,22 @@ async def get_doctor_list(session=Depends(get_session)) -> JSONResponse:
 
 
 @router.post('/', response_description='Add a doctor')
-async def add_doctor_data(doctor: Doctor, session=Depends(get_session)) -> JSONResponse:
+async def add_doctor_data(doctor: Doctor, specialties: List[str], session=Depends(get_session)) -> JSONResponse:
     db_doctor = await add_doctor(session, doctor)
+    for specialty in specialties:
+        db_doctor = await update_doctor_specialty(session, db_doctor.id, specialty)
     return JSONResponse(status_code=status.HTTP_201_CREATED, content=db_doctor.as_dict())
 
 
 @router.put('/specialty', response_description="Add doctor's specialty")
 async def add_doctor_specialty(doctor_id: str, specialty: str, session=Depends(get_session)) -> JSONResponse:
     db_doctor = await update_doctor_specialty(session, doctor_id, specialty)
-    return JSONResponse(status_code=status.HTTP_201_CREATED, content=db_doctor.as_dict())
+
+    schedule = await get_doctors_time_period(session, doctor_id)
+    
+    appointments = await get_doctors_appointments(session, doctor_id)
+    return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(DoctorResponse(**db_doctor.as_dict(), schedule=schedule, scheduled_appointments=appointments, specialties=db_doctor.specialties)))
+  
 
 
 @router.put('/', response_description='Update a doctor in database')
@@ -66,7 +76,7 @@ async def update_doctor_data(doctor_id: str, received_doctor_data: UpdateDoctor,
     
     appointments = await get_doctors_appointments(session, doctor_id)
             
-    return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(DoctorResponse(**doctor.as_dict(), schedule=schedule, scheduled_appointments=appointments)))
+    return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(DoctorResponse(**doctor.as_dict(), schedule=schedule, scheduled_appointments=appointments, specialties=doctor.specialties)))
 
 
 
@@ -86,7 +96,7 @@ async def add_time_period_data(doctor_id: str, time_period: TimePeriodInCreate, 
     
     appointments = await get_doctors_appointments(session, doctor_id)
             
-    return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(DoctorResponse(**doctor.as_dict(), schedule=schedule, scheduled_appointments=appointments)))
+    return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(DoctorResponse(**doctor.as_dict(), schedule=schedule, scheduled_appointments=appointments, specialties=doctor.specialties)))
 
 
 @router.put('/add_appointment/', response_description='Add an appointment')
@@ -102,7 +112,7 @@ async def add_appointment_data(doctor_id: str, appointment: AppointmentInCreate,
     
     appointments = await get_doctors_appointments(session, doctor_id)
 
-    return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(DoctorResponse(**doctor.as_dict(), schedule=schedule, scheduled_appointments=appointments)))
+    return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(DoctorResponse(**doctor.as_dict(), schedule=schedule, scheduled_appointments=appointments, specialties=doctor.specialties)))
 
 
 @router.delete('/', response_description='Delete a doctor from database')
