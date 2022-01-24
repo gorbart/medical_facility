@@ -44,9 +44,11 @@ app = FastAPI(
     openapi_tags=tags_metadata
 )
 
+
 @app.on_event("startup")
 def on_startup():
     init_db()
+
 
 app.include_router(doctors.router)
 app.include_router(patients.router)

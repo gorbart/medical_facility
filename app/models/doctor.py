@@ -1,11 +1,10 @@
 from datetime import datetime
 from enum import Enum
 from typing import List, Optional
-from pydantic.main import BaseModel
 
+from pydantic.main import BaseModel
 from sqlmodel import Field
 from sqlmodel.main import Relationship, SQLModel
-
 
 from app.models.base import DBModel, Person, UpdatePerson
 
@@ -14,9 +13,9 @@ class AppointmentInCreate(BaseModel):
     date: datetime
     until: datetime
     description: Optional[str]
-    
+
+
 class Appointment(DBModel, AppointmentInCreate, table=True):
-    
     doctor_id: int = Field(default=None, foreign_key="doctor.id")
 
 
@@ -24,23 +23,25 @@ class WorkingHoursInCreate(BaseModel):
     date: datetime
     until: datetime
 
-class WorkingHours(DBModel, WorkingHoursInCreate, table=True):
-    
 
+class WorkingHours(DBModel, WorkingHoursInCreate, table=True):
     time_period_id: int = Field(default=None, foreign_key="timeperiod.id")
+
 
 class TimePeriodInCreate(BaseModel):
     date: datetime
     until: datetime
-    
+
     working_hours: List[WorkingHoursInCreate]
-    
+
+
 class TimePeriodInResponse(BaseModel):
     date: datetime
     until: datetime
-    
+
     working_hours: Optional[List[WorkingHoursInCreate]]
-    
+
+
 class TimePeriod(DBModel, table=True):
     date: datetime
     until: datetime
@@ -56,25 +57,23 @@ class SpecialtyEnum(str, Enum):
     DERMATOLOGIST = "dermatologist"
 
 
-   
 class DoctorSpecialtyLink(SQLModel, table=True):
-    
     doctor_id: Optional[int] = Field(
         default=None, foreign_key="doctor.id", primary_key=True
     )
-    
+
     specialty_id: Optional[int] = Field(
         default=None, foreign_key="specialty.id", primary_key=True
     )
 
+
 class Specialty(DBModel, table=True):
     name: SpecialtyEnum
     doctors: List["Doctor"] = Relationship(back_populates="specialties", link_model=DoctorSpecialtyLink)
- 
+
 
 class Doctor(Person, DBModel, table=True):
     specialties: List["Specialty"] = Relationship(back_populates="doctors", link_model=DoctorSpecialtyLink)
-
 
     # class Config:
     #     arbitrary_types_allowed = True
