@@ -36,8 +36,8 @@ async def get_user_list(session=Depends(get_session)) -> JSONResponse:
 
 
 @router.get('/login/', response_description='log in')
-async def log_in(login: str, password: str, session=Depends(get_session)) -> JSONResponse:
-    user = await get_user_by_login_and_type(session, login)
+async def log_in(login: str, password: str, user_type: UserType, session=Depends(get_session)) -> JSONResponse:
+    user = await get_user_by_login_and_type(session, login, user_type)
     if user:
         if user.password == password:
             return JSONResponse(status_code=status.HTTP_200_OK, content=user.as_dict())
@@ -53,17 +53,17 @@ async def add_user_data(user: User, session=Depends(get_session)) -> JSONRespons
 
 
 @router.put('/', response_description='Update a user in database')
-async def update_user_data(user_id: str, received_user_data: dict, session=Depends(get_session)) -> JSONResponse:
-    user = await update_user(session, user_id,received_user_data)
+async def update_user_data(login: str, user_type: UserType, received_user_data: dict, session=Depends(get_session)) -> JSONResponse:
+    user = await update_user(session, login, user_type,received_user_data)
 
     if user is not None:
         return JSONResponse(status_code=status.HTTP_200_OK, content=user.as_dict())
 
-    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=USER_NOT_FOUND_MESSAGE.format(user_id))
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=USER_NOT_FOUND_MESSAGE.format(login))
 
 
 @router.delete('/', response_description='Delete a user from database')
-async def delete_user_data(user_id: str, session=Depends(get_session)) -> Response:
-    if await delete_user(session, user_id):
+async def delete_user_data(login: str, user_type: UserType, session=Depends(get_session)) -> Response:
+    if await delete_user(session, login, user_type):
         return Response(status_code=status.HTTP_204_NO_CONTENT)
-    raise HTTPException(status_code=404, detail=USER_NOT_FOUND_MESSAGE.format(user_id))
+    raise HTTPException(status_code=404, detail=USER_NOT_FOUND_MESSAGE.format(login))

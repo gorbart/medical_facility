@@ -22,9 +22,28 @@ async def add_user(session: AsyncSession, user_data: dict):
     return await add_entity(session, user_data)
 
 
-async def update_user(session: AsyncSession, user_id: str, user_data: dict):
-    return await update_entity(session, user_data, user_id)
+async def update_user(session: AsyncSession, login: str, user_type: UserType, user_data: dict):
+    stmt = select(User).filter(User.login == login and User.user_type == user_type)
+    
+    result = session.execute(stmt)
+    
+    entity = result.scalar()
+    
+    if entity:
+        for key in user_data.keys():
+            setattr(entity, key, user_data[key])
+                            
+        session.add(entity)
+        session.commit()
+        return entity
+
+    return None
 
 
-async def delete_user(session: AsyncSession, user_id: str):
-    return await delete_entity(session, user_id)
+async def delete_user(session: AsyncSession, login: str, user_type: UserType):
+    entity = await session.query(User).filter(User.login == login and User.user_type == user_type).first()
+    if entity:
+        await session.delete(entity)
+        session.commit()
+        return True
+    return False
