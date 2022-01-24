@@ -3,15 +3,12 @@ import { Doctor } from "../api/apiClient.js";
 var url = "http://127.0.0.1:8000";
 var doctor = new Doctor(url);
 
-var specArr = null;
+var specArr = [];
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const myId = urlParams.get('id')
 if (myId != null){
     doctor.get_one_doctor(myId)
-        .then(response => {
-            return JSON.parse(response);
-        })
         .then(editingDoctor =>{
             fillFieldsWithDoctorData(editingDoctor);
         })

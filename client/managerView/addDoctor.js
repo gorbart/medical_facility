@@ -24,11 +24,8 @@ async function createDoctor(){
         "surname": surname,
         "email": email,
         "phone_number": phone,
-        "schedule": [],
-        "scheduled_appointments": [],
-        "specialties": specArr
+        "schedule": specArr
     }
     console.log(newDoctor);
-    await doctor.add_doctor_data(newDoctor);
 }
 window.createDoctor = createDoctor;

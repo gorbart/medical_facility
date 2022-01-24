@@ -8,9 +8,6 @@ const urlParams = new URLSearchParams(queryString);
 const myId = urlParams.get('id')
 if (myId != null){
     user.get_one_user(myId)
-        .then(response => {
-            return JSON.parse(response);
-        })
         .then(editingUser =>{
             fillFieldsWithUserData(editingUser);
         })
@@ -21,7 +18,7 @@ else{
 }
 
 
-function fillFieldsWitData(editingUser){
+function fillFieldsWithUserData(editingUser){
     document.getElementById("idname").value = editingUser['name'];
     document.getElementById("idsurname").value = editingUser['surname'];
     document.getElementById("idemail").value = editingUser['email'];

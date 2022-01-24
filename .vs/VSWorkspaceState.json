@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\app",
+    "\\app\\dao",
+    "\\client",
+    "\\test"
   ],
-  "SelectedNode": "\\C:\\Users\\Michal\\Source\\Repos\\medical_facility",
+  "SelectedNode": "\\requirements.txt",
   "PreviewInSolutionExplorer": false
 }
