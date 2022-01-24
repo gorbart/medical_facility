@@ -6,9 +6,6 @@ var user = new User(url);
 var tBody = document.getElementById("tableBody");
 
 user.get_user_list()
-    .then(response => {
-        return JSON.parse(response);
-    })
     .then(users => {
         for (const singleUser of users){
     
@@ -58,13 +55,13 @@ user.get_user_list()
             var delButton = document.createElement("button");
             delButton.innerText = "delete"
             delButton.addEventListener("click",function(){
-                deleteUser(singleUser['_id'].$oid);
+                deleteUser(singleUser['id'].$oid);
             } , false);
             delButton.className="smallButt";
             actions.appendChild(delButton);
             var edit = document.createElement("a");
             edit.innerText = "edit";
-            edit.href = "editUser.html?id="+singleUser['_id'].$oid;
+            edit.href = "editUser.html?id="+singleUser['id'].$oid;
             edit.className = "linkInTable"
             actions.appendChild(edit);
         };

@@ -7,9 +7,6 @@ var tBody = document.getElementById("tableBody");
 
 function showView(filter){
     doctor.get_doctor_list()
-    .then(response => {
-        return JSON.parse(response);
-    })
     .then(doctors => {
         tBody.innerHTML = ''
         
@@ -51,13 +48,13 @@ function showView(filter){
             row.appendChild(actions);
             var details = document.createElement("a");
             details.innerText = "appointments";
-            details.href = "scheduleDoctor.html?id="+singleDoctor['_id'].$oid;
+            details.href = "scheduleDoctor.html?id="+singleDoctor['id'];
             details.className = "linkInTable"
             actions.appendChild(details);
             
             var addSchedule = document.createElement("a");
             addSchedule.innerText = " schedules";
-            addSchedule.href = "addSchedule.html?id="+singleDoctor['_id'].$oid;
+            addSchedule.href = "addSchedule.html?id="+singleDoctor['id'];
             addSchedule.className = "linkInTable"
             actions.appendChild(addSchedule);
         };

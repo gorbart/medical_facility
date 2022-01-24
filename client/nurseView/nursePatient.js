@@ -6,9 +6,6 @@ var patient = new Patient(url);
 var tBody = document.getElementById("tableBody");
 
 patient.get_patient_list()
-    .then(response => {
-        return JSON.parse(response);
-    })
     .then(patients => {
         for (const singlePatient of patients){
     
@@ -36,21 +33,21 @@ patient.get_patient_list()
 
             var edit = document.createElement("a");
             edit.innerText = "edit";
-            edit.href = "editPatient.html?id="+singlePatient['_id'].$oid;
+            edit.href = "editPatient.html?id="+singlePatient['id'];
             edit.className = "linkInTable";
             actions.appendChild(edit);
 
             var delButton = document.createElement("button");
             delButton.innerText = "delete"
             delButton.addEventListener("click",function(){
-                deletePatient(singlePatient['_id'].$oid);
+                deletePatient(singlePatient['id']);
             } , false);
             delButton.className="smallButt";
             actions.appendChild(delButton);
             
             var details = document.createElement("a");
             details.innerText = "details";
-            details.href = "detailsPatient.html?id="+singlePatient['_id'].$oid;
+            details.href = "detailsPatient.html?id="+singlePatient['id'];
             details.className = "linkInTable";
             details.id = "detailPatientLink";
             actions.appendChild(details);
