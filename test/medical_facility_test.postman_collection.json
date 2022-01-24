@@ -89,7 +89,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"name\": \"Jan\",\r\n        \"surname\": \"Nowak\",\r\n        \"login\": \"login\",\r\n        \"password\": \"pass1\",\r\n        \"user_type\": \"admin\"\r\n}",
+							"raw": "{\r\n        \"name\": \"Jan\",\r\n        \"surname\": \"Nowak\",\r\n        \"login\": \"login1\",\r\n        \"password\": \"pass1\",\r\n        \"user_type\": \"nurse\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -138,7 +138,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{Base URL}}users/one?user_id=3",
+							"raw": "{{Base URL}}users/one?login=login1&user_type=nurse",
 							"host": [
 								"{{Base URL}}users"
 							],
@@ -147,8 +147,12 @@
 							],
 							"query": [
 								{
-									"key": "user_id",
-									"value": "3"
+									"key": "login",
+									"value": "login1"
+								},
+								{
+									"key": "user_type",
+									"value": "nurse"
 								}
 							]
 						}
@@ -222,7 +226,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{Base URL}}users/login/?login=login&password=pass1",
+							"raw": "{{Base URL}}users/login/?login=login&password=pass1&user_type=nurse",
 							"host": [
 								"{{Base URL}}users"
 							],
@@ -238,6 +242,10 @@
 								{
 									"key": "password",
 									"value": "pass1"
+								},
+								{
+									"key": "user_type",
+									"value": "nurse"
 								}
 							]
 						}
@@ -274,7 +282,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{Base URL}}users/login/?login=SuperGoska12&password=haslo123",
+							"raw": "{{Base URL}}users/login/?login=SuperGoska12&password=haslo123&user_type=nurse",
 							"host": [
 								"{{Base URL}}users"
 							],
@@ -290,6 +298,10 @@
 								{
 									"key": "password",
 									"value": "haslo123"
+								},
+								{
+									"key": "user_type",
+									"value": "nurse"
 								}
 							]
 						}
@@ -326,7 +338,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{Base URL}}users/login/?login=SuperGoska123&password=haslo12",
+							"raw": "{{Base URL}}users/login/?login=SuperGoska123&password=haslo12&user_type=nurse",
 							"host": [
 								"{{Base URL}}users"
 							],
@@ -342,6 +354,10 @@
 								{
 									"key": "password",
 									"value": "haslo12"
+								},
+								{
+									"key": "user_type",
+									"value": "nurse"
 								}
 							]
 						}
@@ -396,7 +412,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{Base URL}}users/?user_id=1",
+							"raw": "{{Base URL}}users/?login=login1&user_type=nurse",
 							"host": [
 								"{{Base URL}}users"
 							],
@@ -405,8 +421,12 @@
 							],
 							"query": [
 								{
-									"key": "user_id",
-									"value": "1"
+									"key": "login",
+									"value": "login1"
+								},
+								{
+									"key": "user_type",
+									"value": "nurse"
 								}
 							]
 						}
@@ -500,7 +520,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"Marian\",\r\n  \"surname\": \"Kowalski\",\r\n  \"email\": \"JanKK@wp.pl\",\r\n  \"phone_number\": \"111111111\",\r\n  \"schedule\": [\r\n    {\r\n      \"date\": \"2021-11-22T12:52:13.324Z\",\r\n      \"until\": \"2021-11-28T12:52:13.324Z\",\r\n      \"workingHours\": [\r\n        {\r\n          \"date\": \"2021-11-22T12:00:00.324Z\" ,\r\n          \"until\": \"2021-11-22T19:00:00.324Z\" \r\n        },\r\n        {\r\n          \"date\": \"2021-11-23T10:00:00.324Z\",\r\n          \"until\": \"2021-11-23T21:00:00.324Z\"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"scheduled_appointments\": [\r\n    {\r\n      \"date\": \"2021-09-22T12:00:00.325Z\",\r\n      \"until\": \"2021-10-22T13:00:00.325Z\",\r\n      \"description\": \"Wizyta\"\r\n    }\r\n  ],\r\n  \"specialties\": [\"Patolog\"]\r\n}",
+							"raw": "{\r\n    \"doctor\":{\r\n\"name\": \"Marian\",\r\n  \"surname\": \"Kowalski\",\r\n  \"email\": \"JanKK@wp.pl\",\r\n  \"phone_number\": \"111111111\"\r\n  \r\n    },\r\n  \r\n  \"specialties\": [\"surgeon\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1005,7 +1025,7 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "{{Base URL}}doctors/specialty/?doctor_id=2&specialty=surgeon",
+							"raw": "{{Base URL}}doctors/specialty/?doctor_id=1&specialty=surgeon",
 							"host": [
 								"{{Base URL}}doctors"
 							],
@@ -1016,7 +1036,7 @@
 							"query": [
 								{
 									"key": "doctor_id",
-									"value": "2"
+									"value": "1"
 								},
 								{
 									"key": "specialty",
