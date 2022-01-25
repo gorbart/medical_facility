@@ -108,7 +108,7 @@ async def add_time_period_data(doctor_id: str, time_period: TimePeriodInCreate,
     doctor = await get_doctor(session, doctor_id)
 
     if not doctor:
-        raise HTTPException(status_code=404, detail=DOCTOR_NOT_FOUND_MESSAGE.format(doctor.id))
+        raise HTTPException(status_code=404, detail=DOCTOR_NOT_FOUND_MESSAGE.format(doctor_id))
 
     db_time_period = await add_time_period(session, TimePeriod(date=time_period.date, until=time_period.until,
                                                                doctor_id=doctor.id))

@@ -41,9 +41,9 @@ async def update_user(session: AsyncSession, login: str, user_type: UserType, us
 
 
 async def delete_user(session: AsyncSession, login: str, user_type: UserType):
-    entity = await session.query(User).filter(User.login == login and User.user_type == user_type).first()
+    entity = session.query(User).filter(User.login == login and User.user_type == user_type).first()
     if entity:
-        await session.delete(entity)
+        session.delete(entity)
         session.commit()
         return True
     return False
