@@ -170,6 +170,7 @@ S
 
   async delete_appointment_data(appointment_id = "") {
     return deleteData(this.baseURL + "appointment/", { appointment_id: appointment_id });
+    
   }
 
   async add_doctor_specialty(doctor_id, specialty){
