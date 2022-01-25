@@ -67,9 +67,9 @@ async def update_entity(session: AsyncSession, model_cls: Type[DBModel], entity_
 
 async def delete_entity(session: AsyncSession, model_cls: Type[DBModel],entity_id: str):
     """Function returns False if entity with given id doesn't exist"""
-    entity = await session.query(model_cls).filter(model_cls.id == entity_id).first()
+    entity = session.query(model_cls).filter(model_cls.id == entity_id).first()
     if entity:
-        await session.delete(entity)
+        session.delete(entity)
         session.commit()
         return True
     return False

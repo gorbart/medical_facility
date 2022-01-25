@@ -24,7 +24,14 @@ async def get_doctors_with_specialty(doctor_specialty: str, session=Depends(get_
     doctors = await get_doctors_by_specialty(session, doctor_specialty)
     if not doctors:
         raise HTTPException(status_code=404, detail=DOCTOR_WITH_THIS_SPECIALTY_NOT_FOUND_MESSAGE.format(doctor_specialty))
-    return JSONResponse(status_code=status.HTTP_200_OK, content=[doctor.as_dict() for doctor in doctors])
+    res_doctors = []
+    
+    for doctor in doctors:
+        schedule = await get_doctors_time_period(session, doctor.id)
+        appointments = await get_doctors_appointments(session, doctor.id)
+        res_doctors.append(jsonable_encoder(DoctorResponse(**doctor.as_dict(), schedule=schedule, scheduled_appointments=appointments, specialties=doctor.specialties)))
+    
+    return JSONResponse(status_code=status.HTTP_200_OK, content=res_doctors)
 
 
 @router.get('/one/', response_description='Get a doctor with given id')
@@ -41,7 +48,14 @@ async def get_one_doctor(doctor_id: str, session=Depends(get_session)) -> JSONRe
 @router.get('/', response_description='Get all doctors')
 async def get_doctor_list(session=Depends(get_session)) -> JSONResponse:
     doctors = await get_doctors(session)
-    return JSONResponse(status_code=status.HTTP_200_OK, content=[doctor.as_dict() for doctor in doctors])
+    res_doctors = []
+    
+    for doctor in doctors:
+        schedule = await get_doctors_time_period(session, doctor.id)
+        appointments = await get_doctors_appointments(session, doctor.id)
+        res_doctors.append(jsonable_encoder(DoctorResponse(**doctor.as_dict(), schedule=schedule, scheduled_appointments=appointments, specialties=doctor.specialties)))
+    
+    return JSONResponse(status_code=status.HTTP_200_OK, content=res_doctors)
 
 
 @router.post('/', response_description='Add a doctor')
@@ -55,6 +69,9 @@ async def add_doctor_data(doctor: Doctor, specialties: List[str], session=Depend
 @router.put('/specialty', response_description="Add doctor's specialty")
 async def add_doctor_specialty(doctor_id: str, specialty: str, session=Depends(get_session)) -> JSONResponse:
     db_doctor = await update_doctor_specialty(session, doctor_id, specialty)
+    
+    if not db_doctor:
+        raise HTTPException(status_code=404, detail=DOCTOR_NOT_FOUND_MESSAGE.format(doctor_id))
 
     schedule = await get_doctors_time_period(session, doctor_id)
     
@@ -117,7 +134,11 @@ async def add_appointment_data(doctor_id: str, appointment: AppointmentInCreate,
 
 @router.delete('/', response_description='Delete a doctor from database')
 async def delete_doctor_data(doctor_id: str, session=Depends(get_session)) -> Response:
-    if await delete_doctor(doctor_id):
+    doctor = await get_doctor(session, doctor_id)
+    if not doctor:
+        raise HTTPException(status_code=404, detail=DOCTOR_NOT_FOUND_MESSAGE.format(doctor_id))
+    
+    if await delete_doctor(session, doctor_id):
         return Response(status_code=status.HTTP_204_NO_CONTENT)
 
-    raise HTTPException(status_code=404, detail=DOCTOR_NOT_FOUND_MESSAGE.format(doctor_id))
+    

@@ -77,4 +77,4 @@ async def add_disease_to_patient(session: AsyncSession, patient_id: str, disease
     return patient
 
 async def delete_patient(session: AsyncSession, patient_id: str):
-    return await delete_entity(session, patient_id)
+    return await delete_entity(session,Patient,  patient_id)

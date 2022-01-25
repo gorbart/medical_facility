@@ -3,6 +3,7 @@ from bson.objectid import ObjectId
 from datetime import date, datetime
 from typing_extensions import TypedDict
 from pydantic.main import BaseModel
+from sqlmodel import Relationship
 
 from sqlmodel.main import Field
 
@@ -21,6 +22,9 @@ class MedicinesTaken(DBModel, table=True):
     date: datetime
 
     patient_id: int = Field(default=None, foreign_key="patient.id")
+    medicines: List["Medicine"] = Relationship(
+        sa_relationship_kwargs={"cascade": "all, delete"}
+    )
     
 class MedicinesTakenInResponse(BaseModel):
     
@@ -46,7 +50,13 @@ class Disease(DBModel, table=True):
 
 class Patient(Person, DBModel, table=True):
 
-    pass
+    diseases: List["Disease"] = Relationship(
+        sa_relationship_kwargs={"cascade": "all, delete"}
+    )
+    
+    medicines_taken: List["MedicinesTaken"] = Relationship(
+        sa_relationship_kwargs={"cascade": "all, delete"}
+    )
     # class Config:
     #     arbitrary_types_allowed = True
     #     allow_population_by_field_name = True

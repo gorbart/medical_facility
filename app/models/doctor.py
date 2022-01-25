@@ -46,7 +46,9 @@ class TimePeriod(DBModel, table=True):
     until: datetime
 
     doctor_id: int = Field(default=None, foreign_key="doctor.id")
-
+    working_hours: List["WorkingHours"] = Relationship(
+        sa_relationship_kwargs={"cascade": "all, delete"}
+    )
 
 class SpecialtyEnum(str, Enum):
     GENERAL_PRACTITIONER = "general_practitioner"
@@ -74,14 +76,19 @@ class Specialty(DBModel, table=True):
 
 class Doctor(Person, DBModel, table=True):
     specialties: List["Specialty"] = Relationship(back_populates="doctors", link_model=DoctorSpecialtyLink)
-
+    time_periods: List["TimePeriod"] = Relationship(
+        sa_relationship_kwargs={"cascade": "all, delete"}
+    )
+    appointments: List["Appointment"] = Relationship(
+        sa_relationship_kwargs={"cascade": "all, delete"}
+    )
 
     # class Config:
     #     arbitrary_types_allowed = True
     #     json_encoders = {ObjectId: str}
 
 
-class DoctorResponse(Person):
+class DoctorResponse(Person, DBModel):
     schedule: List[TimePeriodInCreate] = []
     scheduled_appointments: List[Appointment] = []
     specialties: List[Specialty] = []

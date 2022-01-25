@@ -117,7 +117,12 @@ async def add_disease(patient_id: str, disease_data: dict, session=Depends(get_s
 
 @router.delete('/', response_description='Delete a patient from database')
 async def delete_patient_data(patient_id: str, session=Depends(get_session)) -> Response:
-    if await delete_patient(patient_id):
+    patient = await get_patient(session, patient_id)
+    
+    if not patient:
+        raise HTTPException(status_code=404, detail=PATIENT_NOT_FOUND_MESSAGE.format(patient_id))
+        
+    if await delete_patient(session, patient_id):
         return Response(status_code=status.HTTP_204_NO_CONTENT)
 
-    raise HTTPException(status_code=404, detail=PATIENT_NOT_FOUND_MESSAGE.format(patient_id))
+    
