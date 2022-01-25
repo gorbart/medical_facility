@@ -142,6 +142,18 @@ async def add_appointment_data(doctor_id: str, appointment: AppointmentInCreate,
     return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(
         DoctorResponse(**doctor.as_dict(), schedule=schedule, scheduled_appointments=appointments,
                        specialties=doctor.specialties)))
+    
+@router.delete('/appointment/', response_description='Delete an appointment')
+async def delete_appointment_data(appointment_id: str,
+                               session=Depends(get_session)) -> JSONResponse:
+    appointment = await get_appointment(session, appointment_id)
+
+    if not appointment:
+        raise HTTPException(status_code=404, detail="Appointment not found")
+
+    db_appointment = await delete_appointment(session, appointment_id)
+
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
 @router.delete('/', response_description='Delete a doctor from database')

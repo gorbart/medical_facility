@@ -94,6 +94,8 @@ async def get_doctors_appointments(session: AsyncSession, doctor_id: str):
 
     return appointments
 
+async def get_appointment(session: AsyncSession, appointment_id: str):
+    return await get_entity(session, Appointment, appointment_id)
 
 async def update_appointment(session: AsyncSession,
                              appointment_id: str, appointment: AppointmentInCreate):
@@ -102,6 +104,9 @@ async def update_appointment(session: AsyncSession,
     session.refresh(appointment)
 
     return appointment
+
+async def delete_appointment(session: AsyncSession, appointment_id: str):
+    return await delete_entity(session, Appointment, appointment_id)
 
 
 async def update_doctor_specialty(session: AsyncSession, doctor_id: str, new_specialty: str):
