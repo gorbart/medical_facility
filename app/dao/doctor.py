@@ -10,7 +10,11 @@ from app.models.doctor import Appointment, AppointmentInCreate, Doctor, DoctorSp
 
 
 async def get_doctors(session: AsyncSession):
-    return await get_entities(session, Doctor)
+    stmt = select(Doctor)
+    
+    result = session.execute(stmt).scalars().all()
+    
+    return result
 
 
 async def get_doctors_by_specialty(session: AsyncSession, specialty_name: str):
@@ -20,7 +24,6 @@ async def get_doctors_by_specialty(session: AsyncSession, specialty_name: str):
 
     if entity:
         return entity.doctors
-
 
 async def get_doctor(session: AsyncSession, doctor_id: str):
     return await get_entity(session, Doctor, doctor_id)

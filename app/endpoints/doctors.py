@@ -52,6 +52,7 @@ async def get_doctor_list(session=Depends(get_session)) -> JSONResponse:
     res_doctors = []
     
     for doctor in doctors:
+        
         schedule = await get_doctors_time_period(session, doctor.id)
         appointments = await get_doctors_appointments(session, doctor.id)
         res_doctors.append(jsonable_encoder(DoctorResponse(**doctor.as_dict(), schedule=schedule, scheduled_appointments=appointments, specialties=doctor.specialties)))

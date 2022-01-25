@@ -63,7 +63,7 @@ class Patient(Person, DBModel, table=True):
     #     json_encoders = {ObjectId: str}
 
 
-class PatientInResponse(Person):
+class PatientInResponse(Person, DBModel):
     disease_history: List[dict] = []
     medicine_taken: List[dict] = []
 
