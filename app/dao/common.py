@@ -15,8 +15,6 @@ async def get_entities(session: AsyncSession, model_cls: Type[DBModel]):
     result = session.execute(stmt).scalars().all()
     
     return [model_cls(**(dict(entity))) for entity in result]
-    
-    
 
 
 async def get_entity(session: AsyncSession, model_cls: Type[DBModel], entity_id: str):

@@ -5,6 +5,7 @@ from typing_extensions import TypedDict
 from pydantic.main import BaseModel
 from sqlmodel import Relationship
 
+from pydantic.main import BaseModel
 from sqlmodel.main import Field
 
 from app.models.base import DBModel, Person, UpdatePerson
@@ -16,8 +17,8 @@ class Medicine(DBModel, table=True):
 
     medicines_taken_id: int = Field(
         default=None, foreign_key="medicinestaken.id")
-   
-   
+
+
 class MedicinesTaken(DBModel, table=True):
     date: datetime
 
@@ -27,11 +28,10 @@ class MedicinesTaken(DBModel, table=True):
     )
     
 class MedicinesTakenInResponse(BaseModel):
-    
     id: int
     date: datetime
     medicines: List[Medicine]
-    
+
     def to_dict(self):
         return {"id": self.id, "date": str(self.date), "medicines": [medicine.as_dict() for medicine in self.medicines]}
 
@@ -64,7 +64,6 @@ class Patient(Person, DBModel, table=True):
 
 
 class PatientInResponse(Person):
-
     disease_history: List[dict] = []
     medicine_taken: List[dict] = []
 

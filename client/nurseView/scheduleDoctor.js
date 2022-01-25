@@ -16,9 +16,6 @@ function CalendarApp(date) {
     this.workingHoursArr = []
 
     this.doctor.get_one_doctor(this.myId)
-        .then(response => {
-            return JSON.parse(response);
-        })
         .then(editingDoctor =>{
             this.doctorData = editingDoctor;
             this.schedule = editingDoctor.schedule

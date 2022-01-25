@@ -1,11 +1,10 @@
-from bson import json_util
 from fastapi import APIRouter, HTTPException
 from fastapi.encoders import jsonable_encoder
 from fastapi.params import Depends
 from starlette import status
 from starlette.responses import JSONResponse, Response
-from app.dao.database import get_session
 
+from app.dao.database import get_session
 from app.dao.doctor import *
 from app.models.doctor import Doctor, DoctorResponse, TimePeriod, Appointment, TimePeriodInCreate, UpdateDoctor
 
@@ -39,9 +38,11 @@ async def get_one_doctor(doctor_id: str, session=Depends(get_session)) -> JSONRe
     doctor = await get_doctor(session, doctor_id)
     if doctor is not None:
         schedule = await get_doctors_time_period(session, doctor_id)
-    
+
         appointments = await get_doctors_appointments(session, doctor_id)
-        return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(DoctorResponse(**doctor.as_dict(), schedule=schedule, scheduled_appointments=appointments, specialties=doctor.specialties)))
+        return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(
+            DoctorResponse(**doctor.as_dict(), schedule=schedule, scheduled_appointments=appointments,
+                           specialties=doctor.specialties)))
     raise HTTPException(status_code=404, detail=DOCTOR_NOT_FOUND_MESSAGE.format(doctor_id))
 
 
@@ -74,50 +75,58 @@ async def add_doctor_specialty(doctor_id: str, specialty: str, session=Depends(g
         raise HTTPException(status_code=404, detail=DOCTOR_NOT_FOUND_MESSAGE.format(doctor_id))
 
     schedule = await get_doctors_time_period(session, doctor_id)
-    
+
     appointments = await get_doctors_appointments(session, doctor_id)
-    return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(DoctorResponse(**db_doctor.as_dict(), schedule=schedule, scheduled_appointments=appointments, specialties=db_doctor.specialties)))
-  
+    return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(
+        DoctorResponse(**db_doctor.as_dict(), schedule=schedule, scheduled_appointments=appointments,
+                       specialties=db_doctor.specialties)))
 
 
 @router.put('/', response_description='Update a doctor in database')
-async def update_doctor_data(doctor_id: str, received_doctor_data: UpdateDoctor, session=Depends(get_session)) -> JSONResponse:
+async def update_doctor_data(doctor_id: str, received_doctor_data: UpdateDoctor,
+                             session=Depends(get_session)) -> JSONResponse:
     doctor = await get_doctor(session, doctor_id)
-    
+
     if not doctor:
         raise HTTPException(status_code=404, detail=DOCTOR_NOT_FOUND_MESSAGE.format(doctor_id))
-    
+
     is_successful = await update_doctor(session, doctor_id, received_doctor_data.dict(by_alias=True))
 
     schedule = await get_doctors_time_period(session, doctor_id)
-    
-    appointments = await get_doctors_appointments(session, doctor_id)
-            
-    return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(DoctorResponse(**doctor.as_dict(), schedule=schedule, scheduled_appointments=appointments, specialties=doctor.specialties)))
 
+    appointments = await get_doctors_appointments(session, doctor_id)
+
+    return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(
+        DoctorResponse(**doctor.as_dict(), schedule=schedule, scheduled_appointments=appointments,
+                       specialties=doctor.specialties)))
 
 
 @router.put('/add_time_period/', response_description='Add a time period')
-async def add_time_period_data(doctor_id: str, time_period: TimePeriodInCreate, session=Depends(get_session)) -> JSONResponse:
+async def add_time_period_data(doctor_id: str, time_period: TimePeriodInCreate,
+                               session=Depends(get_session)) -> JSONResponse:
     doctor = await get_doctor(session, doctor_id)
 
     if not doctor:
         raise HTTPException(status_code=404, detail=DOCTOR_NOT_FOUND_MESSAGE.format(doctor.id))
 
-    db_time_period = await add_time_period(session, TimePeriod(date=time_period.date, until=time_period.until, doctor_id=doctor.id))
-    
+    db_time_period = await add_time_period(session, TimePeriod(date=time_period.date, until=time_period.until,
+                                                               doctor_id=doctor.id))
+
     for work in time_period.working_hours:
         await add_working_hours(session, WorkingHours(**work.dict(), time_period_id=db_time_period.id))
 
     schedule = await get_doctors_time_period(session, doctor_id)
-    
+
     appointments = await get_doctors_appointments(session, doctor_id)
-            
-    return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(DoctorResponse(**doctor.as_dict(), schedule=schedule, scheduled_appointments=appointments, specialties=doctor.specialties)))
+
+    return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(
+        DoctorResponse(**doctor.as_dict(), schedule=schedule, scheduled_appointments=appointments,
+                       specialties=doctor.specialties)))
 
 
 @router.put('/add_appointment/', response_description='Add an appointment')
-async def add_appointment_data(doctor_id: str, appointment: AppointmentInCreate, session=Depends(get_session)) -> JSONResponse:
+async def add_appointment_data(doctor_id: str, appointment: AppointmentInCreate,
+                               session=Depends(get_session)) -> JSONResponse:
     doctor = await get_doctor(session, doctor_id)
 
     if not doctor:
@@ -126,10 +135,12 @@ async def add_appointment_data(doctor_id: str, appointment: AppointmentInCreate,
     db_appointment = await add_appointment(session, Appointment(**appointment.dict(), doctor_id=doctor.id))
 
     schedule = await get_doctors_time_period(session, doctor_id)
-    
+
     appointments = await get_doctors_appointments(session, doctor_id)
 
-    return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(DoctorResponse(**doctor.as_dict(), schedule=schedule, scheduled_appointments=appointments, specialties=doctor.specialties)))
+    return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(
+        DoctorResponse(**doctor.as_dict(), schedule=schedule, scheduled_appointments=appointments,
+                       specialties=doctor.specialties)))
 
 
 @router.delete('/', response_description='Delete a doctor from database')

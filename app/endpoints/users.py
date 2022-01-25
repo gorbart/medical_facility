@@ -1,14 +1,9 @@
-from sqlite3.dbapi2 import IntegrityError
 from fastapi import APIRouter, HTTPException
 from fastapi.params import Depends
-import sqlalchemy
 from starlette import status
 from starlette.responses import JSONResponse, Response
-from fastapi.encoders import jsonable_encoder
-from bson import json_util
-from app.dao.database import get_session
 
-from app.models.user import User
+from app.dao.database import get_session
 from app.dao.user import *
 
 USER_NOT_FOUND_MESSAGE = 'User with id {} not found'
@@ -53,8 +48,9 @@ async def add_user_data(user: User, session=Depends(get_session)) -> JSONRespons
 
 
 @router.put('/', response_description='Update a user in database')
-async def update_user_data(login: str, user_type: UserType, received_user_data: dict, session=Depends(get_session)) -> JSONResponse:
-    user = await update_user(session, login, user_type,received_user_data)
+async def update_user_data(login: str, user_type: UserType, received_user_data: dict,
+                           session=Depends(get_session)) -> JSONResponse:
+    user = await update_user(session, login, user_type, received_user_data)
 
     if user is not None:
         return JSONResponse(status_code=status.HTTP_200_OK, content=user.as_dict())
