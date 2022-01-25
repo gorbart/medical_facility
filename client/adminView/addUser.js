@@ -22,6 +22,7 @@ async function createUser(){
         "password": password,
         "user_type": type
     }
+    console.log(newUser)
     await user.add_user_data(newUser);
 }
 

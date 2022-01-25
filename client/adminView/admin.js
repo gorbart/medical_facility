@@ -30,13 +30,13 @@ user.get_user_list()
             
             var typeCell = document.createElement("th");
             var type = singleUser['user_type'];
-            if (type == 0){  
+            if (type == "UserType.ADMIN"){  
                 typeCell.innerText="Admin";
             }
-            else if (type == 1){
+            else if (type == "UserType.MANAGER"){
                 typeCell.innerText="Manager";
             }
-            else if (type == 2){
+            else if (type == "UserType.NURSE"){
                 typeCell.innerText="Nurse";
             }
             row.appendChild(typeCell);
@@ -61,7 +61,7 @@ user.get_user_list()
             actions.appendChild(delButton);
             var edit = document.createElement("a");
             edit.innerText = "edit";
-            edit.href = "editUser.html?id="+singleUser['id'].$oid;
+            edit.href = "editUser.html?id="+singleUser['login'] + "&" + "userType=" + singleUser['userType'];
             edit.className = "linkInTable"
             actions.appendChild(edit);
         };

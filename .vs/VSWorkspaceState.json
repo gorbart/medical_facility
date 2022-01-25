@@ -6,8 +6,9 @@
     "\\app\\endpoints",
     "\\app\\models",
     "\\client",
+    "\\client\\api",
     "\\test"
   ],
-  "SelectedNode": "\\client\\nurseView",
+  "SelectedNode": "\\client\\api\\apiClient.js",
   "PreviewInSolutionExplorer": false
 }
