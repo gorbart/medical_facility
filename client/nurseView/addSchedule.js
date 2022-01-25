@@ -107,7 +107,7 @@ Schedule.prototype.createSchedule = async function (){
     let newSchedule = {
         "date": this.date,
         "until": this.until,
-        "workingHours": this.workingHours
+        "working_hours": this.workingHours
     }
     console.log(newSchedule)
     await this.doctor.add_time_period(this.myId, newSchedule);

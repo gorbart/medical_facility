@@ -8,9 +8,6 @@ const urlParams = new URLSearchParams(queryString);
 const myId = urlParams.get('id')
 if (myId != null){
     patient.get_one_patient(myId)
-        .then(response => {
-            return JSON.parse(response);
-        })
         .then(editingPatient =>{
             fillFieldsWithPatientData(editingPatient);
         })

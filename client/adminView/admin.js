@@ -54,14 +54,24 @@ user.get_user_list()
             row.appendChild(actions);
             var delButton = document.createElement("button");
             delButton.innerText = "delete"
+            var userType = null
+            if(singleUser['user_type'] == "UserType.NURSE"){
+                userType = "nurse"
+            }
+            else if (singleUser['user_type']== "UserType.ADMIN"){
+                userType = "admin"
+            }
+            else if (singleUser['user_type']== "UserType.MANAGER"){
+                userType = "manager"
+            }
             delButton.addEventListener("click",function(){
-                deleteUser(singleUser['id'].$oid);
+                deleteUser(singleUser['login'], userType);
             } , false);
             delButton.className="smallButt";
             actions.appendChild(delButton);
             var edit = document.createElement("a");
             edit.innerText = "edit";
-            edit.href = "editUser.html?id="+singleUser['login'] + "&" + "userType=" + singleUser['userType'];
+            edit.href = "editUser.html?login="+singleUser['login'] + "&" + "userType=" + userType;
             edit.className = "linkInTable"
             actions.appendChild(edit);
         };
@@ -74,8 +84,8 @@ function addUser(){
     location.href = "addUser.html"
 }
 
-function deleteUser(str){
-    user.delete_user_data(str)
+function deleteUser(login, type){
+    user.delete_user_data(login, type)
     location.reload();
 }
 
