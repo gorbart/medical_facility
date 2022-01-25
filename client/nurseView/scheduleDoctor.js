@@ -323,7 +323,21 @@ function CalendarApp(date) {
         }
       }
     }
-    this.openDayWindow(deletedDate);;
+    console.log(deleted)
+    console.log(deletedDate)
+    console.log(anyDatesLeft)
+    console.log(this.scheduled_appointments)
+    for(let i=0; i<this.scheduled_appointments.length; i++){
+      if(deleted[0].endTime.getTime() == new Date(this.scheduled_appointments[i].until).getTime()){
+        if(deleted[0].startTime.getTime() == new Date(this.scheduled_appointments[i].date).getTime()){
+          if(deleted[0].name == this.scheduled_appointments[i].description){
+            this.doctor.delete_appointment_data(this.scheduled_appointments[i].id)
+          }
+        }
+      }
+    }
+     this.openDayWindow(deletedDate);
+
   };
   CalendarApp.prototype.sortEventsByTime = function(events) {
     if (!events) return [];
