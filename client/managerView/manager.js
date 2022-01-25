@@ -30,7 +30,11 @@ doctor.get_doctor_list()
 
             var Specialties = document.createElement("th");
             // console.log(singleDoctor['specialties'].toString());
-            Specialties.innerText=singleDoctor['specialties'] != null ? singleDoctor['specialties'].toString() : null;
+            var specialties = []
+            for (let i=0 ;i<singleDoctor['specialties'].length; i++){
+                specialties.push(singleDoctor['specialties'][i]['name'])
+            }
+            Specialties.innerText=singleDoctor['specialties'] != null ? specialties.join(", ") : null;
             row.appendChild(Specialties);
 
             var actions = document.createElement("th");

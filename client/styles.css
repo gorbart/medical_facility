@@ -437,3 +437,8 @@ DIV.tablesDiv TABLE#table2
   margin-left: 100px;
   display: inline-block;
 }
+
+.invitations{
+  position: fixed;
+  left: 50%;
+}

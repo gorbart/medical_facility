@@ -6,7 +6,7 @@ function Disease() {
     this.patient = new Patient(url)
     this.myId = new URLSearchParams(window.location.search).get('id')
     this.date = null
-    this.Diseases = []
+    this.Diseases = null
     this.butt1 = document.getElementById("buttDate");
     this.butt2 = document.getElementById("buttDisease");
     this.butt3 = document.getElementById("buttCreate");
@@ -27,7 +27,7 @@ Disease.prototype.setDate = function(){
 
 Disease.prototype.addDisease = function(){
     var diseaseInput = document.getElementById("disease")
-    this.Diseases.push(diseaseInput.value)
+    this.Diseases = diseaseInput.value
     diseaseInput.value=null;
 }
 
@@ -35,8 +35,9 @@ Disease.prototype.createDiseaseHistory = async function (){
 
     let newDiseaseHist = {
         "date": this.date,
-        "disease": this.Diseases
+        "name": this.Diseases
     }
+    console.log(newDiseaseHist)
     await this.patient.add_disease(this.myId, newDiseaseHist);
 }
 

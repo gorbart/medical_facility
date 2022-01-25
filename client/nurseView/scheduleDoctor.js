@@ -19,6 +19,7 @@ function CalendarApp(date) {
         .then(editingDoctor =>{
             this.doctorData = editingDoctor;
             this.schedule = editingDoctor.schedule
+            console.log(this.schedule)
             this.scheduled_appointments = editingDoctor.scheduled_appointments
             // let date2 = new Date(parseInt(this.schedule[0]['date'].$date))
         })
@@ -38,20 +39,20 @@ function CalendarApp(date) {
     this.apts = [
       // {
       //   name: 'Finish this web app',
-      //   endTime: new Date(2016, 4, 30, 23),
-      //   startTime: new Date(2016, 4, 30, 21),
-      //   day: new Date(2016, 4, 30).toString()
+      //   endTime: new Date(2021, 4, 30, 23),
+      //   startTime: new Date(2021, 4, 30, 21),
+      //   day: new Date(2021, 4, 30).toString()
       // },
       //  {
       //   name: 'My Birthday!',
-      //   endTime: new Date(2016, 4, 1, 23, 59),
-      //   startTime: new Date(2016, 4, 1, 0),
-      //   day: new Date(2016, 4, 1).toString()
+      //   endTime: new Date(2021, 4, 1, 23, 59),
+      //   startTime: new Date(2021, 4, 1, 0),
+      //   day: new Date(2021, 4, 1).toString()
       // },
       
     ];
     
-    this.aptDates = [new Date(2016, 4, 30).toString(),new Date(2016, 4, 1).toString()];
+    this.aptDates = [];
     this.aptWorkDays = [];
     this.scheduleDates = [];
     this.eles = {
@@ -148,7 +149,6 @@ function CalendarApp(date) {
       if ( z == today.getDate() && y == today.getFullYear() && m == today.getMonth() ) {
         day.classList.add("today");
       }
-      
        // check if has events to show
       if ( this.aptDates.indexOf(_date.toString()) !== -1 ) {
         day.classList.add("has-events");
@@ -225,6 +225,7 @@ function CalendarApp(date) {
     
     let scheduleStr = "<br>"
     this.workingHoursArr = this.searchForDoctorSchedule(day)
+    console.log(this.workingHoursArr)
     for (let i=0; i<this.workingHoursArr.length;i++){
         let time = this.workingHoursArr[i]
         if (time.getDate() != day.getDate()){
@@ -243,7 +244,7 @@ function CalendarApp(date) {
             scheduleStr+="<br>"
         }
     }
-
+    console.log(scheduleStr)
     // let tmpDate = new Date(parseInt(this.schedule[0]['date'].$date))
     // let tmpDate2 = new Date(parseInt(this.schedule[0]['until'].$date))
     // let formatedDate = tmpDate.getHours() +": "+ tmpDate.getMinutes()
@@ -255,16 +256,16 @@ function CalendarApp(date) {
   CalendarApp.prototype.searchForDoctorSchedule = function(selectedDate){
     let arr = [];
     for (let i=0; i<this.schedule.length;i++){
-        if (this.schedule[i].date.$date < selectedDate.getTime() && this.schedule[i].until.$date > selectedDate.getTime()){
-            for (let j=0; j<this.schedule[i].workingHours.length;j++){
-                let fromDate = new Date(this.schedule[i].workingHours[j].date.$date)
-                let untilDate = new Date(this.schedule[i].workingHours[j].until.$date)
-                if (selectedDate.getDate() == fromDate.getDate() || selectedDate.getDate() == untilDate.getDate()){
-                    arr.push(fromDate)
-                    arr.push(untilDate)
-                }
-            }
-        }
+      if (new Date(this.schedule[i]['date']).getTime() < selectedDate.getTime() && new Date(this.schedule[i]['until']).getTime() > selectedDate.getTime()){
+          for (let j=0; j<this.schedule[i].working_hours.length;j++){
+              let fromDate = new Date(this.schedule[i].working_hours[j]['date'])
+              let untilDate = new Date(this.schedule[i].working_hours[j]['until'])
+              if (selectedDate.getDate() == fromDate.getDate() || selectedDate.getDate() == untilDate.getDate()){
+                  arr.push(fromDate)
+                  arr.push(untilDate)
+              }
+          }
+      }
     }
     return arr;
 
@@ -428,8 +429,8 @@ function CalendarApp(date) {
     for (let i=0; i<this.scheduled_appointments.length;i++){
         let appointment = this.scheduled_appointments[i]
         var name = this.scheduled_appointments[i].description
-        var beginDate = new Date(appointment.date.$date)
-        var endDate = new Date(appointment.until.$date)
+        var beginDate = new Date(appointment.date)
+        var endDate = new Date(appointment.until)
         var dateObjectDay = new Date(beginDate.getFullYear(), beginDate.getMonth(), beginDate.getDate()).toString()
 
         this.apts.push({
@@ -443,21 +444,18 @@ function CalendarApp(date) {
           this.aptDates.push(dateObjectDay.toString());
         }
     }
-
     for (let i=0; i<this.schedule.length;i++){
-      for (let j=0; j<this.schedule[i].workingHours.length;j++){
-        let workingHour = this.schedule[i].workingHours[j]
-        var beginDate = new Date(workingHour.date.$date)
+      for (let j=0; j<this.schedule[i].working_hours.length;j++){
+        let workingHour = this.schedule[i].working_hours[j]
+        var beginDate = new Date(workingHour.date)
         var dateObjectDay = new Date(beginDate.getFullYear(), beginDate.getMonth(), beginDate.getDate()).toString()
         // add to dates
         if ( this.aptWorkDays.indexOf(dateObjectDay.toString()) === -1 ) {
           this.aptWorkDays.push(dateObjectDay.toString());
+          console.log(this.aptWorkDays)
         }
       }
   }
-
-
-
 
   };
 

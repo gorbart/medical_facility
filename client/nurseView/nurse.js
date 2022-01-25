@@ -12,10 +12,14 @@ function showView(filter){
         
         for (const singleDoctor of doctors){
             if(filter != null && filter != "All"){
+                var specArr = []
+                for (let i=0; i<singleDoctor['specialties'].length; i++){
+                    specArr.push(singleDoctor['specialties'][i]['name'])
+                }
                 if(singleDoctor['specialties'] == null){
                     continue
                 }
-                let tmp = singleDoctor['specialties'].indexOf(filter)
+                let tmp = specArr.indexOf(filter)
                 if(tmp == -1){
                     console.log(filter)
                     continue
@@ -41,7 +45,11 @@ function showView(filter){
             row.appendChild(phone);
 
             var Specialties = document.createElement("th");
-            Specialties.innerText=singleDoctor['specialties'] != null ? singleDoctor['specialties'].toString() : null;
+            var specialties = []
+            for (let i=0 ;i<singleDoctor['specialties'].length; i++){
+                specialties.push(singleDoctor['specialties'][i]['name'])
+            }
+            Specialties.innerText=singleDoctor['specialties'] != null ? specialties.join(", ") : null;
             row.appendChild(Specialties);
 
             var actions = document.createElement("th");

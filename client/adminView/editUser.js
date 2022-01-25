@@ -5,9 +5,10 @@ var user = new User(url);
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-const myId = urlParams.get('id')
-if (myId != null){
-    user.get_one_user(myId)
+const myLogin = urlParams.get('login')
+const myUserType = urlParams.get('userType')
+if (myLogin != null && myUserType != null){
+    user.get_one_user(myLogin, myUserType)
         .then(editingUser =>{
             fillFieldsWithUserData(editingUser);
         })
@@ -23,7 +24,7 @@ function fillFieldsWithUserData(editingUser){
     document.getElementById("idsurname").value = editingUser['surname'];
     document.getElementById("idemail").value = editingUser['email'];
     document.getElementById("idphone").value = editingUser['phone_number'];
-    document.getElementById("selector").value = editingUser['user_type'];
+    document.getElementById("selector").value = myUserType;
     document.getElementById("idlogin").value = editingUser['login'];
     document.getElementById("idpassword").value = editingUser['password'];
 }
@@ -46,7 +47,7 @@ function saveUserData(){
         "password": password,
         "user_type": type
     }
-    user.update_user_data(myId, newUser);
+    user.update_user_data(myLogin, myUserType, newUser);
 }
 
 window.saveUserData = saveUserData;

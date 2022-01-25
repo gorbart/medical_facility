@@ -3,7 +3,7 @@ import { Doctor } from "../api/apiClient.js";
 var url = "http://127.0.0.1:8000";
 var doctor = new Doctor(url);
 
-var specArr = [];
+//var specArr = [];
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const myId = urlParams.get('id')
@@ -27,7 +27,7 @@ function fillFieldsWithDoctorData(editingDoctor){
     //wychodze z założenia ze nie można stracic specjalności, więc nie wyswietlam tych ktore mial zapisane,
     //jezeli uzytkownik wybierze jakas specjalnosc dodatkowa to po prostu sie doda, jak nie wybierze nic,
     //to pozostanie bez zmian
-    specArr = editingDoctor['specialties'];
+    //specArr = editingDoctor['specialties'];
 }
 
 function saveDoctorData(){
@@ -36,11 +36,12 @@ function saveDoctorData(){
     const surname = myForm['surname'].value;
     const email = myForm['email'].value;
     const phone = myForm['phone'].value;
-    console.log(specArr);
+    //console.log(specArr);
     let selectField = document.forms[0].Specialities;
     for (let i=0; i<selectField.options.length;i++){
         if(selectField.options[i].selected){
-            specArr.push(selectField.options[i].value);
+            //specArr.push(selectField.options[i].value);
+            doctor.add_doctor_specialty(myId, selectField.options[i].value)
         }
     }
     console.log(specArr);
@@ -48,8 +49,7 @@ function saveDoctorData(){
         "name": name,
         "surname": surname,
         "email": email,
-        "phone_number": phone,
-        "specialties": specArr
+        "phone_number": phone
     }
     console.log(newDoctor);
     doctor.update_doctor_data(myId, newDoctor);
