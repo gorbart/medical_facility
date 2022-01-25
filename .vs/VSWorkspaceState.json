@@ -3,9 +3,11 @@
     "",
     "\\app",
     "\\app\\dao",
+    "\\app\\endpoints",
+    "\\app\\models",
     "\\client",
     "\\test"
   ],
-  "SelectedNode": "\\requirements.txt",
+  "SelectedNode": "\\client\\nurseView",
   "PreviewInSolutionExplorer": false
 }

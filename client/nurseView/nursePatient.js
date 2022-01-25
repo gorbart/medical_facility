@@ -34,6 +34,7 @@ patient.get_patient_list()
             var edit = document.createElement("a");
             edit.innerText = "edit";
             edit.href = "editPatient.html?id="+singlePatient['id'];
+            console.log(singlePatient['id'])
             edit.className = "linkInTable";
             actions.appendChild(edit);
 

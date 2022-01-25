@@ -157,7 +157,7 @@ export class Doctor {
       doctor_id: doctor_id,
     });
   }
-
+S
   async add_appointment(doctor_id = "", appointment = {}) {
     return putData(this.baseURL + "add_appointment/", appointment, {
       doctor_id: doctor_id,

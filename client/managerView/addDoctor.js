@@ -18,14 +18,14 @@ async function createDoctor(){
             specArr.push(selectField.options[i].value);
         }
     }
-    console.log(specArr);
     var newDoctor ={
         "name": name,
         "surname": surname,
         "email": email,
-        "phone_number": phone,
-        "schedule": specArr
+        "phone_number": phone
     }
-    console.log(newDoctor);
+    console.log(specArr);
+    console.log(newDoctor)
+    await doctor.add_doctor_data(newDoctor, specArr);
 }
 window.createDoctor = createDoctor;
