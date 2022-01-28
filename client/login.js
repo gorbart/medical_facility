@@ -35,6 +35,15 @@ async function authentication() {
 window.authentication = authentication;
 // authorisation(response);
 
+document.getElementById("pswfield").addEventListener("keypress", function(event) {
+  // Number 13 is the "Enter" key on the keyboard
+  if (event.code === "Enter") {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    // Trigger the button element with a click
+    document.getElementById("loginbtn").click();
+  }
+});
 
 
 

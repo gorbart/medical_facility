@@ -3,10 +3,9 @@
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css" type="text/css">
     <title>Login</title>
-      <script type="module" src="./login.js"></script>
   </head>
   <body>
 
@@ -20,11 +19,11 @@
         </div>
 
         <div class="txtb">
-          <input name="password" type="password">
+          <input name="password" type="password" id="pswfield">
           <span data-placeholder="Password"></span>
         </div>
 
-        <input type="button" class="logbtn" value="Login" onclick="authentication()">
+        <input type="button" class="logbtn" value="Login" onclick="authentication()" id="loginbtn">
       </form>
 
 
@@ -33,13 +32,13 @@
         $(".txtb input").on("focus",function(){
           $(this).addClass("focus");
         });
-  
+
         $(".txtb input").on("blur",function(){
           if($(this).val() == "")
           $(this).removeClass("focus");
         });
-  
-        </script>
 
+        </script>
+         <script type="module" src="./login.js"></script>
   </body>
 </html>
