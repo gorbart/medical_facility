@@ -38,4 +38,5 @@ export async function deleteData(url = "", params = {}) {
     method: "DELETE",
   });
   return response.json();
+
 }

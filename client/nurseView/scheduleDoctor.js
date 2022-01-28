@@ -19,7 +19,6 @@ function CalendarApp(date) {
         .then(editingDoctor =>{
             this.doctorData = editingDoctor;
             this.schedule = editingDoctor.schedule
-            console.log(this.schedule)
             this.scheduled_appointments = editingDoctor.scheduled_appointments
             // let date2 = new Date(parseInt(this.schedule[0]['date'].$date))
         })
@@ -225,7 +224,6 @@ function CalendarApp(date) {
     
     let scheduleStr = "<br>"
     this.workingHoursArr = this.searchForDoctorSchedule(day)
-    console.log(this.workingHoursArr)
     for (let i=0; i<this.workingHoursArr.length;i++){
         let time = this.workingHoursArr[i]
         if (time.getDate() != day.getDate()){
@@ -244,13 +242,7 @@ function CalendarApp(date) {
             scheduleStr+="<br>"
         }
     }
-    console.log(scheduleStr)
-    // let tmpDate = new Date(parseInt(this.schedule[0]['date'].$date))
-    // let tmpDate2 = new Date(parseInt(this.schedule[0]['until'].$date))
-    // let formatedDate = tmpDate.getHours() +": "+ tmpDate.getMinutes()
-    // let formatedDate2 = tmpDate2.getHours() +": "+ tmpDate2.getMinutes()
     this.dayEventsEle.innerHTML ="Doctor working hours: "+scheduleStr+"<br><br>You " + _dayTopbarText + "visit on " + this.months[day.getMonth()] + " " + day.getDate() + ", " + day.getFullYear();
-    //console.log(day)
   };
 
   CalendarApp.prototype.searchForDoctorSchedule = function(selectedDate){
@@ -323,7 +315,18 @@ function CalendarApp(date) {
         }
       }
     }
-    this.openDayWindow(deletedDate);;
+    for(let i=0; i<this.scheduled_appointments.length; i++){
+      //roznica czasowa, trzeba zrealoadowac wp dodania i usuniecia
+      if(deleted[0].endTime.getTime() == new Date(this.scheduled_appointments[i].until).getTime()){
+        if(deleted[0].startTime.getTime() == new Date(this.scheduled_appointments[i].date).getTime()){
+          if(deleted[0].name == this.scheduled_appointments[i].description){
+            this.doctor.delete_appointment_data(this.scheduled_appointments[i].id)
+          }
+        }
+      }
+    }
+     this.openDayWindow(deletedDate);
+
   };
   CalendarApp.prototype.sortEventsByTime = function(events) {
     if (!events) return [];
@@ -401,8 +404,9 @@ function CalendarApp(date) {
         "description" : name
     }
 
-    await this.doctor.add_appointment(this.myId, appointment)
-
+    let newDoctorData = await this.doctor.add_appointment(this.myId, appointment)
+    this.scheduled_appointments = newDoctorData.scheduled_appointments
+    console.log(this.scheduled_appointments)
     this.apts.push({
       name: name,
       day: dateObjectDay,
@@ -452,7 +456,6 @@ function CalendarApp(date) {
         // add to dates
         if ( this.aptWorkDays.indexOf(dateObjectDay.toString()) === -1 ) {
           this.aptWorkDays.push(dateObjectDay.toString());
-          console.log(this.aptWorkDays)
         }
       }
   }
@@ -617,16 +620,12 @@ function CalendarApp(date) {
   };
   
   function IsVisitInsideSchedule(visitDate, scheduleArr){
-    console.log(visitDate)
-    console.log(scheduleArr)
     let visitStart=visitDate[0]
     let visitEnd=visitDate[1]
 
     for (let i=0; i<scheduleArr.length;i++){
         let scheduleStart = scheduleArr[i]
         let scheduleEnd = scheduleArr[i+1]
-        console.log(scheduleStart)
-        console.log(visitStart)
         if (scheduleStart.getTime()-1000 <= visitStart.getTime() && scheduleEnd.getTime() >= visitEnd.getTime()){
             return true;
         }

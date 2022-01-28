@@ -439,6 +439,23 @@ DIV.tablesDiv TABLE#table2
 }
 
 .invitations{
-  position: fixed;
-  left: 50%;
+  margin-top: 5%;
+  text-align: center;
+}
+
+#describe{
+  margin-top: 25%;
+}
+
+#outer
+{
+  margin-top: 10%;
+  width:100%;
+  text-align: center;
+}
+
+.inner
+{
+  display: inline-block;
+  margin-inline: 5%;
 }

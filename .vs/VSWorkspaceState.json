@@ -9,6 +9,6 @@
     "\\client\\api",
     "\\test"
   ],
-  "SelectedNode": "\\client\\api\\apiClient.js",
+  "SelectedNode": "\\app\\endpoints\\doctors.py",
   "PreviewInSolutionExplorer": false
 }

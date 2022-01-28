@@ -168,6 +168,11 @@ S
     return deleteData(this.baseURL, { doctor_id: doctor_id });
   }
 
+  async delete_appointment_data(appointment_id = "") {
+    return deleteData(this.baseURL + "appointment/", { appointment_id: appointment_id });
+    
+  }
+
   async add_doctor_specialty(doctor_id, specialty){
     return putData(this.baseURL + "specialty", {}, {
       doctor_id: doctor_id,
