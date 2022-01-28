@@ -10,7 +10,7 @@ async def get_users(session: AsyncSession):
 
 
 async def get_user_by_login_and_type(session: AsyncSession, login: str, user_type: UserType):
-    stmt = select(User).filter(User.login == login and User.user_type == user_type)
+    stmt = select(User).filter(User.login == login, User.user_type == user_type)
 
     entity = session.execute(stmt)
 
@@ -23,7 +23,7 @@ async def add_user(session: AsyncSession, user_data: dict):
 
 
 async def update_user(session: AsyncSession, login: str, user_type: UserType, user_data: dict):
-    stmt = select(User).filter(User.login == login and User.user_type == user_type)
+    stmt = select(User).filter(User.login == login, User.user_type == user_type)
 
     result = session.execute(stmt)
 
@@ -41,7 +41,7 @@ async def update_user(session: AsyncSession, login: str, user_type: UserType, us
 
 
 async def delete_user(session: AsyncSession, login: str, user_type: UserType):
-    entity = session.query(User).filter(User.login == login and User.user_type == user_type).first()
+    entity = session.query(User).filter(User.login == login, User.user_type == user_type).first()
     if entity:
         session.delete(entity)
         session.commit()
