@@ -85,7 +85,7 @@ export class User {
     return await fetch(url)
         .then((response) => {
           if (response.ok) {
-            response.json();
+            return response.json();
           }
           else {
             throw new Error("Not logged");
