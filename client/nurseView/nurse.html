@@ -8,19 +8,23 @@
     <title>Nurse doctors view</title>
 </head>
 <body>
-    <p>Welcome nurse named: </p>
-    <p>delete appointments, wylogowanie</p>
    
-    <select id="myFilter" class="classic" onchange="Filtr()">
-        <option value="All">Show All</option>
-        <option value="general_practitioner">General practitioner</option>
-        <option value="gynecologist">Gynecologist</option>
-        <option value="surgeon">Surgeon</option>
-        <option value="pediatrician">Pediatrician</option>
-        <option value="dermatologist">Dermatologist</option>
-    </select>  
 
-    <button id="addButt" class="butt" type="button" onclick="patientsView()">Show patients data</button>
+    <div id="outer2">
+        <button id="addButt" class="butt" type="button" onclick="patientsView()">Show patients data</button>
+        <div class="inner">
+            <select id="myFilter" class="classic" onchange="Filtr()">
+                <option value="All">Show All</option>
+                <option value="general_practitioner">General practitioner</option>
+                <option value="gynecologist">Gynecologist</option>
+                <option value="surgeon">Surgeon</option>
+                <option value="pediatrician">Pediatrician</option>
+                <option value="dermatologist">Dermatologist</option>
+            </select>  
+        </div>
+        <button id="logoutButt" onclick="window.location.href='/Index.html'">Logout</button>
+    </div>
+
     <table class = "blueTable">
         <thead>
             <tr>

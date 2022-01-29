@@ -6,8 +6,13 @@ var type = new URLSearchParams(window.location.search).get('type')
 console.log(type)
 
 function authorisation(response) {
-    console.log(response);
-    if (type === "admin") {
+    if (response.detail != null){
+      alert(response.detail);
+    }
+    // else if (type !== response.user_type.substring(9).toLowerCase()){
+    //     alert("Sorry, u dont have permission to this user_type")
+    // }
+    else if (type === "admin") {
         location.href = "adminView/admin.html";
     } else if (type === "manager") {
         location.href = "managerView/manager.html";
@@ -27,7 +32,6 @@ async function authentication() {
         })
         .catch((err) => {
             console.log(err);
-            // alert('Entered login or password are incorrect');
         });
 }
 
