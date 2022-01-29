@@ -82,8 +82,15 @@ export class User {
       password: password,
       user_type: user_type
     });
-    const response = await fetch(url);
-    return response.json();
+    return await fetch(url)
+        .then((response) => {
+          if (response.ok) {
+            response.json();
+          }
+          else {
+            throw new Error("Not logged");
+          }
+        });
   }
 
   async add_user_data(user = {}) {
