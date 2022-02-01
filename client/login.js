@@ -32,6 +32,7 @@ async function authentication() {
         })
         .catch((err) => {
             console.log(err);
+            alert("Your login data are incorrect")
         });
 }
 

@@ -44,7 +44,6 @@ function saveDoctorData(){
             doctor.add_doctor_specialty(myId, selectField.options[i].value)
         }
     }
-    console.log(specArr);
     var newDoctor ={
         "name": name,
         "surname": surname,
