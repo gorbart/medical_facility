@@ -57,6 +57,7 @@ class Patient(Person, DBModel, table=True):
     medicines_taken: List["MedicinesTaken"] = Relationship(
         sa_relationship_kwargs={"cascade": "all, delete"}
     )
+    age: Optional[str] = None
     # class Config:
     #     arbitrary_types_allowed = True
     #     allow_population_by_field_name = True
